@@ -17,12 +17,13 @@ Pac.Obj = function(name, options){
 	this.resourceName = options.resName;
 	
 	this.ctx = null; //injected by PAC
+	this.actions = {};
 };
 
-Pac.Scene.prototype.update = function() {
+Pac.Obj.prototype.update = function() {
 	//update object state
 }
 
-Pac.Scene.prototype.draw = function() {
+Pac.Obj.prototype.draw = function() {
 	//draw image obj
 }
