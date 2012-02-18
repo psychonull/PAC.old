@@ -19,10 +19,7 @@
 		alert('loaded ' + percentage + ' of 100%');
 	})
 	.on('complete', function(){
-		alert('all i		that[img] = new Image();
-		that[img].onload = imageLoaded;
-		that[img].src = this.root + this.resources[img];
-		if (tmages loaded');
+		alert('all images loaded');
 	});
   
 	repo.load();

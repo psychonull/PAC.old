@@ -4,12 +4,9 @@
 
 describe('Pac', function(){
 	it('should be something amazing', function(){
-		var pac = new Pac('canvas');
+    expect(Pac).not.to.be(undefined);
+    expect(Pac).to.be.a('object');
 	
-    expect(pac).not.to.be(undefined);
-    expect(pac).to.be.a('object');
-    
-
     describe('core constructors', function(){
     	it('should have basic constructors', function(){
     		expect(Pac.Character).to.be.a('function');
@@ -17,54 +14,36 @@ describe('Pac', function(){
     		expect(Pac.Scene).to.be.a('function');
     	});
     });
-    
-    describe('#init()', function(){
-    	// pending tests
-    	it('should initialize the canvas object');
-    	it('should ask for resources to be prefetched');		
-    });
-
   });
-  it('should initialize the canvas object', function(){
-		var pac = new Pac('canvas');
-  	expect(pac.canvas).not.to.be(undefined);
-	});
-    
-  describe('#init()', function(){
-  	it('should initialize the canvas context 2d', function(){
-  		var pac = new Pac('canvas');
-			pac.init();
-			expect(pac.ctx).not.to.be(undefined);
-  	});
-  	
-  	it('should ask for resources to be prefetched');		
+  
+  describe('#init()', function(){  	
+	  it('should initialize the canvas object', function(){
+			expect(Pac.init).to.be('function');
+			
+			expect(Pac.ctx).to.be(undefined);
+			
+			Pac.init('canvas');
+	  	
+	  	var canvas = document.getElementById('canvas');
+	  	
+	  	expect(Pac.canvas).to.be(undefined);
+	  	expect(Pac.ctx).not.to.be(undefined);
+	  	
+	  	expect(Pac.width).to.be(canvas.width);
+	  	expect(Pac.height).to.be(canvas.height);
+		});
   });
   
   describe('#addScene()', function(){
   	it('should add an Scene object to the Scenes collection', function(){
-			var pac = new Pac('canvas');
-			pac.init();
-			expect(pac.scenes).to.be.empty();
-			expect(Pac.Scene).to.be.a('function');
+			expect(Pac.addScene).to.be.a('function');
+			expect(Pac.scenes).to.be.empty();
 			
 			var scene = new Pac.Scene();
-			expect(scene.ctx).to.be(null);
+			Pac.addScene(scene);
 			
-			pac.addScene(scene);
-			
-			expect(pac.scenes).not.to.be.empty();
-			expect(pac.scenes[0]).not.to.be(undefined);
-			
-			expect(pac.scenes[0].ctx).not.to.be(null);
+			expect(Pac.scenes).not.to.be.empty();
+			expect(Pac.scenes[0]).not.to.be(undefined);
   	});
   });
-  
-  
-  describe('Scene', function(){
-		it('tests for Scene');
-	    
-	  describe('#someMethod()', function(){
-	  	it('something');		
-	  });
-	});
 });

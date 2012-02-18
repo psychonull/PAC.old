@@ -28,7 +28,7 @@ Pac.Scene.prototype.update = function() {
   		i = objs.length;
   
   do {
-  	obj[i].update();
+  	objs[i].update();
   } while ( i-- );
   
 };
@@ -41,7 +41,7 @@ Pac.Scene.prototype.draw = function() {
   		i = objs.length;
   
   do {
-  	obj[i].draw();
+  	objs[i].draw();
   } while ( i-- );
   
 };

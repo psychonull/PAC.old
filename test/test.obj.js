@@ -1,5 +1,5 @@
 /*
- * Tests main functionality.
+ * Tests Obj functionality.
  */
 
 describe('Pac.Obj', function(){

@@ -2,38 +2,42 @@
  *	PAC 
  */
 
-var Pac = function(canvasId){
-	this.canvas = document.getElementById(canvasId);
-	
-	if(!this.canvas) throw "There is no canvas with id " + canvasId;
-	
-	this.screenSize = {
-		width: (function(c) { return c.width; })(this.canvas),
-		height:	(function(c) { return c.height; })(this.canvas),
-	};
-	
-	this.ctx = null;
-	this.loopInterval = 50;
-	
-	this.scenes = [];
-	this.currentScene = 0;
-}
+var Pac = {};
 
-Pac.prototype.init = function(){
-	if (this.canvas.getContext){
-	  this.ctx = this.canvas.getContext('2d');
-	} else {
-	  throw "canvas is not supported!";
-	}
-}
+Pac.init = function(canvasId){
+		this.canvas = document.getElementById(canvasId);
+		
+		if(!this.canvas) throw "There is no canvas with id " + canvasId;
+		
+		this.loopInterval = 50;
+		this.scenes = [];
+		this.currentScene = 0;
+};
 
-Pac.prototype.addScene = function(scene){
+Pac.ctx = null;
+
+/*(function(c) { 
+		if (this.canvas.getContext){
+		  return this.canvas.getContext('2d');
+		} else {
+		  throw "canvas is not supported!";
+		} 
+	})(this.canvas)
+*/
+
+Pac.width = 800;// (function(c) { return c.width; })(this.canvas);
+
+Pac.height = 600; //	(function(c) { return c.height; })(this.canvas);
+
+Pac.loopInterval = 50;
+
+Pac.addScene = function(scene){
 	scene.ctx = this.ctx;
 	this.scenes.push(scene);
 	return this;
-}
+};
 
-Pac.prototype.start = function(){
+Pac.start = function(){
 	
 	(function loop(scp){
 		scp.update();
@@ -42,13 +46,13 @@ Pac.prototype.start = function(){
 		setTimeout(function() { loop(scp); }, scp.loopInterval);
 	})(this);
 	
-}
+};
 
-Pac.prototype.update = function(){
+Pac.update = function(){
 	this.scenes[this.currentScene].update();
-}
+};
 
-Pac.prototype.draw = function(){
+Pac.draw = function(){
 	this.scenes[this.currentScene].draw();
 }
 
