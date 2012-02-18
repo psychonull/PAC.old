@@ -4,22 +4,37 @@
 
 describe('Pac', function(){
 	it('should be something amazing', function(){
-	    expect(Pac).not.to.be(undefined);
-	    expect(Pac).to.be.a('object');
-	    expect(Pac('canvasId')).to.be.a('object');
-    });
+		var pac = new Pac('canvas');
+	
+    expect(pac).not.to.be(undefined);
+    expect(pac).to.be.a('object');
     
-    describe('#init()', function(){
-    	// pending tests
-    	it('should initialize the canvas object');
-    	it('should ask for resources to be prefetched');		
-    });
+  });
+  it('should initialize the canvas object', function(){
+		var pac = new Pac('canvas');
+  	expect(pac.canvas).not.to.be(undefined);
+	});
     
-    describe('#addScene()', function(){
-    	it('should add an Scene object to the Scenes collection', function(){
-    		expect(Pac.scenes).to.be.empty();
-    		Pac.addScene(new Pac.Scene);
-    		expect(Pac.scenes).not.to.be.empty();
-    	});
-    });
-})
+  describe('#init()', function(){
+  	it('should initialize the canvas context 2d', function(){
+  		var pac = new Pac('canvas');
+			pac.init();
+			expect(pac.ctx).not.to.be(undefined);
+  	});
+  	
+  	it('should ask for resources to be prefetched');		
+  });
+  
+  describe('#addScene()', function(){
+  	it('should add an Scene object to the Scenes collection', function(){
+  		var pac = new Pac('canvas');
+  		expect(pac.scenes).to.be.empty();
+  		expect(Pac.Scene).to.be.a('function');
+
+  		var scene = new Pac.Scene();
+  		pac.addScene(scene);
+  		expect(pac.scenes).not.to.be.empty();
+  	});
+  });
+  
+});
