@@ -1,9 +1,0 @@
-/*
- *	PAC 
- */
-
-var Game = function(){
-		
-}
-
-

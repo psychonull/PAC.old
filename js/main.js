@@ -2,8 +2,7 @@
  *	PAC 
  */
 
-var Game = function(){
+var Pac = function(){
 		
 }
 
-alert(Game() + ' :D');

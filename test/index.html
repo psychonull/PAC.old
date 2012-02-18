@@ -8,11 +8,12 @@
   <script src="https://raw.github.com/visionmedia/mocha/master/mocha.js"></script>
   <script>mocha.setup('bdd')</script>
   <script src="test.main.js"></script>
+  <script src="../js/main.js"></script>
   <script>
     $(function () {
       mocha
         .run()
-        .globals(['foo', 'bar']) // acceptable globals
+        .globals(['Pac']) // acceptable globals
     })
   </script>
 </head>
