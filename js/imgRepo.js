@@ -8,30 +8,33 @@
   Example of use:
   ------- -- ---
   
-  var repo = new ImgRepo({
-  	root: 'images/',
-  	resources: {
-  				'scene1': 'lake.png', 
-    			'scene2': 'office.png'
-    		}
+	var repo = new ImgRepo({
+		root: 'images/',
+		resources: {
+			'scene1': 'lake.png', 
+			'scene2': 'office.png'
+			}
   })
-  .on('report', function(percentage){
-  	alert('loaded ' + percentage + ' of 100%');
-  })
-  .on('complete', function(){
-  	alert('all images loaded');
-  });
+	.on('report', function(percentage){
+		alert('loaded ' + percentage + ' of 100%');
+	})
+	.on('complete', function(){
+		alert('all i		that[img] = new Image();
+		that[img].onload = imageLoaded;
+		that[img].src = this.root + this.resources[img];
+		if (tmages loaded');
+	});
   
-  repo.load();
+	repo.load();
 */
 
 var ImgRepo = function (options) {
 
 	this.root = options.root || '';
-    this.resources = options.resources || {};
+	this.resources = options.resources || {};
 
-    this.loaded = 0;
-    this.total = (function (a) { var r = 0; for (var i in a) r++; return r; })(this.resources);
+	this.loaded = 0;
+	this.total = (function (a) { var r = 0; for (var i in a) r++; return r; })(this.resources);
 
 	this.callbacks = {
 		complete: function(){},
@@ -46,21 +49,21 @@ ImgRepo.prototype.on = function (eventName, callback) {
 };
 
 ImgRepo.prototype.load = function () {
-    var that = this;
-
-    var imageLoaded = function() {
-        var prg = (++that.loaded * 100) / that.total;
-        that.callbacks.report(prg);
-        if (prg === 100) that.callbacks.complete();
-    };
-
-    for (var img in this.resources) {
-        that[img] = new Image();
-        that[img].onload = imageLoaded;
-        that[img].src = this.root + this.resources[img];
-        if (that[img].complete) imageLoaded();
-    }
-    
-    return this;
+	var that = this;
+	
+	var imageLoaded = function() {
+		var prg = (++that.loaded * 100) / that.total;
+		that.callbacks.report(prg);
+		if (prg === 100) that.callbacks.complete();
+	};
+	
+	for (var img in this.resources) {
+		that[img] = new Image();
+		that[img].onload = imageLoaded;
+		that[img].src = this.root + this.resources[img];
+		if (that[img].complete) imageLoaded();
+	}
+	
+	return this;
 };
  
