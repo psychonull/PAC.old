@@ -16,11 +16,10 @@ var Pac = function(canvasId){
 	this.loopInterval = 50;
 	
 	this.scenes = [];
+	this.currentScene = 0;
 }
 
 Pac.prototype.init = function(){
-	//TODO: load images, on complete-callback create context 
-	
 	if (this.canvas.getContext){
 	  this.ctx = this.canvas.getContext('2d');
 	} else {
@@ -29,11 +28,31 @@ Pac.prototype.init = function(){
 }
 
 Pac.prototype.addScene = function(scene){
+	scene.ctx = this.ctx;
 	this.scenes.push(scene);
+	return this;
 }
 
-Pac.prototype.addObj = function(obj){
+Pac.prototype.start = function(){
+	
+	(function loop(scp){
+		scp.update();
+		scp.draw();
+		
+		setTimeout(function() { loop(scp); }, scp.loopInterval);
+	})(this);
 	
 }
+
+Pac.prototype.update = function(){
+	this.scenes[this.currentScene].update();
+}
+
+Pac.prototype.draw = function(){
+	this.scenes[this.currentScene].draw();
+}
+
+
+
 
 

@@ -27,14 +27,29 @@ describe('Pac', function(){
   
   describe('#addScene()', function(){
   	it('should add an Scene object to the Scenes collection', function(){
-  		var pac = new Pac('canvas');
-  		expect(pac.scenes).to.be.empty();
-  		expect(Pac.Scene).to.be.a('function');
-
-  		var scene = new Pac.Scene();
-  		pac.addScene(scene);
-  		expect(pac.scenes).not.to.be.empty();
+			var pac = new Pac('canvas');
+			pac.init();
+			expect(pac.scenes).to.be.empty();
+			expect(Pac.Scene).to.be.a('function');
+			
+			var scene = new Pac.Scene();
+			expect(scene.ctx).to.be(null);
+			
+			pac.addScene(scene);
+			
+			expect(pac.scenes).not.to.be.empty();
+			expect(pac.scenes[0]).not.to.be(undefined);
+			
+			expect(pac.scenes[0].ctx).not.to.be(null);
   	});
   });
   
+  
+  describe('Scene', function(){
+		it('tests for Scene');
+	    
+	  describe('#someMethod()', function(){
+	  	it('something');		
+	  });
+	});
 });
