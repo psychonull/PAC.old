@@ -2,8 +2,8 @@
  * Tests main functionality.
  */
 
-describe('Pac', function(){
-	it('should be something amazing', function(){
+describe('Pac.Scene', function(){
+	it('should have objects', function(){
 	    expect(Pac).not.to.be(undefined);
 	    expect(Pac).to.be.a('object');
 	    expect(Pac('canvasId')).to.be.a('object');
