@@ -17,7 +17,7 @@ describe('Scene', function(){
 			expect(scene.objects).to.be.empty();
 			
 			var obj = new Pac.Obj();
-			scene.addObject(obj);
+			scene.addObj(obj);
 			
 			expect(scene.objects).not.to.be.empty();
 		});

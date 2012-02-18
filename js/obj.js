@@ -8,15 +8,13 @@ Pac.Obj = function(name, options){
 	this.name = name;
 	
 	this.attrs = {
-		x: options.x,
-		y: options.y,
-		width: options.width,
-		height: options.height
+		x: (options && options.x) || 0,
+		y: (options && options.y) || 0,
+		width: (options && options.width) || 0,
+		height: (options && options.height) || 0
 	};
 	
-	this.resourceName = options.resName;
-	
-	this.ctx = null; //injected by PAC
+	this.resourceName = (options && options.resName) || '';
 	this.actions = {};
 };
 

@@ -2,34 +2,93 @@
  *	PAC 
  */
 
+var Pac = (function(){
+	var canvas,
+	    ctx,
+			scenes = [],
+			currScene = 0,
+			loopInterval = 50,
+			timer = null;
+	
+	var update = function(){
+		scenes[currScene].update();
+	};
+	
+	var draw = function(){
+		scenes[currScene].draw();
+	}
+	
+	return {
+		getContext: function(){
+			return ctx;
+		}, 
+		getWidth: function(){
+			return canvas.width;
+		},
+		getHeight: function(){
+			return canvas.height;
+		},
+
+		init: function(canvasId){
+			canvas = document.getElementById(canvasId);
+			if(!canvas) throw "There is no canvas with id " + canvasId;
+			
+			if (canvas.getContext){
+		  	ctx = canvas.getContext('2d');
+			} else {
+			  throw "canvas is not supported!";
+			}
+			
+			return this;
+		},
+		
+		addScene: function(scene){
+			//TODO: check if it is typeof Scene
+			scenes.push(scene);
+			return this;
+		},
+		
+		getScenes: function(){
+			return scenes;
+		},
+		
+		start: function(){
+			if (timer) clearTimeout(timer);
+			var loop = function(){
+				update();
+				draw();
+				timer = setTimeout(loop, loopInterval);
+			};
+			loop();
+			return this;
+		}
+	};
+	
+})();
+
+
+/*
 var Pac = {};
 
 Pac.init = function(canvasId){
-		this.canvas = document.getElementById(canvasId);
+		var canvas = document.getElementById(canvasId);
 		
-		if(!this.canvas) throw "There is no canvas with id " + canvasId;
+		if(!canvas) throw "There is no canvas with id " + canvasId;
+		
+		this.ctx = null;
+		if (this.canvas.getContext){
+		  this.ctx = this.canvas.getContext('2d');
+		} else {
+		  throw "canvas is not supported!";
+		}
+		
+		this.width = canvas.width;
+		this.height = canvas.height;
 		
 		this.loopInterval = 50;
 		this.scenes = [];
 		this.currentScene = 0;
 };
-
-Pac.ctx = null;
-
-/*(function(c) { 
-		if (this.canvas.getContext){
-		  return this.canvas.getContext('2d');
-		} else {
-		  throw "canvas is not supported!";
-		} 
-	})(this.canvas)
-*/
-
-Pac.width = 800;// (function(c) { return c.width; })(this.canvas);
-
-Pac.height = 600; //	(function(c) { return c.height; })(this.canvas);
-
-Pac.loopInterval = 50;
 
 Pac.addScene = function(scene){
 	scene.ctx = this.ctx;
@@ -56,7 +115,7 @@ Pac.draw = function(){
 	this.scenes[this.currentScene].draw();
 }
 
-
+*/
 
 
 

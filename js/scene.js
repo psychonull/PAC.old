@@ -6,16 +6,13 @@
 Pac.Scene = function(title, options){
 	
 	this.title = title;
-	
-	this.ctx = null; //injected by PAC
-	
 	this.objects = [];
 	
 	//TODO: initial position of character.
 };
 
 Pac.Scene.prototype.addObj = function(obj){
-	obj.ctx = this.ctx;
+	//TODO: check if is typeof obj
 	this.objects.push(obj);
 	return this;
 }
