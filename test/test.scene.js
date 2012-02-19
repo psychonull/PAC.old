@@ -2,7 +2,7 @@
  * Tests Scene functionality.
  */
 
-describe('Scene', function(){
+describe('Pac.Scene', function(){
 	it('should create a Scene', function(){
 		var title = 'Scene Title';
 		var scene = new Pac.Scene(title);
