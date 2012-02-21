@@ -15,8 +15,10 @@ Pac.Obj = function(name, resName, options){
 	};
 	
 	this.resName = resName || '';
+	
+	var that = this;
 	this.actions = {
-		'lookAt': function(){ Pac.commandBar.log(this.name); }
+		'lookAt': function(){ Pac.commandBar.log(that.name); }
 	};
 	
 	Pac.events.attach(this, 'click');

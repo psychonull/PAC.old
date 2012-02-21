@@ -34,6 +34,7 @@ Pac.events = (function(){
 			var o = objsToClick[i];
 			var oa = o.attrs;
 			
+			/*
 			console.log('---------------------------------------');
 			console.log(o.name);
 			console.log('oa.x < mPos.x || ' + oa.x + ' < ' + mPos.x); 
@@ -41,6 +42,7 @@ Pac.events = (function(){
 			console.log('oa.y < mPos.y || ' + oa.y + ' < ' + mPos.y); 
 			console.log('(oa.y + oa.height > mPos.y) || ' + oa.y + ' + ' + oa.height + ' > ' + mPos.y);
 			console.log('---------------------------------------');
+			*/
 			
 			if (oa.x < mPos.x && (oa.x + oa.width) > mPos.x 
 				&& oa.y < mPos.y && (oa.y + oa.height > mPos.y)) {
