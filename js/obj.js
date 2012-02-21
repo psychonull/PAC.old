@@ -30,9 +30,9 @@ Pac.Obj.prototype.setAction = function(action) {
 	switch(action){
 		case 'pickUp':
 			this.actions[action] = function(){
-				//delete this.actions[action];
 				Pac.getCharacter().pickUp(that);
-				//Pac.getCurrentScene().removeObj(this);
+				Pac.getCurrentScene().removeObj(that);
+				delete that.actions[action];
 			};
 			break; 
 	}
@@ -52,11 +52,8 @@ Pac.Obj.prototype.update = function() {
 
 Pac.Obj.prototype.draw = function() {
   var ctx = Pac.getContext();
-  if (!Pac.Repository[this.resName]) {
-  	// don't draw but take into account for event handling  	
-  }
-  else {
-    ctx.drawImage(Pac.Repository[this.resName], this.attrs.x, this.attrs.y, this.attrs.width, this.attrs.height);	
+  if (this.resName) {
+    ctx.drawImage(Pac.Repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width, this.attrs.height);	
   }
   
 }

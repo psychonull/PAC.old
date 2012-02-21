@@ -26,6 +26,13 @@ Pac.Scene.prototype.addObj = function(obj){
 	return this;
 }
 
+Pac.Scene.prototype.removeObj = function(obj){
+	if (obj.constructor != Pac.Obj) throw "type of parameter obj MUST be typeof Pac.Obj";
+	
+	this.objects.splice(this.objects.indexOf(obj),1);
+	return this;
+}
+
 Pac.Scene.prototype.update = function() {
 	
 	//update scene state
@@ -40,7 +47,7 @@ Pac.Scene.prototype.update = function() {
 Pac.Scene.prototype.draw = function() {
   var ctx = Pac.getContext();
   if (!Pac.Repository[this.resName]) throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
-  ctx.drawImage(Pac.Repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width(), this.attrs.height());
+  ctx.drawImage(Pac.Repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width(), this.attrs.height() * 0.8);
    
    for(var i = 0, len = this.objects.length; i < len; i++){
         this.objects[i].draw();       
