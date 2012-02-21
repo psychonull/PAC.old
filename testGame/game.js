@@ -1,14 +1,12 @@
 
 (function(){
 	
-	Pac.Repository.addResources({'scOffice':'office.jpg'});
-	/*
+	Pac.Repository	
 		.addResources({
 			'scOffice':'office.jpg',
-			'laptop':'laptop.png',
-			'paper':'paper.png',
+			'laptop':'laptop.png'
 		});
-	*/
+	
 	var laptop = new Pac.Obj('my laptop', 'laptop', {
 			x: 100,
 			y: 100,
@@ -23,8 +21,8 @@
 			height: 30
 	});
 
-	var scOffice = new Pac.Scene('One day at work', 'scOffice');
-								//.addObj(laptop)
+	var scOffice = new Pac.Scene('One day at work', 'scOffice')
+								.addObj(laptop);
 								//.addObj(paperW);
 								
 	Pac.init('canvas').addScene(scOffice);

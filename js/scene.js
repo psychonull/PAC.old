@@ -31,22 +31,21 @@ Pac.Scene.prototype.update = function() {
 	//update scene state
 	//TODO: if the resource was not loaded, load it now with all belong objects
 	
-  for(var i = this.objects.length - 1; i >= 0; i--){
+  for(var i = 0, len = this.objects.length; i < len; ++i){
   	this.objects[i].update();
   }
    
 };
 
 Pac.Scene.prototype.draw = function() {
-  
   var ctx = Pac.getContext();
-  //draw scene image (this.resource)
+  if (!Pac.Repository[this.resName]) throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
   ctx.drawImage(Pac.Repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width(), this.attrs.height());
    
-  for(var i = this.objects.length - 1; i >= 0; i--){
-  	this.objects[i].draw();
-  }
- 
+   for(var i = 0, len = this.objects.length; i < len; i++){
+        this.objects[i].draw();       
+   } 
+   
 };
 
 

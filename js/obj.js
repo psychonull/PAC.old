@@ -8,8 +8,8 @@ Pac.Obj = function(name, resName, options){
 	this.name = name || 'Unknown Object';
 	
 	this.attrs = {
-		x: (options && options.x) || Math.floor(Math.random() * Pac.getWidth),
-		y: (options && options.y) || Math.floor(Math.random() * Pac.getHeight),
+		x: (options && options.x) || (Math.floor(Math.random() * Pac.getWidth()) - 50),
+		y: (options && options.y) || (Math.floor(Math.random() * Pac.getHeight()) - 50),
 		width: (options && options.width) || 50,
 		height: (options && options.height) || 50
 	};
@@ -35,5 +35,12 @@ Pac.Obj.prototype.update = function() {
 }
 
 Pac.Obj.prototype.draw = function() {
-	//draw image obj
+  var ctx = Pac.getContext();
+  if (!Pac.Repository[this.resName]) {
+  	// don't draw but take into account for event handling  	
+  }
+  else {
+    ctx.drawImage(Pac.Repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width, this.attrs.height);	
+  }
+  
 }

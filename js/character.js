@@ -21,11 +21,11 @@ Pac.Character = function(name, options){
 	this.items = [];
 };
 
-Pac.Obj.prototype.update = function() {
+Pac.Character.prototype.update = function() {
 	//update object state
 }
 
-Pac.Obj.prototype.draw = function() {
+Pac.Character.prototype.draw = function() {
 	//draw image obj
 }
 
