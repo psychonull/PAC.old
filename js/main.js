@@ -14,13 +14,17 @@ var Pac = (function(){
 	var update = function(){
 		scenes[currScene].update();
 		Pac.commandBar.update();
-		character.update();
+		if(character){
+			character.update();
+		}
 	};
 	
 	var draw = function(){
 		scenes[currScene].draw();
 		Pac.commandBar.draw();
-		character.draw();
+		if(character){
+			character.draw();
+		}
 	}
 	
 	return {

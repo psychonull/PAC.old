@@ -54,6 +54,20 @@ describe('Pac.Scene', function(){
 			expect(scene.objects.length).to.be(1);
 			expect(scene.objects).to.contain(obj2);
 		});
+		it('should not remove any other obj', function(){
+			var scene = new Pac.Scene('Scene Title');
+			
+			var obj = new Pac.Obj();
+			var obj2 = new Pac.Obj();
+			var obj3 = new Pac.Obj();
+			scene.addObj(obj);
+			scene.addObj(obj2);
+			expect(scene.objects.length).to.be(2);
+			scene.removeObj(obj3);
+			expect(scene.objects.length).to.be(2);
+			expect(scene.objects).to.contain(obj);
+			expect(scene.objects).to.contain(obj2);
+		});
 		it('should throw exception when parameter type mismatch', function(){
 			var scene = new Pac.Scene('Scene Title');
 			

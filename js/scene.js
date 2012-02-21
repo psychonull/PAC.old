@@ -28,7 +28,8 @@ Pac.Scene.prototype.addObj = function(obj){
 
 Pac.Scene.prototype.removeObj = function(obj){
 	if (obj.constructor != Pac.Obj) throw "type of parameter obj MUST be typeof Pac.Obj";
-	
+	if (this.objects.indexOf(obj) === -1)
+	  return this;
 	this.objects.splice(this.objects.indexOf(obj),1);
 	return this;
 }
