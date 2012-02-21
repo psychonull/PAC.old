@@ -32,6 +32,38 @@ describe('Pac.Scene', function(){
 		});
   });
   
+  describe('#removeObj()', function(){
+  		it('should remove a Obj object from the object collection', function(){
+			var scene = new Pac.Scene('Scene Title');
+			
+			var obj = new Pac.Obj();
+			scene.addObj(obj);
+			expect(scene.objects.length).to.be(1);
+			scene.removeObj(obj);
+			expect(scene.objects).to.be.empty();
+		});
+		it('should remove ONLY the Obj passed as parameter - comparing by reference', function(){
+			var scene = new Pac.Scene('Scene Title');
+			
+			var obj = new Pac.Obj();
+			var obj2 = new Pac.Obj();
+			scene.addObj(obj);
+			scene.addObj(obj2);
+			expect(scene.objects.length).to.be(2);
+			scene.removeObj(obj);
+			expect(scene.objects.length).to.be(1);
+			expect(scene.objects).to.contain(obj2);
+		});
+		it('should throw exception when parameter type mismatch', function(){
+			var scene = new Pac.Scene('Scene Title');
+			
+			var fn = function(){
+				scene.removeObj('invalid parameter!!!!!!!!! xD');
+			}
+			expect(fn).to.throwException();
+		});
+  });
+  
   describe('#update()', function(){
 		it('should be able to update itself based on game state', function(){
 			expect((new Pac.Scene).update).to.be.a('function');
