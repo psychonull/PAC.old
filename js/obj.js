@@ -25,11 +25,25 @@ Pac.Obj = function(name, resName, options){
 };
 
 Pac.Obj.prototype.setAction = function(action) {
-	this.actions[action] = {};
+	var that = this;
+	
+	switch(action){
+		case 'pickUp':
+			this.actions[action] = function(){
+				//delete this.actions[action];
+				Pac.getCharacter().pickUp(that);
+				//Pac.getCurrentScene().removeObj(this);
+			};
+			break; 
+	}
 }
 
-Pac.Obj.prototype.fireAction = function(action) {
-	this.actions[action]();
+Pac.Obj.prototype.fireAction = function() {
+	if (!this.actions.hasOwnProperty(Pac.currentAction))
+		Pac.commandBar.log('I cannot do that');
+	else {
+		this.actions[Pac.currentAction]();
+	}
 }
 
 Pac.Obj.prototype.update = function() {
@@ -42,7 +56,7 @@ Pac.Obj.prototype.draw = function() {
   	// don't draw but take into account for event handling  	
   }
   else {
-    ctx.drawImage(Pac.Repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width, this.attrs.height);	
+    ctx.drawImage(Pac.Repository[this.resName], this.attrs.x, this.attrs.y, this.attrs.width, this.attrs.height);	
   }
   
 }

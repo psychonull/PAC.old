@@ -8,16 +8,19 @@ var Pac = (function(){
 		scenes = [],
 		currScene = 0,
 		loopInterval = 50,
-		timer = null;
+		timer = null,
+		character;
 	
 	var update = function(){
 		scenes[currScene].update();
 		Pac.commandBar.update();
+		character.update();
 	};
 	
 	var draw = function(){
 		scenes[currScene].draw();
 		Pac.commandBar.draw();
+		character.draw();
 	}
 	
 	return {
@@ -52,6 +55,19 @@ var Pac = (function(){
 			if (scene.constructor != Pac.Scene) throw "type of parameter scene MUST be typeof Pac.Scene";
 			scenes.push(scene);
 			return this;
+		},
+		
+		createCharacter: function(charac){
+			character = charac;
+			return this;
+		},
+		
+		getCharacter : function(){
+			return character;	
+		},
+		
+		getCurrentScene: function(){
+			return scenes[currScene];
 		},
 		
 		getScenes: function(){

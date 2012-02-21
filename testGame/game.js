@@ -13,6 +13,7 @@
 			width: 50, //optional : will take the resource size
 			height: 50
 	});
+	laptop.setAction('pickUp');
 	
 	var paperW = new Pac.Obj('some paper work', 'paper', {
 			x: 50,
@@ -24,8 +25,10 @@
 	var scOffice = new Pac.Scene('One day at work', 'scOffice')
 								.addObj(laptop);
 								//.addObj(paperW);
-								
-	Pac.init('canvas').addScene(scOffice);
+	
+	var charac = new Pac.Character('josecito');
+			
+	Pac.init('canvas').createCharacter(charac).addScene(scOffice);
 		
 	Pac.Repository.on('complete', function(){
 		Pac.start();

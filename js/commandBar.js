@@ -42,8 +42,6 @@ Pac.commandBar = (function(){
 			}
 		},
 		draw: function(){
-			//TODO: draw currentMessage
-			
 			var ctx = Pac.getContext();
 			ctx.save();
 			ctx.fillStyle = attrs.color;
