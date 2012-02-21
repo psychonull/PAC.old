@@ -11,6 +11,7 @@ describe('Pac.Repository', function(){
 	
 	describe('#addResources', function(){
 		it('should add one resource', function(){
+			Pac.Repository.clear();
 			expect(Pac.Repository.addResources).to.be.a('function');
 			
 			var fn = function(){
@@ -20,6 +21,7 @@ describe('Pac.Repository', function(){
 			expect(fn).to.not.throwException();
 		});
 		it('should add more than one resource', function(){
+			Pac.Repository.clear();
 			expect(Pac.Repository.addResources).to.be.a('function');
 			
 			var fn = function(){
@@ -32,6 +34,7 @@ describe('Pac.Repository', function(){
 			expect(fn).to.not.throwException();
 		});
 		it('should throw an exception if some resource already exists', function(){
+			Pac.Repository.clear();
 			var fn2 = function(){
 				Pac.Repository.addResources({'someResD2':'fernetjs.png'});
 				Pac.Repository.addResources({'someResD2':'fernetjs.png'});
@@ -42,7 +45,9 @@ describe('Pac.Repository', function(){
 	});
 	
 	describe('#load', function(){
-		it('should add the resources to the Repository', function(){
+		it('should add the resources to the Repository', function(done){
+			Pac.Repository.clear();
+			
 			expect(Pac.Repository.addResources).to.be.a('function');
 			expect(Pac.Repository.load).to.be.a('function');
 			
@@ -52,12 +57,15 @@ describe('Pac.Repository', function(){
 			}).on('complete', function(){
 				expect(Pac.Repository.someResLoad).not.to.be(undefined);
 				expect(Pac.Repository.someResLoad2).not.to.be(undefined);
+				done();
 			}).load();
 		});
 	});  
 	
 	describe('#loadOne', function(){
-		it('should add one resource to the Repository', function(){
+		it('should add one resource to the Repository', function(done){
+			Pac.Repository.clear();
+			
 			expect(Pac.Repository.addResources).to.be.a('function');
 			expect(Pac.Repository.loadOne).to.be.a('function');
 			
@@ -65,9 +73,12 @@ describe('Pac.Repository', function(){
 			
 			Pac.Repository.loadOne('someONERes', function(){
 				expect(Pac.Repository.someONERes).not.to.be(undefined);
+				done();
 			});
 		});
 		it('should throws an exception if no name is specify', function(){
+			Pac.Repository.clear();
+			
 			expect(Pac.Repository.addResources).to.be.a('function');
 			expect(Pac.Repository.loadOne).to.be.a('function');
 			Pac.Repository.addResources({'resOneExcep':'fernetjs.png'});
@@ -79,6 +90,8 @@ describe('Pac.Repository', function(){
 			expect(fn).to.throwException();
 		});
 		it("should throws an exception if a resource don't exists", function(){
+			Pac.Repository.clear();
+			
 			expect(Pac.Repository.addResources).to.be.a('function');
 			expect(Pac.Repository.loadOne).to.be.a('function');
 
@@ -90,12 +103,61 @@ describe('Pac.Repository', function(){
 	});
 	
 	describe('#on', function(){
-		it('should fire "report" event per image loaded');
-		it('should fire "complete" event when all images are loaded');
+		it('should fire "report" event per image loaded', function(done){
+			Pac.Repository.clear();
+			var callTime = 0; 
+			
+			Pac.Repository.addResources({
+				'someResOnLoad':'fernetjs.png',
+				'someResOnLoad2':'fernetjs.png'
+			}).on('report', function(prg){
+				callTime++;
+				expect(prg).not.to.be(undefined);
+				
+				if (callTime === 1)
+					expect(prg).not.to.be(50);
+				else {
+					expect(prg).not.to.be(100);
+					done();
+				}
+				
+			}).load();
+		});
+		
+		it('should fire "complete" event when all images are loaded', function(done){
+			Pac.Repository.clear();
+			
+			Pac.Repository.addResources({
+				'someResOnCLoad':'fernetjs.png',
+				'someResOnCLoad2':'fernetjs.png'
+			}).on('complete', function(){
+				expect(Pac.Repository.someResOnCLoad).not.to.be(undefined);
+				expect(Pac.Repository.someResOnCLoad2).not.to.be(undefined);
+				done();
+			}).load();
+		});
 	});  	
 	
 	describe('#clear', function(){
-		it('should clear all resources loaded or not');
+		it('should clear all resources loaded or not --> Test callback does not work! ', function(done){
+			Pac.Repository.clear();
+			
+			Pac.Repository.addResources({
+				'someResClear':'fernetjs.png',
+				'someResClear2':'fernetjs.png'
+			}).on('complete', function(){
+				
+				expect(Pac.Repository.someResClear).not.to.be(undefined);
+				expect(Pac.Repository.someResClear2).not.to.be(undefined);
+				
+				Pac.Repository.clear();
+				
+				expect(Pac.Repository.someResClear).to.be(undefined);
+				expect(Pac.Repository.someResClear2).to.be(undefined);
+				
+				done();
+			}).load();
+		});
 	});  	
 		
 });

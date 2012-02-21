@@ -16,7 +16,7 @@ Pac.Repository = (function(){
 	var imageLoaded = function() {
 		var prg = (++loaded * 100) / total;
 		events.report(prg);
-		if (prg === 100) events.complete();
+		if (prg >= 100) events.complete();
 	};
 
 	return {
@@ -57,7 +57,19 @@ Pac.Repository = (function(){
 				resources[r] = newResources[r];
 			}
 			return this;
+		},
+		
+		clear: function(){
+			var i = resources.length;
+			do {
+				if (this[resources[i]]){
+					this[resources[i]] = null;
+					delete this[resources[i]];
+				}
+			} while (i--);
+			resources = {};
 		}
+		
 	};
 	
 })();
