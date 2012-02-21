@@ -1,13 +1,14 @@
 
 (function(){
 	
-	Pac.Repository
+	Pac.Repository.addResources({'scOffice':'office.jpg'});
+	/*
 		.addResources({
 			'scOffice':'office.jpg',
 			'laptop':'laptop.png',
 			'paper':'paper.png',
 		});
-	
+	*/
 	var laptop = new Pac.Obj('my laptop', 'laptop', {
 			x: 100,
 			y: 100,
@@ -22,18 +23,18 @@
 			height: 30
 	});
 
-	var scOffice = new Pac.Scene('One day at work', 'scOffice')
-								.addObj(laptop)
-								.addObj(paperW);
+	var scOffice = new Pac.Scene('One day at work', 'scOffice');
+								//.addObj(laptop)
+								//.addObj(paperW);
 								
 	Pac.init('canvas').addScene(scOffice);
 		
 	Pac.Repository.on('complete', function(){
 		Pac.start();
 	}).on('report', function(a,b){
-		console.log(a + b)
+		console.log(a)
 	}).on('error', function(a){
-		console.dir(arguments);
+		console.dir(a);
 	}).load();	
 		
 })();

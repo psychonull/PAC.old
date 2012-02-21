@@ -20,8 +20,8 @@ Pac.Repository = (function(){
 		if (prg >= 100) events.complete();
 	};
 	
-	var imageFailed = function(item){
-		events.error(item);				
+	var imageFailed = function(evt, etc){
+		events.error(evt, etc);				
 	};
 
 	return {

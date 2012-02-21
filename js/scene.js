@@ -31,26 +31,22 @@ Pac.Scene.prototype.update = function() {
 	//update scene state
 	//TODO: if the resource was not loaded, load it now with all belong objects
 	
-  var objs = this.objects,
-  		i = objs.length;
-  
-  do {
-  	objs[i].update();
-  } while ( i-- );
-  
+  for(var i = this.objects.length - 1; i >= 0; i--){
+  	this.objects[i].update();
+  }
+   
 };
 
 Pac.Scene.prototype.draw = function() {
   
+  var ctx = Pac.getContext();
   //draw scene image (this.resource)
-  
-  var objs = this.objects,
-  		i = objs.length;
-  
-  do {
-  	objs[i].draw();
-  } while ( i-- );
-  
+  ctx.drawImage(Pac.Repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width(), this.attrs.height());
+   
+  for(var i = this.objects.length - 1; i >= 0; i--){
+  	this.objects[i].draw();
+  }
+ 
 };
 
 
