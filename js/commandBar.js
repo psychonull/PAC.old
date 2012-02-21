@@ -6,25 +6,59 @@
 Pac.commandBar = (function(){
 	var currentLog = "",
 		commandActions = [];
+
+	var attrs = {};
 	
 	return {
 		init: function(){
 			//maybe should recieve the actions that will be in the game
 			
+			var cbH = (20 * Pac.getHeight()) / 100;
+			var cbY = Pac.getHeight() - cbH; 
+			attrs = {
+				x: 0,
+				y: cbY,
+				width: Pac.getWidth(),
+				height: cbH,
+				color: 'orange'
+			};
+			
 			var allActions = Pac.coreActions;
 			for(var i=0; i < allActions.length; i++){
-				commandAction.push(new Pac.CommandAction(allActions[i], allActions[i]));
+				
+				var cAct = new Pac.CommandAction(allActions[i], allActions[i],{
+					x: (i*80) + 20,
+					y: cbY + 50,
+					width: 80,
+					height: 30
+				});
+				
+				commandActions.push(cAct);
 			}
 		},
 		update: function(){
-			
+			for(var i=0; i < commandActions.length; i++){
+				commandActions[i].update();
+			}
 		},
 		draw: function(){
 			//TODO: draw currentMessage
 			
+			var ctx = Pac.getContext();
+			ctx.save();
+			ctx.fillStyle = attrs.color;
+			ctx.fillRect(attrs.x, attrs.y, attrs.width, attrs.height);
+			ctx.restore();
+			
 			for(var i=0; i < commandActions.length; i++){
 				commandActions[i].draw();
 			}
+			
+			ctx.save();
+			ctx.fillStyle = 'black';
+			ctx.font  = 'normal 20px sans-serif';
+			ctx.fillText(currentLog, attrs.x + 20, attrs.y + 20);
+			ctx.restore();
 		},
 		log: function(message){
 			currentLog = message;

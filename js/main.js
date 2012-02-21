@@ -42,6 +42,8 @@ var Pac = (function(){
 			}
 			
 			Pac.events.init(canvasId);
+			Pac.events.bindMouse();
+			Pac.commandBar.init();
 			
 			return this;
 		},

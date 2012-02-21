@@ -15,8 +15,8 @@ Pac.events = (function(){
 		  x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
 		  y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
 		} 
-		x -= canvas.offsetLeft;
-		y -= canvas.offsetTop;
+		/*x -= canvas.offsetLeft;*/
+		/*y -= canvas.offsetTop;*/
 		
 		return {
 			x: x,
@@ -33,6 +33,14 @@ Pac.events = (function(){
 		for(var i=0; i< objsL; i++){
 			var o = objsToClick[i];
 			var oa = o.attrs;
+			
+			console.log('---------------------------------------');
+			console.log(o.name);
+			console.log('oa.x < mPos.x || ' + oa.x + ' < ' + mPos.x); 
+			console.log('(oa.x + oa.width) > mPos.x || ' + oa.x + ' + ' + oa.width + ' > ' + mPos.x);
+			console.log('oa.y < mPos.y || ' + oa.y + ' < ' + mPos.y); 
+			console.log('(oa.y + oa.height > mPos.y) || ' + oa.y + ' + ' + oa.height + ' > ' + mPos.y);
+			console.log('---------------------------------------');
 			
 			if (oa.x < mPos.x && (oa.x + oa.width) > mPos.x 
 				&& oa.y < mPos.y && (oa.y + oa.height > mPos.y)) {
