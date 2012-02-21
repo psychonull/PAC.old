@@ -6,15 +6,16 @@ describe('Pac', function(){
 	it('should be something amazing', function(){
     expect(Pac).not.to.be(undefined);
     expect(Pac).to.be.a('object');
-	
-    describe('core constructors', function(){
-    	it('should have basic constructors', function(){
-    		expect(Pac.Character).to.be.a('function');
-    		expect(Pac.Obj).to.be.a('function');
-    		expect(Pac.Scene).to.be.a('function');
-    	});
-    });
   });
+  
+	describe('core constructors', function(){
+		it('should have basic constructors', function(){
+			expect(Pac.Character).to.be.a('function');
+			expect(Pac.Obj).to.be.a('function');
+			expect(Pac.Scene).to.be.a('function');
+			expect(Pac.CommandAction).to.be.a('function');
+		});
+	});
   
   describe('#init()', function(){  	
 	  it('should initialize the canvas object', function(){

@@ -16,10 +16,10 @@ Pac.Obj = function(name, resName, options){
 	
 	this.resName = resName || '';
 	this.actions = {
-		'lookAt': function(){ Pac.CommandBar.log(this.name); }
+		'lookAt': function(){ Pac.commandBar.log(this.name); }
 	};
 	
-	Pac.Events.attach(this, 'click');
+	Pac.events.attach(this, 'click');
 };
 
 Pac.Obj.prototype.setAction = function(action) {

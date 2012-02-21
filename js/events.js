@@ -3,7 +3,7 @@
  * actions depending on events.
  */
 
-Pac.Events = (function(){
+Pac.events = (function(){
 	var canvas;
 	
 	var getCoords = function(e){
@@ -36,7 +36,7 @@ Pac.Events = (function(){
 			
 			if (oa.x < mPos.x && (oa.x + oa.width) > mPos.x 
 				&& oa.y < mPos.y && (oa.y + oa.height > mPos.y)) {
-					o.fireAction(Pac.CurrentAction);
+					o.fireAction(Pac.currentAction);
 					break;
 				}
 		}

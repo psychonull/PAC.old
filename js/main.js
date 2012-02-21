@@ -4,20 +4,20 @@
 
 var Pac = (function(){
 	var canvas,
-	    ctx,
-			scenes = [],
-			currScene = 0,
-			loopInterval = 50,
-			timer = null;
+    ctx,
+		scenes = [],
+		currScene = 0,
+		loopInterval = 50,
+		timer = null;
 	
 	var update = function(){
 		scenes[currScene].update();
-		Pac.CommandBar.update();
+		Pac.commandBar.update();
 	};
 	
 	var draw = function(){
 		scenes[currScene].draw();
-		Pac.CommandBar.draw();
+		Pac.commandBar.draw();
 	}
 	
 	return {
@@ -41,7 +41,7 @@ var Pac = (function(){
 			  throw "canvas is not supported!";
 			}
 			
-			Pac.Events.init(canvasId);
+			Pac.events.init(canvasId);
 			
 			return this;
 		},

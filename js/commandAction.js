@@ -17,14 +17,14 @@ Pac.CommandAction = function(name, action, options){
 	
 	this.color = 'blue';
 	
-	Pac.Events.attach(this, 'click');
+	Pac.events.attach(this, 'click');
 }
 
 Pac.CommandAction.prototype.update = function(action){
 	//maybe a hover for drawing
 	
 	this.color = 'blue';
-	if (this.action === Pac.CurrentAction)
+	if (this.action === Pac.currentAction)
 		this.color = 'red';
 }
 
@@ -33,5 +33,5 @@ Pac.CommandAction.prototype.draw = function(action){
 }
 
 Pac.CommandAction.prototype.fireAction = function(action){
-	Pac.CurrentAction = action;
+	Pac.currentAction = action;
 }

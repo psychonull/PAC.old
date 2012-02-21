@@ -3,7 +3,7 @@
   Image Resources for the Engine.
 */
 
-Pac.Repository = (function(){
+Pac.repository = (function(){
 	var resources = {},
 			loaded = 0,
 			total = (function (a) { var r = 0; for (var i in a) r++; return r; })(resources);

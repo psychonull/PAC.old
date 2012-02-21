@@ -3,7 +3,7 @@
  * and maybe text outputs after actions are triggered
  */
 
-Pac.CommandBar = (function(){
+Pac.commandBar = (function(){
 	var currentLog = "",
 		commandActions = [];
 	
@@ -11,7 +11,7 @@ Pac.CommandBar = (function(){
 		init: function(){
 			//maybe should recieve the actions that will be in the game
 			
-			var allActions = Pac.CoreActions;
+			var allActions = Pac.coreActions;
 			for(var i=0; i < allActions.length; i++){
 				commandAction.push(new Pac.CommandAction(allActions[i], allActions[i]));
 			}

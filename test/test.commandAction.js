@@ -19,11 +19,11 @@ describe('Pac.CommandAction', function(){
 			var cAction = new Pac.CommandAction('look at', 'lookAt');
 			var currColor = cAction.color;
 			
-			Pac.CurrentAction = 'lookAt'; 
+			Pac.currentAction = 'lookAt'; 
 			cAction.update();
 			expect(cAction.color).not.be.equal(currColor);
 			
-			Pac.CurrentAction = undefined; 
+			Pac.currentAction = undefined; 
 		});
 	});
 	describe('#draw()', function(){
@@ -38,11 +38,11 @@ describe('Pac.CommandAction', function(){
 		it('should change the current game action when fires one', function(){
 			var cAction = new Pac.CommandAction('look at', 'lookAt');
 			
-			Pac.CurrentAction = undefined;
+			Pac.currentAction = undefined;
 			cAction.fireAction('lookAt');
-			expect(Pac.CurrentAction).to.be.equal('lookAt');
+			expect(Pac.currentAction).to.be.equal('lookAt');
 			
-			Pac.CurrentAction = undefined; 
+			Pac.currentAction = undefined; 
 		});
 	});
 });

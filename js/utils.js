@@ -3,5 +3,5 @@
  */
 
 // Core game actions. These actions *could* be applied to objects
-Pac.CoreActions = ['give', 'open', 'close', 'pickUp', 'lookAt', 'talkTo', 'use', 'push', 'pull'];
+Pac.coreActions = ['give', 'open', 'close', 'pickUp', 'lookAt', 'talkTo', 'use', 'push', 'pull'];
 
