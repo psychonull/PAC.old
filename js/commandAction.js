@@ -31,6 +31,7 @@ Pac.CommandAction.prototype.update = function(){
 Pac.CommandAction.prototype.draw = function(){
 	var ctx = Pac.getContext();
 	ctx.save();
+	ctx.textBaseline = 'top';
 	ctx.fillStyle = this.color;
 	ctx.font  = 'normal 20px sans-serif';
 	ctx.fillText(this.name, this.attrs.x, this.attrs.y);

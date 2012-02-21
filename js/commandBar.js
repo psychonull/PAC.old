@@ -28,7 +28,7 @@ Pac.commandBar = (function(){
 				
 				var cAct = new Pac.CommandAction(allActions[i], allActions[i],{
 					x: (i*80) + 20,
-					y: cbY + 50,
+					y: cbY + 30,
 					width: 80,
 					height: 30
 				});
@@ -54,8 +54,9 @@ Pac.commandBar = (function(){
 			
 			ctx.save();
 			ctx.fillStyle = 'black';
+			ctx.textBaseline = 'top';
 			ctx.font  = 'normal 20px sans-serif';
-			ctx.fillText(currentLog, attrs.x + 20, attrs.y + 20);
+			ctx.fillText(currentLog, attrs.x + 20, attrs.y);
 			ctx.restore();
 		},
 		log: function(message){
