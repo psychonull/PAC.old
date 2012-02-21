@@ -44,5 +44,14 @@ describe('Pac', function(){
 			expect(Pac.getScenes()).not.to.be.empty();
 			expect(Pac.getScenes()[0]).not.to.be(undefined);
   	});
+  	it('should throw exception when parameter type mismatch', function(){
+			var falseScene = new Pac.Obj('Scene Title');
+			
+			var fn = function(){
+				Pac.addScene(falseScene);
+			}
+			expect(fn).to.throwException();
+			
+		});
   });
 });

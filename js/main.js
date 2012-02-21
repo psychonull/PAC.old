@@ -12,10 +12,12 @@ var Pac = (function(){
 	
 	var update = function(){
 		scenes[currScene].update();
+		Pac.CommandBar.update();
 	};
 	
 	var draw = function(){
 		scenes[currScene].draw();
+		Pac.CommandBar.draw();
 	}
 	
 	return {
@@ -39,11 +41,13 @@ var Pac = (function(){
 			  throw "canvas is not supported!";
 			}
 			
+			Pac.Events.init(canvasId);
+			
 			return this;
 		},
 		
 		addScene: function(scene){
-			//TODO: check if it is typeof Scene
+			if (scene.constructor != Pac.Scene) throw "type of parameter scene MUST be typeof Pac.Scene";
 			scenes.push(scene);
 			return this;
 		},

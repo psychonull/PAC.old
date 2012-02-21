@@ -4,7 +4,7 @@
 
 describe('Pac.Repository', function(){
 	
-	it("should exists and be an object", function(){
+	it("should exist and exist as an object", function(){
 		expect(Pac.Repository).not.to.be(undefined);
     expect(Pac.Repository).to.be.a('object');
 	});
@@ -33,7 +33,7 @@ describe('Pac.Repository', function(){
 			
 			expect(fn).to.not.throwException();
 		});
-		it('should throw an exception if some resource already exists', function(){
+		it('should throw an exception if the resource already exist', function(){
 			Pac.Repository.clear();
 			var fn2 = function(){
 				Pac.Repository.addResources({'someResD2':'fernetjs.png'});
@@ -45,7 +45,7 @@ describe('Pac.Repository', function(){
 	});
 	
 	describe('#load', function(){
-		it('should add the resources to the Repository', function(done){
+		it('should load the image and add the resources as a property of Pac.Repository', function(done){
 			Pac.Repository.clear();
 			
 			expect(Pac.Repository.addResources).to.be.a('function');
@@ -53,7 +53,7 @@ describe('Pac.Repository', function(){
 			
 			Pac.Repository.addResources({
 				'someResLoad':'fernetjs.png',
-				'someResLoad2':'fernetjs.png'
+				'someResLoad2':'fernetisjs.png'
 			}).on('complete', function(){
 				expect(Pac.Repository.someResLoad).not.to.be(undefined);
 				expect(Pac.Repository.someResLoad2).not.to.be(undefined);
@@ -63,7 +63,7 @@ describe('Pac.Repository', function(){
 	});  
 	
 	describe('#loadOne', function(){
-		it('should add one resource to the Repository', function(done){
+		it('should add and load one resource to the Repository', function(done){
 			Pac.Repository.clear();
 			
 			expect(Pac.Repository.addResources).to.be.a('function');
@@ -76,7 +76,7 @@ describe('Pac.Repository', function(){
 				done();
 			});
 		});
-		it('should throws an exception if no name is specify', function(){
+		it('should throw an exception if no name was specified', function(){
 			Pac.Repository.clear();
 			
 			expect(Pac.Repository.addResources).to.be.a('function');
@@ -89,7 +89,7 @@ describe('Pac.Repository', function(){
 			
 			expect(fn).to.throwException();
 		});
-		it("should throws an exception if a resource don't exists", function(){
+		it("should throws an exception if the resource wasn't added or doesn't exist", function(){
 			Pac.Repository.clear();
 			
 			expect(Pac.Repository.addResources).to.be.a('function');
