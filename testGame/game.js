@@ -3,7 +3,7 @@
 	
 	Pac.Repository
 		.addResources({
-			'scOffice':'officeBg.png',
+			'scOffice':'office.jpg',
 			'laptop':'laptop.png',
 			'paper':'paper.png',
 		});
@@ -30,9 +30,13 @@
 		
 	Pac.Repository.on('complete', function(){
 		Pac.start();
+	}).on('report', function(a,b){
+		console.log(a + b)
+	}).on('error', function(a){
+		console.dir(arguments);
 	}).load();	
 		
-});
+})();
 
 
 

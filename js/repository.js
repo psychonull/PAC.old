@@ -3,20 +3,25 @@
   Image Resources for the Engine.
 */
 
-Pac.repository = (function(){
+Pac.Repository = (function(){
 	var resources = {},
 			loaded = 0,
-			total = (function (a) { var r = 0; for (var i in a) r++; return r; })(resources);
+			getCount = function(){return Object.keys(resources).length;};
 	
 	var events = {
 		complete: function(){},
-		report: function(){}
+		report: function(){},
+		error: function(){}
 	};
 
 	var imageLoaded = function() {
-		var prg = (++loaded * 100) / total;
+		var prg = (++loaded * 100) / getCount();
 		events.report(prg);
 		if (prg >= 100) events.complete();
+	};
+	
+	var imageFailed = function(item){
+		events.error(item);				
 	};
 
 	return {
@@ -26,14 +31,16 @@ Pac.repository = (function(){
 			return this;
 		},
 		
-		loadOne: function(name, callback){
-			var cb = (callback || function(){});
+		loadOne: function(name, callback, errorCallback){
+			var cb = (callback || function(){}),
+				errorCb = (errorCallback || function(){});
 			
 			if (!name) throw "Parameter 'name' not specify";
 			
 			if (resources[name]){
 				this[name] = new Image();
 				this[name].onload = cb;
+				this[name].onerror = errorCb;
 				this[name].src = resources[name];
 				if (this[name].complete) cb();
 			} else throw "Resource " + name + " not found!. Use addReource() before load.";
@@ -45,6 +52,7 @@ Pac.repository = (function(){
 			for (var img in resources) {
 				this[img] = new Image();
 				this[img].onload = imageLoaded;
+				this[img].onerror = imageFailed;
 				this[img].src = resources[img];
 				if (this[img].complete) imageLoaded();
 			}
@@ -60,7 +68,7 @@ Pac.repository = (function(){
 		},
 		
 		clear: function(){
-			var i = resources.length;
+			var i = resources.getCount();
 			do {
 				if (this[resources[i]]){
 					this[resources[i]] = null;
