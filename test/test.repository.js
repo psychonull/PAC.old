@@ -53,7 +53,7 @@ describe('Pac.Repository', function(){
 			
 			Pac.Repository.addResources({
 				'someResLoad':'fernetjs.png',
-				'someResLoad2':'fernetisjs.png'
+				'someResLoad2':'fernetjs.png'
 			}).on('complete', function(){
 				expect(Pac.Repository.someResLoad).not.to.be(undefined);
 				expect(Pac.Repository.someResLoad2).not.to.be(undefined);

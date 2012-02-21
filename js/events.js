@@ -15,8 +15,8 @@ Pac.Events = (function(){
 		  x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
 		  y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
 		} 
-		x -= gCanvasElement.offsetLeft;
-		y -= gCanvasElement.offsetTop;
+		x -= canvas.offsetLeft;
+		y -= canvas.offsetTop;
 		
 		return {
 			x: x,

@@ -13,8 +13,7 @@ Pac.CommandBar = (function(){
 			
 			var allActions = Pac.CoreActions;
 			for(var i=0; i < allActions.length; i++){
-				commandAction.push(
-					new Pac.CommandAction(allActions[i], allActions[i]) );
+				commandAction.push(new Pac.CommandAction(allActions[i], allActions[i]));
 			}
 		},
 		update: function(){
