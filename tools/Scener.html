@@ -1,0 +1,66 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>PAC Scener</title>
+  <meta name="description" content="testing.....">
+
+  <!-- Mobile viewport optimized: h5bp.com/viewport -->
+  <meta name="viewport" content="width=device-width">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+  <!-- <link rel="stylesheet" href="css/style.css"> -->
+
+</head>
+<body>
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+  <header>
+		Design
+  </header>
+  <div role="main">
+		<canvas id="canvas" width="800" height="600"></canvas>
+  </div>
+  <aside class="">
+  	PRUEBA:
+  	<input id="objName" value="name" />
+  	<input id="resName" value=""/>
+  	<ul>
+  		<li>x: <span id="obj-x">  	</span></li>
+  		<li>y: <span id="obj-y">  	</span></li>
+  		<li>width: <span id="obj-width">  	</span></li>
+  		<li>height: <span id="obj-height">  	</span></li>
+  	</ul>
+  	
+  	<a href="#" id="add-object">Add!!!</a>
+  </aside>
+  <a href="#" id="get-code">Get the code!!!</a>
+  <div id="result">
+  	<textarea></textarea>
+  	
+  </div>
+  <footer>
+		PAC Designer - object layout viewer
+  </footer>
+
+
+  <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/repository.js"></script>
+  <script src="../js/scene.js"></script>
+  <script src="./obj.tool.js"></script>
+  <script src="../js/character.js"></script>
+  <script src="./events.tool.js"></script>
+  <script src="../js/commandAction.js"></script>      
+  <script src="../js/commandBar.js"></script>
+  <script src="../js/utils.js"></script>
+  <!-- scripts concatenated and minified via build script -->
+  <script src="./game.tool.js"></script>
+  <script src="./scener.js"></script>
+  <!-- end scripts -->
+</body>
+</html>
