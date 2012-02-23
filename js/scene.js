@@ -47,8 +47,8 @@ Pac.Scene.prototype.update = function() {
 
 Pac.Scene.prototype.draw = function() {
   var ctx = Pac.getContext();
-  if (!Pac.Repository[this.resName]) throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
-  ctx.drawImage(Pac.Repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width(), this.attrs.height());
+  if (!Pac.repository[this.resName]) throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
+  ctx.drawImage(Pac.repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width(), this.attrs.height());
    
    for(var i = 0, len = this.objects.length; i < len; i++){
         this.objects[i].draw();       

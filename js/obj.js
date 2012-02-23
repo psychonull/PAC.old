@@ -78,7 +78,7 @@ Pac.Obj.prototype.update = function() {
 Pac.Obj.prototype.draw = function() {
   var ctx = Pac.getContext();
   if (this.resName) {
-    ctx.drawImage(Pac.Repository[this.resName], this.attrs.x, this.attrs.y, this.attrs.width, this.attrs.height);	
+    ctx.drawImage(Pac.repository[this.resName], this.attrs.x, this.attrs.y, this.attrs.width, this.attrs.height);	
   }
   
 };

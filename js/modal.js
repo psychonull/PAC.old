@@ -53,7 +53,7 @@ Pac.modal = (function(){
 				ctx.fillStyle = 'rgba(0,0,0,0.7)';
 				
 				ctx.fillRect(0, 0, attrs.outWidth, attrs.outHeight);
-				ctx.drawImage(Pac.Repository[resName], attrs.margin.x, attrs.margin.y, attrs.inWidth, attrs.inHeight);
+				ctx.drawImage(Pac.repository[resName], attrs.margin.x, attrs.margin.y, attrs.inWidth, attrs.inHeight);
 				
 				ctx.fillStyle = 'red';
 				ctx.fillRect(closeBtn.attrs.x, closeBtn.attrs.y, closeBtn.attrs.width , closeBtn.attrs.height);

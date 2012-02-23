@@ -45,7 +45,7 @@ describe('Pac.repository', function(){
 	});
 	
 	describe('#load', function(){
-		it('should load the image and add the resources as a property of Pac.Repository', function(done){
+		it('should load the image and add the resources as a property of Pac.repository', function(done){
 			Pac.repository.clear();
 			
 			expect(Pac.repository.addResources).to.be.a('function');
@@ -63,7 +63,7 @@ describe('Pac.repository', function(){
 	});  
 	
 	describe('#loadOne', function(){
-		it('should add and load one resource to the Repository', function(done){
+		it('should add and load one resource to the Pac.repository', function(done){
 			Pac.repository.clear();
 			
 			expect(Pac.repository.addResources).to.be.a('function');

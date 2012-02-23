@@ -1,7 +1,7 @@
 
 (function(){
 	
-	Pac.Repository	
+	Pac.repository	
 		.addResources({
 			'scOffice':'../testGame/office.jpg',
 			'laptop':'../testGame/laptop.png'
@@ -32,7 +32,7 @@
 								
 	Pac.init('canvas').addScene(scOffice);
 		
-	Pac.Repository.on('complete', function(){
+	Pac.repository.on('complete', function(){
 		Pac.start();
 	}).on('report', function(a,b){
 		console.log(a)

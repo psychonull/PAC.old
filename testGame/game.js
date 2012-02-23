@@ -1,7 +1,7 @@
 
 (function(){
 	
-	Pac.Repository	
+	Pac.repository	
 		.addResources({
 			'scOffice':'office.jpg',
 			'laptop':'laptop.png',
@@ -77,7 +77,7 @@
 			
 	Pac.init('canvas').createCharacter(charac).addScene(scOffice);
 		
-	Pac.Repository.on('complete', function(){
+	Pac.repository.on('complete', function(){
 		Pac.start();
 	}).on('report', function(a,b){
 		
