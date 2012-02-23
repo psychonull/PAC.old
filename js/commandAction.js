@@ -38,7 +38,7 @@ Pac.CommandAction.prototype.draw = function(){
 	ctx.restore();
 }
 
-Pac.CommandAction.prototype.fireAction = function(){
+Pac.CommandAction.prototype.doAction = function(){
 	Pac.currentAction = this.action;
-	Pac.commandBar.log("Action [" + this.name + "] taked!");
+	//Pac.commandBar.log("Action [" + this.name + "] taked!");
 }

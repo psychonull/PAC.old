@@ -47,7 +47,7 @@ Pac.events = (function(){
 			
 			if (oa.x < mPos.x && (oa.x + oa.width) > mPos.x 
 				&& oa.y < mPos.y && (oa.y + oa.height > mPos.y)) {
-					o.fireAction();
+					o.doAction();
 					break;
 				}
 		}

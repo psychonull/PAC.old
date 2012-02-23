@@ -12,13 +12,13 @@ Pac.commandBar = (function(){
 	return {
 		init: function(){
 			//maybe should recieve the actions that will be in the game
-			
-			var cbH = (20 * Pac.getHeight()) / 100;
+			var sizeBar = Pac.getCommandBarSize();
+			var cbH = sizeBar.height;
 			var cbY = Pac.getHeight() - cbH; 
 			attrs = {
 				x: 0,
 				y: cbY,
-				width: Pac.getWidth(),
+				width: sizeBar.width,
 				height: cbH,
 				color: 'orange'
 			};
@@ -56,12 +56,13 @@ Pac.commandBar = (function(){
 			ctx.fillStyle = 'black';
 			ctx.textBaseline = 'top';
 			ctx.font  = 'normal 20px sans-serif';
-			ctx.fillText(currentLog, attrs.x + 20, attrs.y);
+			ctx.fillText(currentLog, attrs.x + 20, attrs.y + 5);
 			ctx.restore();
 		},
 		log: function(message){
 			currentLog = message;
 		}
+		
 	};
 	
 })();

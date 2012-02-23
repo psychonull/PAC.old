@@ -12,8 +12,8 @@ Pac.Scene = function(title, resName, options){
 	this.attrs = {
 		x: 0,
 		y: 0,
-		width: Pac.getWidth,
-		height: Pac.getHeight
+		width: function(){ return Pac.getSceneSize().width; },
+		height: function(){ return Pac.getSceneSize().height; }
 	};
 	
 	//TODO: initial position of character.
@@ -48,7 +48,7 @@ Pac.Scene.prototype.update = function() {
 Pac.Scene.prototype.draw = function() {
   var ctx = Pac.getContext();
   if (!Pac.Repository[this.resName]) throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
-  ctx.drawImage(Pac.Repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width(), this.attrs.height() * 0.8);
+  ctx.drawImage(Pac.Repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width(), this.attrs.height());
    
    for(var i = 0, len = this.objects.length; i < len; i++){
         this.objects[i].draw();       

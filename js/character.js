@@ -17,11 +17,13 @@ Pac.Character = function(name, resName, options){
 	
 	//array of obj owned by the char
 	this.items = [];
+	
+	this.handItem = {};
 };
 
 Pac.Character.prototype.update = function() {
 	//update object state
-}
+};
 
 Pac.Character.prototype.draw = function() {
 	//draw image obj
@@ -29,7 +31,7 @@ Pac.Character.prototype.draw = function() {
 	for(var i=0; i< this.items.length; i++){
 		this.items[i].draw();
 	}
-}
+};
 
 Pac.Character.prototype.pickUp = function(obj){
 	var lastX = (this.items.length * 50) + 20;
@@ -39,5 +41,22 @@ Pac.Character.prototype.pickUp = function(obj){
 	obj.attrs.width = 50;
 	obj.attrs.height = 50;
 	this.items.push(obj);
-}
+};
+
+Pac.Character.prototype.getHand = function(){
+	return this.handItem;
+};
+
+Pac.Character.prototype.setHand = function(obj){
+	this.handItem = obj;
+};
+
+Pac.Character.prototype.clearHand = function(){
+	this.handItem = null;
+};
+
+
+
+
+
 
