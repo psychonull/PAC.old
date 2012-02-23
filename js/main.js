@@ -9,22 +9,7 @@ var Pac = (function(){
 		currScene = 0,
 		loopInterval = 50,
 		timer = null,
-		character,
-		itemInfo;
-		
-	var getModalSize = function(){
-		var m = 0.2;
-		return {
-			outWidth: canvas.width,
-			outHeight: canvas.height,
-			inWidth: canvas.width * (1 - (m * 2)),
-			inHeight: canvas.height * (1 - (m * 2)),
-			margin: {
-				x: canvas.width * m,
-				y: canvas.height * m
-			}
-		};
-	};
+		character;
 	
 	var update = function(){
 		scenes[currScene].update();
@@ -32,6 +17,7 @@ var Pac = (function(){
 		if(character) {
 			character.update();
 		}
+		Pac.modal.update();
 	};
 	
 	var draw = function(){
@@ -40,25 +26,8 @@ var Pac = (function(){
 		if(character) {
 			character.draw();
 		}
-		
-		if (itemInfo){
-			ctx.save();
-			ctx.fillStyle = 'rgba(0,0,0,0.7)';
-			var s = getModalSize();
-			ctx.fillRect(0, 0, s.outWidth, s.outHeight);
-			ctx.drawImage(Pac.Repository[itemInfo.resName], s.margin.x, s.margin.y, s.inWidth, s.inHeight);
-			
-			ctx.fillStyle = 'red';
-			ctx.fillRect(itemInfo.cl.attrs.x, itemInfo.cl.attrs.y, itemInfo.cl.attrs.width , itemInfo.cl.attrs.height);
-			
-			ctx.textBaseline = 'top';
-			ctx.fillStyle = 'white';
-			ctx.font  = 'normal 30px sans-serif';
-			ctx.fillText('X', itemInfo.cl.attrs.x + 4, itemInfo.cl.attrs.y + 2);
-			
-			ctx.restore();
-		}
-	}
+		Pac.modal.draw();
+	};
 	
 	return {
 		getContext: function(){
@@ -85,34 +54,6 @@ var Pac = (function(){
 			};
 		},
 		
-		showInfoDialog: function(name, resName){
-			var s = getModalSize();
-			var that = this;
-			var closeLnk = {
-				attrs:{
-					x: (s.inWidth + s.margin.x) - 15,
-					y: s.margin.y - 15,
-					width: 30,
-					height: 30
-				},
-				doAction: function(){
-					that.hideInfoDialog();
-				}
-			};
-			
-			itemInfo = {
-				desc: name,
-				resName: resName,
-				cl: closeLnk
-			};
-			
-			Pac.events.attach(closeLnk, 'click');
-		},
-
-		hideInfoDialog: function(){
-			itemInfo = null;
-		},
-		
 		init: function(canvasId){
 			canvas = document.getElementById(canvasId);
 			if(!canvas) throw "There is no canvas with id " + canvasId;
@@ -126,6 +67,7 @@ var Pac = (function(){
 			Pac.events.init(canvasId);
 			Pac.events.bindMouse();
 			Pac.commandBar.init();
+			Pac.modal.init();
 			
 			return this;
 		},
@@ -137,6 +79,7 @@ var Pac = (function(){
 		},
 		
 		createCharacter: function(charac){
+			if (charac.constructor != Pac.Character) throw "type of parameter character MUST be typeof Pac.Character";
 			character = charac;
 			return this;
 		},

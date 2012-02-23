@@ -32,7 +32,7 @@ Pac.Action.prototype.run = function(){
 					//Pac.changeToScene(c.name || c.index);
 					break;
 				case 'showInfo':
-					Pac.showInfoDialog(this.obj.name, c.resourceName);
+					Pac.modal.show(this.obj.name, c.resourceName);
 					break;
 				case 'unlockAction':
 				  var obj = c.obj || this.obj;
