@@ -33,13 +33,11 @@ Pac.events = (function(){
 		
 		for(var i=0; i< objsL; i++){
 			var o = objsToClick[i];
-			var oa = o.attrs;
-						
-			if (oa.x < mPos.x && (oa.x + oa.width) > mPos.x 
-				&& oa.y < mPos.y && (oa.y + oa.height > mPos.y)) {
-					o.doAction();
-					break;
-				}
+			
+			if (o.hasPoint({x: mPos.x, y: mPos.y})) {
+				o.fireEvent('click');
+				break;
+			}
 		}
 	}
 	

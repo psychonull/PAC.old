@@ -15,6 +15,7 @@ Pac.Obj = function(name, resName, options){
 	};
 	
 	this.resName = resName || '';
+	this.polygone = undefined;
 	this.actions = {};
 	
 	//Set Default Actions
@@ -49,4 +50,18 @@ Pac.Obj.prototype.draw = function() {
   }
   
 };
+
+Pac.Obj.prototype.hasPoint = function(point) {
+	if (!this.polygone) 
+		return Pac.intersection.rectangle(this.attrs, point);
+	else return Pac.intersection.polygone(this.polygone, point);
+};
+
+Pac.Obj.prototype.fireEvent = function(type) {
+	if (type === 'click')
+		this.doAction();
+}
+
+
+
 

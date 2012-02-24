@@ -18,7 +18,7 @@ Pac.CommandAction = function(name, action, options){
 	this.color = 'blue';
 	
 	Pac.events.attach(this, 'click');
-}
+};
 
 Pac.CommandAction.prototype.update = function(){
 	//maybe a hover for drawing
@@ -26,7 +26,7 @@ Pac.CommandAction.prototype.update = function(){
 	this.color = 'blue';
 	if (this.action === Pac.currentAction)
 		this.color = 'red';
-}
+};
 
 Pac.CommandAction.prototype.draw = function(){
 	var ctx = Pac.getContext();
@@ -36,9 +36,17 @@ Pac.CommandAction.prototype.draw = function(){
 	ctx.font  = 'normal 20px sans-serif';
 	ctx.fillText(this.name, this.attrs.x, this.attrs.y);
 	ctx.restore();
-}
+};
 
-Pac.CommandAction.prototype.doAction = function(){
-	Pac.currentAction = this.action;
-	//Pac.commandBar.log("Action [" + this.name + "] taked!");
-}
+Pac.CommandAction.prototype.hasPoint = function(point) {
+	return Pac.intersection.rectangle(this.attrs, point);
+};
+
+Pac.CommandAction.prototype.fireEvent = function(type){
+	if (type === 'click')
+		Pac.currentAction = this.action;
+};
+
+
+
+

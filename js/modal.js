@@ -35,8 +35,13 @@ Pac.modal = (function(){
 					width: 30,
 					height: 30
 				},
-				doAction: function(){
-					Pac.modal.hide();
+				hasPoint: function(point){
+					//TODO: circle
+					return Pac.intersection.rectangle(this.attrs, point);
+				},
+				fireEvent: function(type){
+					if (type === 'click')
+						Pac.modal.hide();
 				}
 			};
 		},
