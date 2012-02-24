@@ -54,7 +54,7 @@ Pac.Obj.prototype.draw = function() {
 Pac.Obj.prototype.hasPoint = function(point) {
 	if (!this.polygone) 
 		return Pac.math.pointInRectangle(this.attrs, point);
-	else return Pac.math.pointInPolygone(this.polygone, point);
+	else return Pac.math.pointInPolygon(this.polygone, point);
 };
 
 Pac.Obj.prototype.fireEvent = function(type) {

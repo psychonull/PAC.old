@@ -30,14 +30,12 @@ Pac.modal = (function(){
 			
 			closeBtn = {
 				attrs: {
-					x: (attrs.inWidth + attrs.margin.x) - 15,
-					y: attrs.margin.y - 15,
-					width: 30,
-					height: 30
+					x: (attrs.inWidth + attrs.margin.x),
+					y: attrs.margin.y,
+					radius: 15
 				},
 				hasPoint: function(point){
-					//TODO: circle
-					return Pac.math.pointInRectangle(this.attrs, point);
+					return Pac.math.pointInCircle(this.attrs, point);
 				},
 				fireEvent: function(type){
 					if (type === 'click')
@@ -61,12 +59,15 @@ Pac.modal = (function(){
 				ctx.drawImage(Pac.repository[resName], attrs.margin.x, attrs.margin.y, attrs.inWidth, attrs.inHeight);
 				
 				ctx.fillStyle = 'red';
-				ctx.fillRect(closeBtn.attrs.x, closeBtn.attrs.y, closeBtn.attrs.width , closeBtn.attrs.height);
+				ctx.beginPath();
+				ctx.arc(closeBtn.attrs.x, closeBtn.attrs.y, closeBtn.attrs.radius, Math.PI * 2, 0, true);
+				ctx.closePath();
+				ctx.fill();
 				
 				ctx.textBaseline = 'top';
 				ctx.fillStyle = 'white';
-				ctx.font  = 'normal 30px sans-serif';
-				ctx.fillText('X', closeBtn.attrs.x + 4, closeBtn.attrs.y + 2);
+				ctx.font  = 'normal 20px sans-serif';
+				ctx.fillText('X', closeBtn.attrs.x - closeBtn.attrs.radius/2, closeBtn.attrs.y - closeBtn.attrs.radius/1.5);
 				
 				ctx.restore();
 			}
