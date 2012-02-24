@@ -2,20 +2,47 @@
  * actions player. 
  */
 
-Pac.Action = function(options){
-	if (!options.obj) throw 'Pac.Obj is not present';
-	this.obj = options.obj;
+Pac.Action = function(owner, name, options){
+	this.obj = owner;
+	this.name = name;
 	
-	this.isLocked = options.isLocked || false;
-	this.lockedMsg = options.lockedMsg || 'I cannot do that';
-	this.removeOnRun = (options.removeOnRun !== undefined) ? options.removeOnRun : true;
+	this.isLocked = (options && options.isLocked) || false;
+	this.lockedMsg = (options && options.lockedMsg) || 'I cannot do that';
+	this.removeOnRun = (options && options.removeOnRun !== undefined) ? options.removeOnRun : true;
 	
-	this.neededObj = options.withObj;
+	this.neededObj = (options && options.withObj);
 	
-	this.consequences = options.consequences || [];
+	this.consequences = [];
+	
+	//Set default consequences for this action
+	switch (this.name){
+		case 'lookAt':
+			this.consequences.push({name: 'showText', text: this.obj.name})
+			break;
+		case 'pickUp':
+			this.consequences.push({name: 'addToInventory'})
+			this.consequences.push({name: 'removeFromScene'})
+			break;
+	}
 };
 
-Pac.Action.prototype.run = function(){
+Pac.Action.prototype.run = function(cName, options){
+	//used to override defaults, should be called as the first consequence
+	//if want to keep defaults call directly to then
+	this.consequences = [];
+	return this.then(cName, options);
+}
+
+Pac.Action.prototype.then = function(cName, options){
+	//append consequences
+	if (!options) options = {};
+	options.name = cName; 
+	this.consequences.push(options);
+	
+	return this.obj.actions[this.name];
+}
+
+Pac.Action.prototype.execute = function(){
 	var characterHand = Pac.getCharacter().getHand();
 	
 	if (!this.neededObj || (this.neededObj && characterHand && this.neededObj === characterHand)) {
@@ -24,12 +51,12 @@ Pac.Action.prototype.run = function(){
 		for(var i=0; i< this.consequences.length; i++){
 			var c = this.consequences[i];
 			
-			switch(c.type){
+			switch(c.name){
 				case 'showText':
 					Pac.commandBar.log(c.text || this.obj.name);
 					break;
 				case 'moveToScene':
-					//Pac.changeToScene(c.name || c.index);
+					//Pac.changeToScene(c.sceneName || c.sceneIndex);
 					break;
 				case 'showInfo':
 					Pac.modal.show(this.obj.name, c.resourceName);
@@ -62,7 +89,7 @@ Pac.Action.prototype.run = function(){
 			}
 		}
 		
-		if (this.removeOnRun){
+		if (this.aremoveOnRun){
 			for (var act in this.obj.actions){
 				if (this.obj.actions[act] === this){
 					delete this.obj.actions[act];

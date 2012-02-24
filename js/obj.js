@@ -15,24 +15,17 @@ Pac.Obj = function(name, resName, options){
 	};
 	
 	this.resName = resName || '';
+	this.actions = {};
 	
-	var that = this;
-	this.actions = {
-		'lookAt': new Pac.Action({
-				obj: this,
-				removeOnRun: false,
-				'consequences': [{type: 'showText'}] 
-			})
-	};
+	//Set Default Actions
+	this.onAction('lookAt', { removeOnRun:false } );
 	
 	Pac.events.attach(this, 'click');
 };
 
-Pac.Obj.prototype.onAction = function(action) {
-	//TODO: if action typeof string -> add defaults.
-	
-	action.obj = this;
-	this.actions[action.name] = new Pac.Action(action);
+Pac.Obj.prototype.onAction = function(name, opts) {
+	this.actions[name] = new Pac.Action(this, name, opts);
+	return this.actions[name];
 };
 
 Pac.Obj.prototype.doAction = function() {
@@ -41,33 +34,7 @@ Pac.Obj.prototype.doAction = function() {
 	else if (this.actions[Pac.currentAction].isLocked){
 		Pac.commandBar.log(this.actions[Pac.currentAction].lockedMsg);
 	} else	{
-		this.actions[Pac.currentAction].run();
-	}
-};
-
-Pac.Obj.prototype.setAction = function(action) {
-	throw 'DEPRECATED: use onAction()';
-	
-	var that = this;
-	
-	switch(action){
-		case 'pickUp':
-			this.actions[action] = function(){
-				Pac.getCharacter().pickUp(that);
-				Pac.getCurrentScene().removeObj(that);
-				delete that.actions[action];
-			};
-			break; 
-	}
-};
-
-Pac.Obj.prototype.fireAction = function() {
-	throw 'DEPRECATED: use doAction()';
-	
-	if (!this.actions.hasOwnProperty(Pac.currentAction))
-		Pac.commandBar.log('I cannot do that');
-	else {
-		this.actions[Pac.currentAction]();
+		this.actions[Pac.currentAction].execute();
 	}
 };
 

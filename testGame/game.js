@@ -22,53 +22,39 @@
 			height: 30
 	});
 	
-	screwdriver.onAction({name: 'pickUp', 
-											consequences: [
-												{type:'addToInventory'}, 
-												{type: 'removeFromScene'}, 
-												{type: 'unlockAction', action: 'use'}
-											]});
-											
-	screwdriver.onAction({name: 'use',  
-												isLocked: true, 
-												lockedMsg: 'I cannot use it without having it', 
-											consequences: [
-												{type: 'putOnHand'},
-												{type:'showText', text: 'use screwdriver with ...'}
-											]});
 	
-	screwdriver.onAction({name: 'lookAt', 
-												removeOnRun: false, 
-											consequences: [
-												{type:'showInfo', resourceName: 'screwdriver'}]
-											});
-											
-	laptop.onAction({name: 'open', 
-									isLocked: true, 
-									lockedMsg: 'It is Locked!',
-									removeOnRun: false, 
-									consequences: [
-										{type:'showText', text: 'Hacked! .. found passcode: 12345'}
-									]});
+	screwdriver.onAction('pickUp')
+		.run('addToInventory')
+		.then('removeFromScene')
+		.then('unlockAction', { action: 'use' });
 	
-	laptop.onAction({name: 'use', 
-									withObj: screwdriver, 
-									consequences: [
-										{type: 'unlockAction', action: 'open'},
-										{type:'showText', text: 'the laptop is now unlocked!'}
-									]});
-
-	laptop.onAction({name: 'pickUp', 
-									isLocked: true, 
-									lockedMsg: 'Is to big to hide, I cannot take it',
-									removeOnRun: false}); 
 	
-	laptop.onAction({name: 'lookAt', 
-										removeOnRun: false, 
-									consequences: [
-										{type:'showInfo', resourceName: 'laptop'}]
-									});
-											
+	screwdriver.onAction('use', { isLocked: true, lockedMsg: 'I cannot use it without having it' })
+		.run('putOnHand')
+		.then('showText', {text: 'use screwdriver with ...'});
+	
+	
+	screwdriver.onAction('lookAt', { removeOnRun: false })
+		.run('showInfo', { resourceName: 'screwdriver' });
+	
+	
+	
+	laptop.onAction('open', { isLocked: true, lockedMsg: 'It is Locked!', removeOnRun: false })
+		.run('showText', { text: 'Hacked! .. found passcode: 12345' });
+	
+	
+	laptop.onAction('use', { withObj: screwdriver })
+		.run('unlockAction', { action: 'open' })
+		.then('showText', { text: 'the laptop is now unlocked!' });
+	
+	
+	laptop.onAction('pickUp', { isLocked: true, lockedMsg: 'Is to big to hide, I cannot take it', removeOnRun: false });
+	
+	
+	laptop.onAction('lookAt', { removeOnRun: false })
+		.run('showInfo', { resourceName: 'laptop' });
+	
+	
 	var scOffice = new Pac.Scene('One day at work', 'scOffice')
 								.addObj(laptop)
 								.addObj(screwdriver);
