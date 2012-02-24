@@ -53,8 +53,8 @@ Pac.Obj.prototype.draw = function() {
 
 Pac.Obj.prototype.hasPoint = function(point) {
 	if (!this.polygone) 
-		return Pac.intersection.rectangle(this.attrs, point);
-	else return Pac.intersection.polygone(this.polygone, point);
+		return Pac.math.pointInRectangle(this.attrs, point);
+	else return Pac.math.pointInPolygone(this.polygone, point);
 };
 
 Pac.Obj.prototype.fireEvent = function(type) {

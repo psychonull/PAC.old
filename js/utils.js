@@ -5,15 +5,17 @@
 // Core game actions. These actions *could* be applied to objects
 Pac.coreActions = ['give', 'open', 'close', 'pickUp', 'lookAt', 'talkTo', 'use', 'push', 'pull'];
 
-Pac.intersection = (function(){
+// Arithmetic functions helper
+Pac.math = (function(){
 	return {
-		rectangle: function(a, p) {
+		pointInRectangle: function(a, p) {
 			return (a.x < p.x && (a.x + a.width) > p.x && a.y < p.y && (a.y + a.height > p.y));
 		},
-		circle: function(a, p) {
+		pointInCircle: function(a, p) {
 			return false;
 		},
-		polygone: function(ps, p) {
+		pointInPolygone: function(ps, p) {
+			//check if polygone is convex or concave
 			return false;
 		}
 	};

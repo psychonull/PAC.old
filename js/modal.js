@@ -37,7 +37,7 @@ Pac.modal = (function(){
 				},
 				hasPoint: function(point){
 					//TODO: circle
-					return Pac.intersection.rectangle(this.attrs, point);
+					return Pac.math.pointInRectangle(this.attrs, point);
 				},
 				fireEvent: function(type){
 					if (type === 'click')

@@ -39,7 +39,7 @@ Pac.CommandAction.prototype.draw = function(){
 };
 
 Pac.CommandAction.prototype.hasPoint = function(point) {
-	return Pac.intersection.rectangle(this.attrs, point);
+	return Pac.math.pointInRectangle(this.attrs, point);
 };
 
 Pac.CommandAction.prototype.fireEvent = function(type){
