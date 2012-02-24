@@ -15,7 +15,10 @@ Pac.Obj = function(name, resName, options){
 	};
 	
 	this.resName = resName || '';
-	this.polygone = undefined;
+	
+	this.polygon = (options && options.polygon) || undefined;
+	this.circle = (options && options.circle) || undefined;
+	
 	this.actions = {};
 	
 	//Set Default Actions
@@ -49,12 +52,27 @@ Pac.Obj.prototype.draw = function() {
     ctx.drawImage(Pac.repository[this.resName], this.attrs.x, this.attrs.y, this.attrs.width, this.attrs.height);	
   }
   
+  if (this.polygon){
+  	ctx.save();
+  	ctx.fillStyle = 'rgba(250,0,0,0.5)';
+		ctx.beginPath();
+		ctx.moveTo(this.polygon[0].x, this.polygon[0].y);
+		
+		for (var i=1; i < this.polygon.length; i++)
+			ctx.lineTo(this.polygon[i].x, this.polygon[i].y);
+		
+		ctx.closePath();
+		ctx.fill();
+		ctx.restore();
+  }
+  
 };
 
 Pac.Obj.prototype.hasPoint = function(point) {
-	if (!this.polygone) 
+	if (!this.polygon && !this.circle) 
 		return Pac.math.pointInRectangle(this.attrs, point);
-	else return Pac.math.pointInPolygon(this.polygone, point);
+	else if(this.polygon) return Pac.math.pointInPolygon(this.polygon, point);
+	else if(this.circle) return Pac.math.pointInCircle(this.circle, point);
 };
 
 Pac.Obj.prototype.fireEvent = function(type) {

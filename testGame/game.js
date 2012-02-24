@@ -12,7 +12,15 @@
 			x: 100,
 			y: 100,
 			width: 50,
-			height: 50
+			height: 50,
+			polygon: [
+				{x: 103, y: 108},
+				{x: 132, y: 100},
+				{x: 132, y: 120},
+				{x: 152, y: 127},
+				{x: 130, y: 150},
+				{x: 105, y: 135}
+			]
 	});
 	
 	var screwdriver = new Pac.Obj('some screwdriver', 'screwdriver', {
