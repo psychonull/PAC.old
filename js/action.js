@@ -73,8 +73,8 @@ Pac.Action.prototype.execute = function(){
 				case 'putOnHand':
 					Pac.getCharacter().setHand(this.obj);
 					break;
-				case 'runAnimation':
-					
+				case 'animation':
+					this.obj.setAnimation(c.animationName);
 					break;
 				case 'removeFromScene':
 					Pac.getCurrentScene().removeObj(this.obj);

@@ -5,7 +5,8 @@
 		.addResources({
 			'scOffice':'office.jpg',
 			'laptop':'laptop.png',
-			'screwdriver': 'screwdriver.jpg'
+			'screwdriver': 'screwdriver.jpg',
+			'kingkong': 'kingkong.png'
 		});
 	
 	var laptop = new Pac.Obj('my laptop', 'laptop', {
@@ -29,6 +30,34 @@
 			width: 30,
 			height: 30
 	});
+	
+	var kingkong = new Pac.Obj('a toy of kingkong', 'kingkong', {
+			x: 270,
+			y: 260,
+			width: 40,
+			height: 40
+	});
+	
+	kkframes = [];
+	for(var i=0; i<1000; i+=50){
+		kkframes.push({
+			x: i,
+			y: 0,
+			width: 50,
+			height: 60
+		});	
+	}
+	
+	kingkong.addAnimation('iddle', {
+		frames: [ kkframes[0], kkframes[1] ],
+		timePerFrame: 1000
+	}).addAnimation('moveToy', {
+		frames: kkframes,
+		runTimes: 1,
+		timePerFrame: 250
+	});
+	
+	kingkong.onAction('push').run('animation', {animationName: 'moveToy'});
 	
 	
 	screwdriver.onAction('pickUp')
@@ -65,7 +94,8 @@
 	
 	var scOffice = new Pac.Scene('One day at work', 'scOffice')
 								.addObj(laptop)
-								.addObj(screwdriver);
+								.addObj(screwdriver)
+								.addObj(kingkong);
 	
 	var charac = new Pac.Character('josecito');
 			

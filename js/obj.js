@@ -20,10 +20,12 @@ Pac.Obj = function(name, resName, options){
 	this.circle = (options && options.circle) || undefined;
 	
 	this.actions = {};
+	this.animations = {};
+	this.currentAnimation = 'iddle';
 	
 	//Set Default Actions
 	this.onAction('lookAt', { removeOnRun:false } );
-	
+
 	Pac.events.attach(this, 'click');
 };
 
@@ -43,14 +45,19 @@ Pac.Obj.prototype.doAction = function() {
 };
 
 Pac.Obj.prototype.update = function() {
-	//update object state
+	var cAn = this.animations[this.currentAnimation];
+	if (cAn){
+		if (!cAn.running) cAn.start();
+		cAn.update();
+	}
 };
 
 Pac.Obj.prototype.draw = function() {
   var ctx = Pac.getContext();
-  if (this.resName) {
-    ctx.drawImage(Pac.repository[this.resName], this.attrs.x, this.attrs.y, this.attrs.width, this.attrs.height);	
-  }
+  
+  if (this.animations[this.currentAnimation])
+  	this.animations[this.currentAnimation].draw(this.attrs.x, this.attrs.y, this.attrs.width, this.attrs.height);
+  else ctx.drawImage(Pac.repository[this.resName], this.attrs.x, this.attrs.y, this.attrs.width, this.attrs.height);	
   
   if (this.polygon){
   	ctx.save();
@@ -80,6 +87,16 @@ Pac.Obj.prototype.fireEvent = function(type) {
 		this.doAction();
 }
 
+Pac.Obj.prototype.addAnimation = function(name, opts) {
+	if (!opts.resName) opts.resName = this.resName;
+	opts.obj = this;
+	this.animations[name] = new Pac.Animation(opts);
+	return this;
+};
 
+Pac.Obj.prototype.setAnimation = function(animation) {
+	this.animations[this.currentAnimation].stop();
+	this.currentAnimation = animation;
+};
 
 
