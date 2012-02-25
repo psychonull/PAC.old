@@ -6,6 +6,7 @@
 			'scOffice':'office.jpg',
 			'laptop':'laptop.png',
 			'screwdriver': 'screwdriver.jpg',
+			'dude': 'char.png',
 			'kingkong': 'kingkong.png'
 		});
 	
@@ -97,7 +98,12 @@
 								.addObj(screwdriver)
 								.addObj(kingkong);
 	
-	var charac = new Pac.Character('josecito');
+	var charac = new Pac.Character('The dude', 'dude', {
+			x: 280,
+			y: 190,
+			width: 90,
+			height: 270
+	});
 			
 	Pac.init('canvas').createCharacter(charac).addScene(scOffice);
 		
