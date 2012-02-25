@@ -27,13 +27,21 @@ Pac.Character.prototype.update = function() {
 
 Pac.Character.prototype.draw = function() {
 	//draw image obj
-	
+	var ctx = Pac.getContext();
+	if (this.resName) {
+	  ctx.drawImage(Pac.repository[this.resName], this.attrs.x, this.attrs.y, this.attrs.width, this.attrs.height);	
+	}
 	for(var i=0; i< this.items.length; i++){
 		this.items[i].draw();
 	}
 };
 
 Pac.Character.prototype.pickUp = function(obj){
+	//TODO: changing position, etc. should be part of the item.update() method
+	if (this.items.indexOf(obj) !== -1){
+		Pac.commandBar.log('Ya lo tengo...');
+		return;
+	}
 	var lastX = (this.items.length * 50) + 20;
 	
 	obj.attrs.x = lastX + 50;

@@ -5,7 +5,8 @@
 		.addResources({
 			'scOffice':'office.jpg',
 			'laptop':'laptop.png',
-			'screwdriver': 'screwdriver.jpg'
+			'screwdriver': 'screwdriver.jpg',
+			'dude': 'char.png'
 		});
 	
 	var laptop = new Pac.Obj('my laptop', 'laptop', {
@@ -67,7 +68,12 @@
 								.addObj(laptop)
 								.addObj(screwdriver);
 	
-	var charac = new Pac.Character('josecito');
+	var charac = new Pac.Character('The dude', 'dude', {
+			x: 250,
+			y: 190,
+			width: 90,
+			height: 270
+	});
 			
 	Pac.init('canvas').createCharacter(charac).addScene(scOffice);
 		
