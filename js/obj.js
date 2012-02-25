@@ -48,7 +48,7 @@ Pac.Obj.prototype.update = function() {
 	var cAn = this.animations[this.currentAnimation];
 	if (cAn){
 		if (!cAn.running) cAn.start();
-		cAn.update();
+		else cAn.update();
 	}
 };
 
@@ -88,8 +88,14 @@ Pac.Obj.prototype.fireEvent = function(type) {
 }
 
 Pac.Obj.prototype.addAnimation = function(name, opts) {
+	var that = this;
+	
 	if (!opts.resName) opts.resName = this.resName;
-	opts.obj = this;
+	opts.endCallback = function(){
+		if (that.currentAnimation != 'iddle')
+			that.currentAnimation = 'iddle';
+	};
+	
 	this.animations[name] = new Pac.Animation(opts);
 	return this;
 };

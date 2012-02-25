@@ -51,11 +51,12 @@
 	
 	kingkong.addAnimation('iddle', {
 		frames: [ kkframes[0], kkframes[1] ],
-		timePerFrame: 10
+		framesPerStep: 10,
+		framesPerRound: 10
 	}).addAnimation('moveToy', {
 		frames: kkframes,
 		runTimes: 1,
-		timePerFrame: 5
+		framesPerStep: 5
 	});
 	
 	kingkong.onAction('push').run('animation', {animationName: 'moveToy'});
