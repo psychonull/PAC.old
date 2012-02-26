@@ -31,15 +31,20 @@ describe('Pac.CommandAction', function(){
 			expect((new Pac.CommandAction).draw).to.be.a('function');
 		});
 	});
-	describe('#fireAction()', function(){
-		it('should have the ability fire an action', function(){
-			expect((new Pac.CommandAction).fireAction).to.be.a('function');
+	describe('#hasPoint()', function(){
+		it('should have the ability to return if a point is inside the action', function(){
+			expect((new Pac.CommandAction).hasPoint).to.be.a('function');
 		});
-		it('should change the current game action when fires one', function(){
+	});
+	describe('#fireEvent()', function(){
+		it('should have the ability to do something from an event sent', function(){
+			expect((new Pac.CommandAction).fireEvent).to.be.a('function');
+		});
+		it('should change the current game action when fires a click', function(){
 			var cAction = new Pac.CommandAction('look at', 'lookAt');
 			
 			Pac.currentAction = undefined;
-			cAction.fireAction('lookAt');
+			cAction.fireEvent('click');
 			expect(Pac.currentAction).to.be.equal('lookAt');
 			
 			Pac.currentAction = undefined; 

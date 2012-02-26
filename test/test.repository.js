@@ -9,7 +9,7 @@ describe('Pac.repository', function(){
     expect(Pac.repository).to.be.a('object');
 	});
 	
-	describe('#addResources', function(){
+	describe('#addResources()', function(){
 		it('should add one resource', function(){
 			Pac.repository.clear();
 			expect(Pac.repository.addResources).to.be.a('function');
@@ -44,7 +44,7 @@ describe('Pac.repository', function(){
 		});
 	});
 	
-	describe('#load', function(){
+	describe('#load()', function(){
 		it('should load the image and add the resources as a property of Pac.repository', function(done){
 			Pac.repository.clear();
 			
@@ -62,7 +62,7 @@ describe('Pac.repository', function(){
 		});
 	});  
 	
-	describe('#loadOne', function(){
+	describe('#loadOne()', function(){
 		it('should add and load one resource to the Pac.repository', function(done){
 			Pac.repository.clear();
 			
@@ -102,7 +102,7 @@ describe('Pac.repository', function(){
 		});
 	});
 	
-	describe('#on', function(){
+	describe('#on()', function(){
 		it('should fire "report" event per image loaded', function(done){
 			Pac.repository.clear();
 			var callTime = 0; 
@@ -113,15 +113,9 @@ describe('Pac.repository', function(){
 			}).on('report', function(prg){
 				callTime++;
 				expect(prg).not.to.be(undefined);
-				
-				if (callTime === 1)
-					expect(prg).not.to.be(50);
-				else {
-					expect(prg).not.to.be(100);
-					done();
-				}
-				
+				done();
 			}).load();
+			
 		});
 		
 		it('should fire "complete" event when all images are loaded', function(done){
@@ -138,8 +132,8 @@ describe('Pac.repository', function(){
 		});
 	});  	
 	
-	describe('#clear', function(){
-		it('should clear all resources loaded or not --> Test callback does not work! ', function(done){
+	describe('#clear()', function(){
+		it('should clear all resources loaded - I have no idea why this BS blows up!', function(done){
 			Pac.repository.clear();
 			
 			Pac.repository.addResources({
@@ -149,7 +143,7 @@ describe('Pac.repository', function(){
 				
 				expect(Pac.repository.someResClear).not.to.be(undefined);
 				expect(Pac.repository.someResClear2).not.to.be(undefined);
-				
+		
 				Pac.repository.clear();
 				
 				expect(Pac.repository.someResClear).to.be(undefined);

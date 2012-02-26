@@ -92,9 +92,9 @@ describe('Pac.Scene', function(){
 			expect((new Pac.Scene).attrs.x).to.be.equal(0);
 			expect((new Pac.Scene).attrs.y).to.be.equal(0);
 		});
-		it('should have a weight and height of the canvas', function(){
-			expect((new Pac.Scene).attrs.width).to.be.equal(Pac.getWidth);
-			expect((new Pac.Scene).attrs.height).to.be.equal(Pac.getHeight);
+		it('should have the full width and 80% height of the canvas', function(){
+			expect((new Pac.Scene).attrs.width()).to.be.equal(Pac.getWidth());
+			expect((new Pac.Scene).attrs.height()).to.be.equal(Pac.getHeight() * 0.8);
 		});
 	});  	
 	

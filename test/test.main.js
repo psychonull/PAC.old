@@ -14,6 +14,8 @@ describe('Pac', function(){
 			expect(Pac.Obj).to.be.a('function');
 			expect(Pac.Scene).to.be.a('function');
 			expect(Pac.CommandAction).to.be.a('function');
+			expect(Pac.Action).to.be.a('function');
+			expect(Pac.Animation).to.be.a('function');
 		});
 	});
   
@@ -54,5 +56,36 @@ describe('Pac', function(){
 			expect(fn).to.throwException();
 			
 		});
+  });
+  
+  describe('#getContext()', function(){
+  	it('should retrieve the current Canvas context');
+  });
+  describe('#getWidth()', function(){
+  	it('should retrieve the current Canvas width');
+  });
+  describe('#getHeight()', function(){
+  	it('should retrieve the current Canvas height');
+  });
+  describe('#getSceneSize()', function(){
+  	it('should retrieve the current Scene size depending on the canvas context size');
+  });
+  describe('#getCommandBarSize()', function(){
+  	it('should retrieve the current Command Bar size depending on the canvas context size');
+  });
+  describe('#createCharacter()', function(){
+  	it('should add a Character to object');
+  });
+  describe('#getCharacter()', function(){
+  	it('should retrieve the current Character');
+  });
+  describe('#getCurrentScene()', function(){
+  	it('should retrieve the current Scene running');
+  });
+  describe('#getScenes()', function(){
+  	it('should retrieve the current Scene collection on the engine');
+  });
+  describe('#start()', function(){
+  	it('should start the game loop');
   });
 });

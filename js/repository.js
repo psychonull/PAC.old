@@ -68,7 +68,7 @@ Pac.repository = (function(){
 		},
 		
 		clear: function(){
-			var i = resources.getCount();
+			var i = getCount();
 			do {
 				if (this[resources[i]]){
 					this[resources[i]] = null;
