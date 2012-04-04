@@ -1,67 +1,69 @@
 
-
 Pac.Animation = function(options){
-	this.resName = options.resName;
-	
-	this.frames = options.frames;
-	
-	this.runTimes = options.runTimes || 0;
-	this.framesPerStep = options.framesPerStep || 1;
-	this.framesPerRound = options.framesPerRound || 0;
-	
-	this.currentStep = 0;
-	this.firstStep = options.firstStep || 0;
-	this.lastStep = this.frames.length - 1;
-	
-	this.running = false;
-	this.rounds = 0;
-	this.updTimes = 0;
-	this.movingRound = false;
-	
-	this.endCallback = (options.endCallback || function(){});
-};
+	var resName = options.resName,
 
-Pac.Animation.prototype.update = function() {
-	this.updTimes++;
-	
-	if (this.framesPerRound && this.movingRound){
-		if (this.updTimes > this.framesPerRound){
-			this.updTimes = 0;
-			this.movingRound = false;
-			this.rounds++;
+		frames = options.frames,
+		runTimes = options.runTimes || 0,
+		framesPerStep = options.framesPerStep || 1,
+		framesPerRound = options.framesPerRound || 0,
+		
+		currentStep = 0,
+		firstStep = options.firstStep || 0,
+		lastStep = frames.length - 1,
+		
+		running = false,
+		rounds = 0,
+		updTimes = 0,
+		movingRound = false,
+		
+		endCallback = (options.endCallback || function(){});
+
+	this.update = function() {
+		updTimes++;
+		
+		if (framesPerRound && movingRound){
+			if (updTimes > framesPerRound){
+				updTimes = 0;
+				movingRound = false;
+				rounds++;
+			}
 		}
-	}
-	else if (this.updTimes > this.framesPerStep) {
-		this.updTimes = 0;
-		
-		this.currentStep++;
-		if (this.currentStep > this.lastStep){
-			this.currentStep = 0;
-		
-			if (this.runTimes && this.runTimes === this.rounds)
-				this.stop();
+		else if (updTimes > framesPerStep) {
+			updTimes = 0;
 			
-			this.movingRound = true;
+			currentStep++;
+			if (currentStep > lastStep){
+				currentStep = 0;
+			
+				if (runTimes && runTimes === rounds)
+					this.stop();
+				
+				movingRound = true;
+			}
 		}
-	}
-};
-
-Pac.Animation.prototype.draw = function(x, y, w, h) {
-	var ctx = Pac.getContext(),
-		frm = this.frames[this.currentStep];
+	};
 	
-	ctx.drawImage(Pac.repository[this.resName], frm.x, frm.y, frm.width, frm.height, x, y, w, h);	
-};
+	this.draw = function(x, y, w, h) {
+		var ctx = Pac.getContext(),
+			frm = frames[currentStep];
+		
+		ctx.drawImage(Pac.repository[resName], frm.x, frm.y, frm.width, frm.height, x, y, w, h);	
+	};
+	
+	this.start = function() {
+		rounds = 1;
+		updTimes = 0;
+		currentStep = firstStep;
+		running = true;
+	};
+	
+	this.stop = function() {
+		running = false;
+		endCallback();
+	};
 
-Pac.Animation.prototype.start = function() {
-	this.rounds = 1;
-	this.updTimes = 0;
-	this.currentStep = this.firstStep;
-	this.running = true;
-};
-
-Pac.Animation.prototype.stop = function() {
-	this.running = false;
-	this.endCallback();
+	this.isRunning = function() {
+		return running;
+	};
 };
 

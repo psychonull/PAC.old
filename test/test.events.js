@@ -12,14 +12,14 @@ describe('Pac.events', function(){
 			expect(Pac.events.init).to.be.a('function');
 		});
 	});
-	describe('#bindMouse()', function(){
-		it('should be able to bind mouse events', function(){
-			expect(Pac.events.bindMouse).to.be.a('function');
+	describe('#bindEvents()', function(){
+		it('should be able to bind events', function(){
+			expect(Pac.events.bindEvents).to.be.a('function');
 		});
 	});
-	describe('#unbindMouse()', function(){
-		it('should be able to unbind mouse events', function(){
-			expect(Pac.events.unbindMouse).to.be.a('function');
+	describe('#unbindEvents()', function(){
+		it('should be able to unbind events', function(){
+			expect(Pac.events.unbindEvents).to.be.a('function');
 		});
 	});
 	describe('#attach()', function(){

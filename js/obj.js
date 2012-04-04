@@ -47,7 +47,7 @@ Pac.Obj.prototype.doAction = function() {
 Pac.Obj.prototype.update = function() {
 	var cAn = this.animations[this.currentAnimation];
 	if (cAn){
-		if (!cAn.running) cAn.start();
+		if (!cAn.isRunning()) cAn.start();
 		else cAn.update();
 	}
 };
