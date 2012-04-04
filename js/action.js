@@ -86,10 +86,14 @@ Pac.Action.prototype.execute = function(){
 				case 'removeFromInventory':
 					Pac.getCharacter().removeObj(this.obj);
 					break;
+				case 'conversation':
+					var conv = c.conversation;
+					
+					break;
 			}
 		}
 		
-		if (this.aremoveOnRun){
+		if (this.removeOnRun){
 			for (var act in this.obj.actions){
 				if (this.obj.actions[act] === this){
 					delete this.obj.actions[act];

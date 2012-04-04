@@ -1,8 +1,8 @@
 /*
  *	PAC 
  */
-
-var Pac = (function(){
+var Pac = Pac || {};
+Pac = (function(){
 	var canvas,
     ctx,
 		scenes = [],
