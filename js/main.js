@@ -5,6 +5,8 @@ var Pac = Pac || {};
 Pac = (function(){
 	var canvas,
     ctx,
+    canvasBuffer,
+    bufferCtx,
 		scenes = [],
 		currScene = 0,
 		requestAnimId = 0,
@@ -26,11 +28,13 @@ Pac = (function(){
 			character.draw();
 		}
 		Pac.modal.draw();
+		
+		ctx.drawImage(canvasBuffer, 0, 0);
 	};
 	
 	return {
 		getContext: function(){
-			return ctx;
+			return bufferCtx;
 		}, 
 		getWidth: function(){
 			return canvas.width;
@@ -57,8 +61,13 @@ Pac = (function(){
 			canvas = document.getElementById(canvasId);
 			if(!canvas) throw "There is no canvas with id " + canvasId;
 			
+			canvasBuffer = document.createElement('canvas');
+			canvasBuffer.width = canvas.width;
+			canvasBuffer.height = canvas.height;
+			
 			if (canvas.getContext){
 		  	ctx = canvas.getContext('2d');
+		  	bufferCtx = canvasBuffer.getContext('2d');
 			} else {
 			  throw "canvas is not supported!";
 			}
