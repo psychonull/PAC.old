@@ -59,7 +59,7 @@
 		framesPerStep: 5
 	});
 	
-	kingkong.onAction('push').run('animation', {animationName: 'moveToy'});
+	kingkong.onAction('push', {removeOnRun: false}).run('animation', {animationName: 'moveToy'});
 	
 	
 	screwdriver.onAction('pickUp')

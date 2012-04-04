@@ -7,8 +7,7 @@ Pac = (function(){
     ctx,
 		scenes = [],
 		currScene = 0,
-		loopInterval = 50,
-		timer = null,
+		requestAnimId = 0,
 		character;
 	
 	var update = function(){
@@ -97,14 +96,25 @@ Pac = (function(){
 		},
 		
 		start: function(){
-			if (timer) clearTimeout(timer);
+			
 			var loop = function(){
 				update();
 				draw();
-				timer = setTimeout(loop, loopInterval);
+				
+				requestAnimId = window.requestAnimationFrame(loop);
 			};
+			
 			loop();
+			
 			return this;
+		},
+		
+		stop: function(){
+			if (requestAnimId)
+		    window.cancelAnimationFrame(requestAnimId);
+		  requestAnimId = 0;
+		  
+		  return this;
 		}
 	};
 	
