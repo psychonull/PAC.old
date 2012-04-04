@@ -42,15 +42,15 @@ Pac.events = (function(){
 	}
 	
 	return {
-		init: function(canvasId){
-			canvas = document.getElementById('canvas');
+		init: function(canvasEle){
+			canvas = canvasEle;
 		},
 		
-		bindMouse: function(){			
+		bindEvents: function(){			
 			canvas.addEventListener('click', mouseClick, false);
 		},
 		
-		unbindMouse: function(){
+		unbindEvents: function(){
 			canvas.removeEventListener('click', mouseClick, false);
 		},
 		

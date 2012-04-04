@@ -72,8 +72,7 @@ Pac = (function(){
 			  throw "canvas is not supported!";
 			}
 			
-			Pac.events.init(canvasId);
-			Pac.events.bindMouse();
+			Pac.events.init(canvas);
 			Pac.commandBar.init();
 			Pac.modal.init();
 			
@@ -105,6 +104,7 @@ Pac = (function(){
 		},
 		
 		start: function(){
+			Pac.events.bindEvents();
 			
 			var loop = function(){
 				update();
