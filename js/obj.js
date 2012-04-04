@@ -37,8 +37,8 @@ Pac.Obj.prototype.onAction = function(name, opts) {
 Pac.Obj.prototype.doAction = function() {
 	if (!this.actions.hasOwnProperty(Pac.currentAction))
 		Pac.commandBar.log('I cannot do that');
-	else if (this.actions[Pac.currentAction].isLocked){
-		Pac.commandBar.log(this.actions[Pac.currentAction].lockedMsg);
+	else if (this.actions[Pac.currentAction].lock()){
+		Pac.commandBar.log(this.actions[Pac.currentAction].getLockedMsg());
 	} else	{
 		this.actions[Pac.currentAction].execute();
 	}
