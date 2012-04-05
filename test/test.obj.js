@@ -25,7 +25,7 @@ describe('Pac.Obj', function(){
 
 	describe('#actions()', function(){
 		it('should have actions configured', function(){
-			expect((new Pac.Obj).actions).to.be.a('object');
+			expect((new Pac.Obj).getActions()).to.be.a('object');
 		});
 		it('may not have any valid action');
 		it('will allow to add actions later');

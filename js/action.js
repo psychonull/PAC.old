@@ -16,7 +16,7 @@ Pac.Action = function(owner, nameAct, options){
 	//Set default consequences for this action
 	switch (name){
 		case 'lookAt':
-			consequences.push({name: 'showText', text: obj.name})
+			consequences.push({name: 'showText', text: obj.name()})
 			break;
 		case 'pickUp':
 			consequences.push({name: 'addToInventory'})
@@ -37,7 +37,7 @@ Pac.Action = function(owner, nameAct, options){
 		opts.name = cName; 
 		consequences.push(opts);
 		
-		return obj.actions[name];
+		return obj.getActions()[name];
 	}
 	
 	this.execute = function(){
@@ -51,19 +51,20 @@ Pac.Action = function(owner, nameAct, options){
 				
 				switch(c.name){
 					case 'showText':
-						Pac.commandBar.log(c.text || obj.name);
+						Pac.commandBar.log(c.text || obj.name());
 						break;
 					case 'moveToScene':
 						//Pac.changeToScene(c.sceneName || c.sceneIndex);
 						break;
 					case 'showInfo':
-						Pac.modal.show(obj.name, c.resourceName);
+						Pac.modal.show(obj.name(), c.resourceName);
 						break;
 					case 'unlockAction':
+						//TODO: change to Pac.Obj
 					  var nObj = c.obj || obj;
-						for (var act in nObj.actions){
+						for (var act in nObj.getActions()){
 							if (act === c.action){
-								nObj.actions[act].lock(false);
+								nObj.getActions()[act].lock(false);
 								break;
 							}
 						}
@@ -91,12 +92,7 @@ Pac.Action = function(owner, nameAct, options){
 			}
 			
 			if (removeOnRun){
-				for (var act in obj.actions){
-					if (obj.actions[act] === this){
-						delete obj.actions[act];
-						break;
-					}
-				}
+				removeAction(this);
 				//TODO: this.destroy();
 			}
 			

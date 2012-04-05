@@ -42,10 +42,10 @@ Pac.Character = function(nameChar, resNameChar, options){
 		
 		var lastX = (items.length * 50) + 20;
 		
-		obj.attrs.x = lastX + 50;
-		obj.attrs.y = Pac.getHeight() - 60;
-		obj.attrs.width = 50;
-		obj.attrs.height = 50;
+		obj.getAttrs().x = lastX + 50;
+		obj.getAttrs().y = Pac.getHeight() - 60;
+		obj.getAttrs().width = 50;
+		obj.getAttrs().height = 50;
 		
 		items.push(obj);
 	};
