@@ -22,16 +22,16 @@ describe('Pac.Character', function(){
 	describe('#pickUp()', function(){
 		it('should have the ability to pickup an object', function(){
 			var aDude = new Pac.Character('N/N');
-			expect(aDude.items).to.be.empty();
+			expect(aDude.getInventory()).to.be.empty();
 			aDude.pickUp(something);
-			expect(aDude.items).not.to.be.empty();
+			expect(aDude.getInventory()).not.to.be.empty();
 		});
 		it('should not be able to pickUp something twice', function(){
 			var aDude = new Pac.Character('N/N');
-			expect(aDude.items).to.be.empty();
+			expect(aDude.getInventory()).to.be.empty();
 			aDude.pickUp(something);
 			aDude.pickUp(something);
-			expect(aDude.items.length).to.be.equal(1);
+			expect(aDude.getInventory().length).to.be.equal(1);
 		});
 	});  	
 	describe('#getHand()', function(){

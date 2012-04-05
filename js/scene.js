@@ -54,7 +54,7 @@ Pac.Scene = function(titleSc, resNameSc, options){
 	};
 	
 	this.getObjects = function() {
-		return objects;
+		return objects; //TODO: return a clone for security
 	}
 	
 };
