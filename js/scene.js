@@ -3,58 +3,59 @@
  * May know related scenes. 
  */
 
-Pac.Scene = function(title, resName, options){
+
+Pac.Scene = function(titleSc, resNameSc, options){
+	var title = titleSc || 'Untitled Scene',
+		resName = resNameSc,
+		objects = [],
 	
-	this.title = title || 'Untitled Scene';
-	this.objects = [];
-	this.resName = resName;
-	
-	this.attrs = {
-		x: 0,
-		y: 0,
-		width: function(){ return Pac.getSceneSize().width; },
-		height: function(){ return Pac.getSceneSize().height; }
-	};
+		attrs = {
+			x: 0,
+			y: 0,
+			width: function(){ return Pac.getSceneSize().width; },
+			height: function(){ return Pac.getSceneSize().height; }
+		};
 	
 	//TODO: initial position of character.
-};
-
-Pac.Scene.prototype.addObj = function(obj){
-	if (obj.constructor != Pac.Obj) throw "type of parameter obj MUST be typeof Pac.Obj";
 	
-	this.objects.push(obj);
-	return this;
-}
-
-Pac.Scene.prototype.removeObj = function(obj){
-	if (obj.constructor != Pac.Obj) throw "type of parameter obj MUST be typeof Pac.Obj";
-	if (this.objects.indexOf(obj) === -1)
-	  return this;
-	this.objects.splice(this.objects.indexOf(obj),1);
-	return this;
-}
-
-Pac.Scene.prototype.update = function() {
+	this.addObj = function(obj){
+		if (obj.constructor != Pac.Obj) throw "type of parameter obj MUST be typeof Pac.Obj";
+		
+		objects.push(obj);
+		return this;
+	};
 	
-	//update scene state
-	//TODO: if the resource was not loaded, load it now with all belong objects
+	this.removeObj = function(obj){
+		if (obj.constructor != Pac.Obj) throw "type of parameter obj MUST be typeof Pac.Obj";
+		if (objects.indexOf(obj) === -1)
+		  return this;
+		  
+		objects.splice(objects.indexOf(obj),1);
+		return this;
+	};
 	
-  for(var i = 0, len = this.objects.length; i < len; ++i){
-  	this.objects[i].update();
-  }
-   
+	this.update = function() {
+		//TODO: if the resource was not loaded, load it now with all belong objects
+		
+	  for(var i = 0, len = objects.length; i < len; ++i){
+	  	objects[i].update();
+	  }
+	   
+	};
+	
+	this.draw = function() {
+	  var ctx = Pac.getContext();
+	  if (!Pac.repository[resName]) throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
+	  ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width(), attrs.height());
+	   
+		for(var i = 0, len = objects.length; i < len; i++){
+		 	objects[i].draw();       
+		}
+	};
+	
+	this.getObjects = function() {
+		return objects;
+	}
+	
 };
-
-Pac.Scene.prototype.draw = function() {
-  var ctx = Pac.getContext();
-  if (!Pac.repository[this.resName]) throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
-  ctx.drawImage(Pac.repository[this.resName],this.attrs.x,this.attrs.y, this.attrs.width(), this.attrs.height());
-   
-   for(var i = 0, len = this.objects.length; i < len; i++){
-        this.objects[i].draw();       
-   } 
-   
-};
-
-
 
