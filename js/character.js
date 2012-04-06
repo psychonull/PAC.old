@@ -75,6 +75,13 @@ Pac.Character = function(nameChar, resNameChar, options){
 		walkPath = path;
 		isWalking = true;
 	}
+	
+	this.getPosition = function(){
+		return {
+			x: attrs.x,
+			y: attrs.y
+		};
+	}
 
 };
 
