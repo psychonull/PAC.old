@@ -20,29 +20,87 @@ Pac.Path = function(area, entity){
 	
 	var createNodeNetwork = function(fromPoint, toPoint){
 		var nodes = [],
-			idx = getPolygonIndex(fromPoint),
-			polyEnd = getPolygonIndex(toPoint),
+			fromIdx = getPolygonIndex(fromPoint),
+			toIdx = getPolygonIndex(toPoint),
 			m = 1;
-			
-		if (idx > polyEnd) m = -1;
-		
-		//node = { point: {x, y}, neightbors: [{x, y}] };
 		
 		function getNeighbors(polyIdx){
-			
-			if(links[polyIdx] !== undefined){
-				var neigborIdx = idx + m;
-				if (links[polyIdx][neigborIdx] !== undefined){
-					nodes.push(links[polyIdx][neigborIdx]);
+			if(getNeighbors[polyIdx])
+				return getNeighbors[polyIdx];
+			var result = [];
+			for(var j = 0; j < links.length; j++){
+				if(links[j] !== undefined){
+					if (links[j][polyIdx] !== undefined){
+						if (result.indexOf(j) === -1)
+							result.push(j);
+					}
 				}
 			}
 			
-			idx += m;
-			if((m === 1 && idx < polyEnd) || (m === -1 && idx > polyEnd))
-				getNeighbors(idx);
+			if (links[polyIdx] !== undefined){
+				for (var i = 0; i < links[polyIdx].length; i ++){
+					if (links[polyIdx][i] !== undefined){
+						if (result.indexOf(i) === -1)
+							result.push(i);
+					}
+				}	
+			}
+			getNeighbors[polyIdx] = result;
+			return result;
 		}
 		
-		getNeighbors(idx);
+		function getLink(polyStart, polyEnd){
+			if(links[polyStart] !== undefined && links[polyStart][polyEnd] !== undefined)
+				return links[polyStart][polyEnd];
+			if(links[polyEnd] !== undefined && links[polyEnd][polyStart] !== undefined)
+				return links[polyEnd][polyStart];
+			return null;	
+		}
+		
+		function isDirectNeighbor(a, b){
+			return getNeighbors(a).indexOf(b) !== -1;
+		}
+		
+		function getQueue(from, to, parent){
+			if(!getQueue[from]) getQueue[from] =[];
+			if(!getQueue[from][to]) getQueue[from][to] = [];
+			getQueue[from][to].push(from);
+			if(isDirectNeighbor(from, to)){	
+				if(parent !== undefined){
+					getQueue[parent][to].push(from);
+					getQueue[parent][to].push(to);
+					return getQueue[parent][to]
+				}
+				else{
+					getQueue[from][to].push(to);
+					return getQueue[from][to];
+				}
+				
+			}
+			else{
+				var n = getNeighbors(from);
+				if(parent && n.indexOf(parent) !== -1)
+					n.splice(n.indexOf(parent),1);
+				for(var i = 0; i < n.length; i++){
+					if(parent){
+						return getQueue[parent][to] = getQueue[parent][to].concat(getQueue(n[i], to, from)); 
+					}
+					else{
+						return getQueue(n[i], to, from) ;	
+					}
+				}
+			}
+			
+		}
+		
+		function getNodes(from, to){
+			var q = getQueue(from, to);
+			for(var i = 0; i < q.length -1; i++){
+				nodes.push(getLink(q[i], q[i+1]));
+			}
+		}
+		
+		getNodes(fromIdx, toIdx);
 		nodeNetwork = nodes;
 	}
 	
@@ -64,9 +122,9 @@ Pac.Path = function(area, entity){
 			}
 			else {
 				createNodeNetwork(fromPoint, toPoint);
+			
 				setNextNodePoint();
 			}
-			
 			entity.moveTo(this);
 	};
 	

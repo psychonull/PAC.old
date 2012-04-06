@@ -124,8 +124,21 @@
 				{x: 580, y: 330},
 				{x: 515, y: 345},
 				{x: 465, y: 365}
-			]];
-	
+			],
+			[	{x: 10, y: 475},
+                {x: 111, y: 475},
+                {x: 270, y: 390},
+                {x: 90, y: 390},
+                {x: 10, y: 360}]
+            ,
+            [
+            	{x: 6, y: 343},
+                {x: 100, y: 375},
+                {x: 300, y: 367},
+                {x: 256, y: 238},
+                {x: 18, y: 228}]
+            ];
+			
 	area.links = [];
 	
 	area.links[0] = [];
@@ -135,22 +148,52 @@
 			};
 			
 	area.links[1] = [];
-	area.links[1][0] = {
+	/*area.links[1][0] = {
 				x:380,
 				y:405
 			};
+			*/
 	area.links[1][2] = {
 				x:460,
 				y:345
 			};
-	
+	area.links[1][4] = {
+                               x:310,
+                               y:338
+                       };
 	area.links[2] = [];
-	area.links[2][1] = {
+	/*area.links[2][1] = {
 				x:460,
 				y:345
-			};
+		};	
+	*/
+	 area.links[0][3] = {
+                               x:130,
+                               y:465
+                       };
+	area.links[3] = [];
+      /* area.links[3][0] = {
+                               x:130,
+                               y:465
+                       };
+                       */
+       area.links[3][4] = {
+                               x:55,
+                               y:370
+                      };
 	
+       /*area.links[4] = [];
+        area.links[4][1] = {
+       
+                               x:310,
+                               y:338
+                       };
 	
+       /*area.links[4][3] = {
+                               x:55,
+                               y:370
+                       };
+	*/
 	var walkableArea = new Pac.Path(area, charac);
 	
 	var scOffice = new Pac.Scene('One day at work', 'scOffice')
