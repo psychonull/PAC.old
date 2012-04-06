@@ -37,8 +37,8 @@ Pac.modal = (function(){
 				hasPoint: function(point){
 					return Pac.math.pointInCircle(this.attrs, point);
 				},
-				fireEvent: function(type){
-					if (type === 'click')
+				fireEvent: function(e){
+					if (e.type === 'click')
 						Pac.modal.hide();
 				}
 			};
