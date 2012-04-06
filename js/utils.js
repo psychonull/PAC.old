@@ -37,3 +37,10 @@ Pac.math = (function(){
 		}
 	};
 })();
+
+Pac.direction = {
+	UP: 1,
+	RIGHT: 2,
+	DOWN: 3,
+	LEFT: 4
+};

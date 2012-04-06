@@ -15,11 +15,18 @@ Pac.Character = function(nameChar, resNameChar, options){
 	
 		handItem = {},
 		inventory = new Pac.Inventory(),
-		walkPath;
+		walkPath,
+		animations = {},
+		currentAnimation = 'idle';
 		
 	this.update = function() {
 		inventory.update();
 	
+		var cAn = animations[currentAnimation];
+		if (cAn){
+			if (!cAn.isRunning()) cAn.start();
+			else cAn.update();
+		}	
 		if (walkPath){
 			
 			var p = {
@@ -34,17 +41,17 @@ Pac.Character = function(nameChar, resNameChar, options){
 			
 			if (walkPath.isOnTarget(p2)){
 				walkPath = null;
+				currentAnimation = 'idle';
 			}
-			
 		}
 	};
 	
 	this.draw = function() {
 		//draw image obj
 		var ctx = Pac.getContext();
-		if (resName) {
-		  ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width, attrs.height);	
-		}
+	  if (animations[currentAnimation])
+	  	animations[currentAnimation].draw(attrs.x, attrs.y, attrs.width, attrs.height);
+	  else ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width, attrs.height);	
 		
 		inventory.draw();
 	};
@@ -79,6 +86,30 @@ Pac.Character = function(nameChar, resNameChar, options){
 			x: attrs.x + attrs.width/2,
 			y: attrs.y + attrs.height
 		};
+	}
+	
+	this.addAnimation = function(name, opts) {
+		if (!opts.resName) opts.resName = resName;
+		
+		animations[name] = new Pac.Animation(opts);
+		return this;
+	};
+	
+	this.onDirectionChange = function(dir){
+		switch (dir){
+			case Pac.direction.UP:
+				currentAnimation = 'up';
+				break;
+			case Pac.direction.DOWN:
+				currentAnimation = 'down';
+				break;
+			case Pac.direction.RIGHT:
+				currentAnimation = 'right';
+				break;
+			case Pac.direction.LEFT:
+				currentAnimation = 'left';
+				break;
+		}
 	}
 
 };

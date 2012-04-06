@@ -108,6 +108,26 @@ Pac.Path = function(area, entity){
 		nextNodePoint = (nodeNetwork[0] || toPoint); 
 	};
 	
+	//TODO: handle list of handlers - similar fashion to events.js?
+	var setDirection = function(delta){
+		var direction = Pac.direction.DOWN;
+		if (setDirection['current'] === undefined){
+			setDirection['current'] = direction;
+		}
+		if(Math.abs(delta.x) > Math.abs(delta.y)){
+			direction = delta.x > 0 ? Pac.direction.RIGHT : Pac.direction.LEFT;
+		}
+		else 
+		{
+			direction = delta.y < 0 ? Pac.direction.UP : Pac.direction.DOWN;
+		}
+							
+		if(setDirection['current'] !== direction){
+			setDirection['current'] = direction;
+			entity.onDirectionChange(setDirection['current']);
+		}			
+	}
+		
 	this.hasPoint = function(point) {
 		return getPolygonIndex(point) !== null;
 	};
@@ -143,6 +163,8 @@ Pac.Path = function(area, entity){
 			
 			dist = Math.sqrt(Math.pow(delta.x,2) + Math.pow(delta.y,2)),
 			ratio = 1;
+
+		setDirection(delta);
 			
 		if (dist > vel){
 			ratio = vel / dist;
@@ -167,7 +189,7 @@ Pac.Path = function(area, entity){
 		for (var j = 0; j < polygons.length; j++){
 			polygon = polygons[j];
 			ctx.save();
-		  ctx.fillStyle = 'rgba(250,0,0,0.5)';
+		  	ctx.fillStyle = 'rgba(250,0,0,0.5)';
 			ctx.beginPath();
 			ctx.moveTo(polygon[0].x, polygon[0].y);
 			

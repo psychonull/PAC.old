@@ -6,7 +6,7 @@
 			'scOffice':'office.jpg',
 			'laptop':'laptop.png',
 			'screwdriver': 'screwdriver.jpg',
-			'dude': 'char.png',
+			'dude': 'butthead.png',
 			'kingkong': 'kingkong.png'
 		});
 	
@@ -100,16 +100,45 @@
 			height: 270
 	});
 	
+	var dudeRightFrames = [];
+	for(var i=205; i<640; i+=42){
+		dudeRightFrames.push({
+			x: i,
+			y: 0,
+			width: 42,
+			height: 105
+		});	
+	}
+	
+	var idleFrames = [];
+	for(var i=875; i<1090; i+=42){
+		idleFrames.push({
+			x: i,
+			y: 0,
+			width: 42,
+			height: 105
+		});	
+	}
+	charac.addAnimation('idle', {
+		frames: idleFrames,
+		framesPerStep: 100,
+		framesPerRound: 200
+	}).addAnimation('right', {
+		frames: dudeRightFrames,
+		framesPerStep: 20,
+		framesPerRound: 0
+	});
+	
 	var area = {};
 	area.polygons = [[
 				{x: 113, y: 480},
-				{x: 310, y: 375}, //{x: 340, y: 390},
+				{x: 310, y: 375},
 				{x: 395, y: 410},
 				{x: 395, y: 480}
 			],
 			[
 				{x: 385, y: 400},
-				{x: 315, y: 370}, //{x: 345, y: 385},
+				{x: 315, y: 370},
 				{x: 345, y: 330},
 				{x: 410, y: 340},
 				{x: 455, y: 320},
@@ -126,8 +155,8 @@
 				{x: 465, y: 365}
 			],
 			[	{x: 10, y: 475},
-                {x: 111, y: 475},
-                {x: 270, y: 390},
+                {x: 111,y: 475},
+                {x: 270,y: 390},
                 {x: 90, y: 390},
                 {x: 10, y: 360}]
             ,
@@ -148,11 +177,6 @@
 			};
 			
 	area.links[1] = [];
-	/*area.links[1][0] = {
-				x:380,
-				y:405
-			};
-			*/
 	area.links[1][2] = {
 				x:460,
 				y:345
@@ -162,38 +186,16 @@
                                y:338
                        };
 	area.links[2] = [];
-	/*area.links[2][1] = {
-				x:460,
-				y:345
-		};	
-	*/
 	 area.links[0][3] = {
                                x:130,
                                y:465
                        };
 	area.links[3] = [];
-      /* area.links[3][0] = {
-                               x:130,
-                               y:465
-                       };
-                       */
-       area.links[3][4] = {
+    area.links[3][4] = {
                                x:55,
                                y:370
                       };
 	
-       /*area.links[4] = [];
-        area.links[4][1] = {
-       
-                               x:310,
-                               y:338
-                       };
-	
-       /*area.links[4][3] = {
-                               x:55,
-                               y:370
-                       };
-	*/
 	var walkableArea = new Pac.Path(area, charac);
 	
 	var scOffice = new Pac.Scene('One day at work', 'scOffice')
