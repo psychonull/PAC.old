@@ -100,8 +100,30 @@
 			height: 270
 	});
 	
+	var area = {};
+	area.polygons = [[
+				{x: 200, y: 100},
+				{x: 200, y: 300},
+				{x: 400, y: 300},
+				{x: 400, y: 100}
+			],
+			[
+				{x: 410, y: 111},
+				{x: 410, y: 311},
+				{x: 610, y: 311},
+				{x: 610, y: 111}
+			]];
+	area.links = [];
+	area.links[0] = [];
+	area.links[0][1] = [{
+				x:200,
+				y:200
+			}, {
+				x:200,
+				y:100
+			}];
 	
-	var walkableArea = new Pac.Path([], charac);
+	var walkableArea = new Pac.Path(area, charac);
 	
 	var scOffice = new Pac.Scene('One day at work', 'scOffice')
 								.addObj(laptop)

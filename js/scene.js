@@ -9,7 +9,7 @@ Pac.Scene = function(titleSc, resNameSc, options){
 		resName = resNameSc,
 		objects = [],
 		paths = [],
-	
+		
 		attrs = {
 			x: 0,
 			y: 0,
@@ -59,6 +59,7 @@ Pac.Scene = function(titleSc, resNameSc, options){
 		for(var i = 0, len = objects.length; i < len; i++){
 		 	objects[i].draw();       
 		}
+		paths[0]._draw(); //TODO: DELETE
 	};
 	
 	this.getObjects = function() {

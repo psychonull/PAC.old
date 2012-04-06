@@ -19,8 +19,9 @@ Pac.Character = function(nameChar, resNameChar, options){
 		
 	this.update = function() {
 		inventory.update();
-		
+	
 		if (walkPath){
+			
 			var p = {
 				x: attrs.x + attrs.width/2,
 				y: attrs.y + attrs.height
