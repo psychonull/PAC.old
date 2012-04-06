@@ -61,8 +61,6 @@ Pac.Character = function(nameChar, resNameChar, options){
 		handIwalkTotem = obj;
 	};
 			
-		
-
 	this.clearHand = function(){
 		handItem = null;
 	};
@@ -78,8 +76,8 @@ Pac.Character = function(nameChar, resNameChar, options){
 	
 	this.getPosition = function(){
 		return {
-			x: attrs.x,
-			y: attrs.y
+			x: attrs.x + attrs.width/2,
+			y: attrs.y + attrs.height
 		};
 	}
 

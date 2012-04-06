@@ -92,7 +92,7 @@ Pac.Action = function(owner, nameAct, options){
 			}
 			
 			if (removeOnRun){
-				removeAction(this);
+				obj.removeAction(this);
 				//TODO: this.destroy();
 			}
 			
