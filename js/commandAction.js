@@ -40,8 +40,8 @@ Pac.CommandAction = function(nameCmd, actionCmd, options){
 		return Pac.math.pointInRectangle(attrs, point);
 	};
 	
-	this.fireEvent = function(type){
-		if (type === 'click')
+	this.fireEvent = function(e){
+		if (e.type === 'click')
 			Pac.currentAction = action;
 	};
 

@@ -93,18 +93,21 @@
 	laptop.onAction('lookAt', { removeOnRun: false })
 		.run('showInfo', { resourceName: 'laptop' });
 	
-	
-	var scOffice = new Pac.Scene('One day at work', 'scOffice')
-								.addObj(laptop)
-								.addObj(screwdriver)
-								.addObj(kingkong);
-	
 	var charac = new Pac.Character('The dude', 'dude', {
 			x: 280,
 			y: 190,
 			width: 90,
 			height: 270
 	});
+	
+	
+	var walkableArea = new Pac.Path([], charac);
+	
+	var scOffice = new Pac.Scene('One day at work', 'scOffice')
+								.addObj(laptop)
+								.addObj(screwdriver)
+								.addObj(kingkong)
+								.addPath(walkableArea);
 			
 	Pac.init('canvas').createCharacter(charac).addScene(scOffice);
 		

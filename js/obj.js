@@ -77,8 +77,8 @@ Pac.Obj = function(nameObj, resNameObj, options){
 		else if(circle) return Pac.math.pointInCircle(circle, point);
 	};
 	
-	this.fireEvent = function(type) {
-		if (type === 'click')
+	this.fireEvent = function(e) {
+		if (e.type === 'click')
 			this.doAction();
 	}
 	

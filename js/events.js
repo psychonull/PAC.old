@@ -6,6 +6,13 @@
 Pac.events = (function(){
 	var canvas;
 	
+	var wrapEvent = function(type, point){
+		return {
+			'type': type,
+			'point': point
+		};
+	};
+	
 	var getCoords = function(e){
 		if (e.pageX || e.pageY) { 
 		  x = e.pageX;
@@ -34,8 +41,8 @@ Pac.events = (function(){
 		for(var i=0; i< objsL; i++){
 			var o = objsToClick[i];
 			
-			if (o.hasPoint({x: mPos.x, y: mPos.y})) {
-				o.fireEvent('click');
+			if (o.hasPoint(mPos)) {
+				o.fireEvent(wrapEvent('click', mPos));
 				break;
 			}
 		}

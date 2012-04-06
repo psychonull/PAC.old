@@ -14,10 +14,30 @@ Pac.Character = function(nameChar, resNameChar, options){
 		},
 	
 		handItem = {},
-		inventory = new Pac.Inventory();
+		inventory = new Pac.Inventory(),
+		walkPath;
 		
 	this.update = function() {
 		inventory.update();
+		
+		if (walkPath){
+			//logica de velocidad y actualizar x e y...
+			
+			var p = {
+				x: attrs.x + attrs.width/2,
+				y: attrs.y + attrs.height
+			};
+			
+			var p2 = walkPath.nextPoint(p, 1);
+			
+			attrs.x = p2.x - (attrs.width/2);
+			attrs.y = p2.y - attrs.height;
+			
+			if (walkPath.isOnTarget(p2)){
+				walkPath = null;
+			}
+			
+		}
 	};
 	
 	this.draw = function() {
@@ -39,9 +59,11 @@ Pac.Character = function(nameChar, resNameChar, options){
 	};
 	
 	this.setHand = function(obj){
-		handItem = obj;
+		handIwalkTotem = obj;
 	};
-	
+			
+		
+
 	this.clearHand = function(){
 		handItem = null;
 	};
@@ -49,6 +71,11 @@ Pac.Character = function(nameChar, resNameChar, options){
 	this.getInventory = function(){
 		return inventory.getItems(); //TODO: maybe should return a clone for security
 	};
+
+	this.moveTo = function(path){
+		walkPath = path;
+		isWalking = true;
+	}
 
 };
 

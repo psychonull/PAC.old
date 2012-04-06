@@ -8,6 +8,7 @@ Pac.Scene = function(titleSc, resNameSc, options){
 	var title = titleSc || 'Untitled Scene',
 		resName = resNameSc,
 		objects = [],
+		paths = [],
 	
 		attrs = {
 			x: 0,
@@ -31,6 +32,13 @@ Pac.Scene = function(titleSc, resNameSc, options){
 		  return this;
 		  
 		objects.splice(objects.indexOf(obj),1);
+		return this;
+	};
+	
+	this.addPath = function(path){
+		if (path.constructor != Pac.Path) throw "type of parameter obj MUST be typeof Pac.Path";
+		
+		paths.push(path);
 		return this;
 	};
 	
