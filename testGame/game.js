@@ -94,8 +94,8 @@
 		.run('showInfo', { resourceName: 'laptop' });
 	
 	var charac = new Pac.Character('The dude', 'dude', {
-			x: 280,
-			y: 190,
+			x: 300,
+			y: 10,
 			width: 90,
 			height: 270
 	});

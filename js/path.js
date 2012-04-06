@@ -7,6 +7,22 @@ Pac.Path = function(area, entity){
 
 	Pac.events.attach(this);
 	
+	var getPolygonIndex = function(point){
+		for (var i = 0; i < polygons.length; i++){
+			if (Pac.math.pointInPolygon(polygons[i], point))
+				return i;	
+		}
+		return null;
+	};
+	
+	var getLinksPath = function(indexFrom, indexTo){
+		var result = [];
+		if(links[indexFrom] !== undefined){
+		
+		}
+	}
+	
+	
 	this.hasPoint = function(point) {
 		return getPolygonIndex(point) !== null;
 	};
@@ -18,23 +34,30 @@ Pac.Path = function(area, entity){
 	};
 	
 	this.nextPoint = function(from, vel){
-		var delta = {
-			x: toPoint.x - from.x,
-			y: toPoint.y - from.y	
-		},
-		dist = Math.sqrt(Math.pow(delta.x,2) + Math.pow(delta.y,2)),
-		ratio = 1;
-		if (dist > vel){
-			ratio = vel / dist;
-			return {
-				x: from.x + ratio * delta.x ,
-				y: from.y + ratio * delta.y
+		if (!this.hasPoint(toPoint)){
+			//TODO: get closest polygon??			
+		}
+		if (getPolygonIndex(from) === getPolygonIndex(toPoint)){
+			var delta = {
+					x: toPoint.x - from.x,
+					y: toPoint.y - from.y	
+				},
+				dist = Math.sqrt(Math.pow(delta.x,2) + Math.pow(delta.y,2)),
+				ratio = 1;
+			if (dist > vel){
+				ratio = vel / dist;
+				return {
+					x: from.x + ratio * delta.x ,
+					y: from.y + ratio * delta.y
+				}
 			}
+			else{
+				return toPoint;
+			}	
 		}
-		else{
-			return toPoint;
+		else {
+			return from;
 		}
-		
 	};
 	
 	this.isOnTarget = function(from){
@@ -59,14 +82,7 @@ Pac.Path = function(area, entity){
 			ctx.restore();	
 		}
 	  	
-	};
+	}; 
 	
-	function getPolygonIndex(point){
-		for (var i = 0; i < polygons.length; i++){
-			if (Pac.math.pointInPolygon(polygons[i], point))
-				return i;	
-		}
-		return null;
-	} 
 	
 };
