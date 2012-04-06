@@ -6,9 +6,6 @@ Pac.Character = function(nameChar, resNameChar, options){
 	var name = nameChar,
 		resName = resNameChar || '',
 		
-		//array of obj owned by the char
-		items = [],
-		
 		attrs = {
 			x: (options && options.x) || 0,
 			y: (options && options.y) || 0,
@@ -16,10 +13,11 @@ Pac.Character = function(nameChar, resNameChar, options){
 			height: (options && options.height) || 50
 		},
 	
-		handItem = {};
+		handItem = {},
+		inventory = new Pac.Inventory();
 		
 	this.update = function() {
-		//update object state
+		inventory.update();
 	};
 	
 	this.draw = function() {
@@ -28,26 +26,12 @@ Pac.Character = function(nameChar, resNameChar, options){
 		if (resName) {
 		  ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width, attrs.height);	
 		}
-		for(var i=0; i< items.length; i++){
-			items[i].draw();
-		}
+		
+		inventory.draw();
 	};
 	
 	this.pickUp = function(obj){
-		//TODO: changing position, etc. should be part of the item.update() method
-		if (items.indexOf(obj) !== -1){
-			Pac.commandBar.log('Ya lo tengo...');
-			return;
-		}
-		
-		var lastX = (items.length * 50) + 20;
-		
-		obj.getAttrs().x = lastX + 50;
-		obj.getAttrs().y = Pac.getHeight() - 60;
-		obj.getAttrs().width = 50;
-		obj.getAttrs().height = 50;
-		
-		items.push(obj);
+		inventory.add(obj);
 	};
 	
 	this.getHand = function(){
@@ -63,7 +47,7 @@ Pac.Character = function(nameChar, resNameChar, options){
 	};
 	
 	this.getInventory = function(){
-		return items; //TODO: maybe should return a clone for security
+		return inventory.getItems(); //TODO: maybe should return a clone for security
 	};
 
 };
