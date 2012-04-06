@@ -16,26 +16,22 @@ Pac.Path = function(area, entity){
 			entity.moveTo(this);
 	};
 	
-	this.nextPoint = function(from, step){
-				
-		var m = (toPoint.y - from.y)/(toPoint.x - from.x),
-			b = from.y - m * from.x;
-		
-		var calcY = function(x){
-			return m * x + b;
+	this.nextPoint = function(from, vel){
+		var delta = {
+			x: toPoint.x - from.x,
+			y: toPoint.y - from.y	
+		},
+		dist = Math.sqrt(Math.pow(delta.x,2) + Math.pow(delta.y,2)),
+		ratio = 1;
+		if (dist > vel){
+			ratio = vel / dist;
+			return {
+				x: from.x + ratio * delta.x ,
+				y: from.y + ratio * delta.y
+			}
 		}
-		
-		var calcX = function(){
-			return m * x + b;
-		}
-		
-		
-		var r = (from.x > toPoint.x) ? -1 : 1;
-		var xNew = from.x + (step * r);
-		
-		return {
-			x: xNew,
-			y: calcY(xNew)
+		else{
+			return toPoint;
 		}
 		
 	};

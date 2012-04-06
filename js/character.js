@@ -21,14 +21,12 @@ Pac.Character = function(nameChar, resNameChar, options){
 		inventory.update();
 		
 		if (walkPath){
-			//logica de velocidad y actualizar x e y...
-			
 			var p = {
 				x: attrs.x + attrs.width/2,
 				y: attrs.y + attrs.height
 			};
 			
-			var p2 = walkPath.nextPoint(p, 1);
+			var p2 = walkPath.nextPoint(p, 1.5);
 			
 			attrs.x = p2.x - (attrs.width/2);
 			attrs.y = p2.y - attrs.height;
