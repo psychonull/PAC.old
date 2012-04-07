@@ -96,36 +96,86 @@
 	var charac = new Pac.Character('The dude', 'dude', {
 			x: 185,
 			y: 200,
-			width: 90,
-			height: 270
+			width: 70,
+			height: 200
 	});
 	
 	var dudeRightFrames = [];
-	for(var i=205; i<640; i+=42){
+	for(var i=0; i<400; i+=40){
 		dudeRightFrames.push({
 			x: i,
 			y: 0,
-			width: 42,
-			height: 105
+			width: 40,
+			height: 90
+		});	
+	}
+	
+	var dudeLeftFrames = [];
+	for(var i=0; i<400; i+=40){
+		dudeLeftFrames.push({
+			x: i,
+			y: 90,
+			width: 40,
+			height: 90
+		});	
+	}
+	
+	var dudeUpFrames = [];
+	for(var i=400; i<640; i+=40){
+		dudeUpFrames.push({
+			x: i,
+			y: 0,
+			width: 40,
+			height: 90
+		});	
+	}
+	
+	var dudeDownFrames = [];
+	for(var i=400; i<640; i+=40){
+		dudeDownFrames.push({
+			x: i,
+			y: 90,
+			width: 40,
+			height: 90
 		});	
 	}
 	
 	var idleFrames = [];
-	for(var i=875; i<1090; i+=42){
-		idleFrames.push({
-			x: i,
-			y: 0,
-			width: 42,
-			height: 105
-		});	
+	idleFrames.push({
+			x: 640,
+			y: 90,
+			width: 40,
+			height: 90
+	});
+	for (var j=0; j< 8; j++){
+		for(var i=680; i<840; i+=40){
+			idleFrames.push({
+				x: i,
+				y: 90,
+				width: 40,
+				height: 90
+			});	
+		}
 	}
 	charac.addAnimation('idle', {
 		frames: idleFrames,
-		framesPerStep: 100,
-		framesPerRound: 200
+		framesPerStep: 5,
+		framesPerRound: 300
 	}).addAnimation('right', {
 		frames: dudeRightFrames,
-		framesPerStep: 20,
+		framesPerStep: 5,
+		framesPerRound: 0
+	}).addAnimation('left', {
+		frames: dudeLeftFrames,
+		framesPerStep: 5,
+		framesPerRound: 0
+	}).addAnimation('up', {
+		frames: dudeUpFrames,
+		framesPerStep: 5,
+		framesPerRound: 0
+	}).addAnimation('down', {
+		frames: dudeDownFrames,
+		framesPerStep: 5,
 		framesPerRound: 0
 	});
 	
@@ -148,32 +198,41 @@
 				{x: 460, y: 320},
 				{x: 525, y: 315},
 				{x: 585, y: 300},
-				{x: 700, y: 325},
-				{x: 690, y: 355},
 				{x: 580, y: 330},
 				{x: 515, y: 345},
 				{x: 465, y: 365}
 			],
 			[	{x: 10, y: 475},
-                {x: 111,y: 475},
-                {x: 270,y: 390},
-                {x: 90, y: 390},
-                {x: 10, y: 360}]
-            ,
-            [
-            	{x: 6, y: 343},
-                {x: 100, y: 375},
-                {x: 300, y: 367},
-                {x: 256, y: 238},
-                {x: 18, y: 228}]
-            ];
-			
+        {x: 111,y: 475},
+        {x: 305,y: 375},
+        {x: 90, y: 390},
+        {x: 10, y: 360}
+      ],
+	    [
+	    	{x: 10, y: 355},
+        {x: 90, y: 385},
+        {x: 310, y: 370},
+        {x: 340, y: 330},
+        {x: 130, y: 330},
+        {x: 10, y: 280}
+      ],
+	    [
+	    	{x: 590, y: 300},
+        {x: 730, y: 330},
+        {x: 725, y: 365},
+        {x: 585, y: 330}
+      ]]
+	    
 	area.links = [];
 	
 	area.links[0] = [];
 	area.links[0][1] = {
 				x:380,
 				y:405
+			};
+	area.links[0][3] = {
+				x:130,
+				y:465
 			};
 			
 	area.links[1] = [];
@@ -182,20 +241,22 @@
 				y:345
 			};
 	area.links[1][4] = {
-                               x:310,
-                               y:338
-                       };
+				x:330,
+				y:340
+			};
+			
 	area.links[2] = [];
-	 area.links[0][3] = {
-                               x:130,
-                               y:465
-                       };
+	area.links[2][5] = {
+				x:580,
+				y:310
+			};
+			
 	area.links[3] = [];
-    area.links[3][4] = {
-                               x:55,
-                               y:370
-                      };
-	
+  area.links[3][4] = {
+				x:55,
+				y:370
+			};
+			
 	var walkableArea = new Pac.Path(area, charac);
 	
 	var scOffice = new Pac.Scene('One day at work', 'scOffice')

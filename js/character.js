@@ -27,6 +27,7 @@ Pac.Character = function(nameChar, resNameChar, options){
 			if (!cAn.isRunning()) cAn.start();
 			else cAn.update();
 		}	
+		
 		if (walkPath){
 			
 			var p = {
@@ -41,6 +42,11 @@ Pac.Character = function(nameChar, resNameChar, options){
 			
 			if (walkPath.isOnTarget(p2)){
 				walkPath = null;
+				
+				var cAn = animations[currentAnimation];
+				if (cAn){
+					if (!cAn.isRunning()) cAn.stop();
+				}	
 				currentAnimation = 'idle';
 			}
 		}
@@ -79,6 +85,11 @@ Pac.Character = function(nameChar, resNameChar, options){
 	this.moveTo = function(path){
 		walkPath = path;
 		isWalking = true;
+		
+		var cAn = animations[currentAnimation];
+		if (cAn){
+			if (!cAn.isRunning()) cAn.stop();
+		}	
 	}
 	
 	this.getPosition = function(){
@@ -96,6 +107,11 @@ Pac.Character = function(nameChar, resNameChar, options){
 	};
 	
 	this.onDirectionChange = function(dir){
+		var cAn = animations[currentAnimation];
+		if (cAn){
+			if (!cAn.isRunning()) cAn.stop();
+		}	
+		
 		switch (dir){
 			case Pac.direction.UP:
 				currentAnimation = 'up';
