@@ -59,7 +59,8 @@ Pac.Scene = function(titleSc, resNameSc, options){
 		for(var i = 0, len = objects.length; i < len; i++){
 		 	objects[i].draw();       
 		}
-		paths[0]._draw(); //TODO: DELETE
+
+		paths.length && paths[0]._draw(); //TODO: DELETE
 	};
 	
 	this.getObjects = function() {
