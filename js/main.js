@@ -12,7 +12,9 @@ Pac = (function(){
 		requestAnimId = 0,
 		character,
 		commandBarEnabled = true,
-		mainTextManager;
+		mainTextManager,
+		textConfig,
+		textCommand;
 	
 	var update = function(){
 		scenes[currScene].update();
@@ -20,9 +22,7 @@ Pac = (function(){
 			Pac.commandBar.update();
 		}
 		Pac.modal.update();
-		if(mainTextManager){
-			mainTextManager.update();
-		}
+		mainTextManager.update();
 	};
 	
 	var draw = function(){
@@ -31,9 +31,8 @@ Pac = (function(){
 			Pac.commandBar.draw();
 		}
 		Pac.modal.draw();
-		if(mainTextManager){
-			mainTextManager.draw();
-		}
+		mainTextManager.draw();
+
 		ctx.drawImage(canvasBuffer, 0, 0);
 	};
 	
@@ -71,7 +70,7 @@ Pac = (function(){
 			};
 		},
 		
-		init: function(canvasId, options){
+		init: function(canvasId){
 			canvas = document.getElementById(canvasId);
 			if(!canvas) throw "There is no canvas with id " + canvasId;
 			
@@ -88,12 +87,14 @@ Pac = (function(){
 			
 			Pac.events.init(canvas);
 			if(commandBarEnabled){
-				Pac.commandBar.init({font: options.font});	
+				Pac.commandBar.init(textCommand);	
 			}
 			else {
 				Pac.currentAction = 'SingleAction';
 			}
 			Pac.modal.init();
+			
+			mainTextManager = new Pac.TextManager(textConfig);
 			
 			return this;
 		},
@@ -164,7 +165,9 @@ Pac = (function(){
 		config: function(json){
 			if (json.commandBarEnabled !== undefined){
 				commandBarEnabled = json.commandBarEnabled;	
-			}	
+			}
+			textConfig = json.text;
+			textCommand = json.textCmd;
 		},
 		
 		toggleCommandBar: function(){
@@ -173,10 +176,6 @@ Pac = (function(){
 				Pac.commandBar.init();	
 			}
 			return commandBarEnabled;
-		},
-		
-		setMainTextManager: function(txtMgr){
-			mainTextManager = txtMgr;
 		},
 		
 		getMainTextManager: function(){

@@ -263,15 +263,13 @@
 								.addObj(kingkong)
 								.addPath(walkableArea);
 								
-	var mainTextManager = new Pac.TextManager({font: '50px KulminoituvaRegular', x: 20});
-	
 	Pac.config({
-		commandBarEnabled: true
+		commandBarEnabled: true,
+		text: {font: '50px KulminoituvaRegular', x: 20},
+		textCmd: {font: '20px saint'},
 	});
-	
-	Pac.setMainTextManager(mainTextManager);
 			
-	Pac.init('canvas', {font: 'normal 20px sans-serif' }).createCharacter(charac).addScene(scOffice);
+	Pac.init('canvas').createCharacter(charac).addScene(scOffice);
 		
 	Pac.repository.on('complete', function(){
 		Pac.start();
