@@ -36,29 +36,37 @@ Pac.events = (function(){
 	
 	var mouseClick = function(ev){
 		var mPos = getCoords(ev),
-			objsL = objsToClick.length;
+			objsL = objsToClick.length,
+			e = ev || window.event;
 		
 		for(var i=0; i< objsL; i++){
 			var o = objsToClick[i];
 			
 			if (o.hasPoint(mPos)) {
-				o.fireEvent(wrapEvent('click', mPos));
+				if (e.wich && e.wich === 3 || e.button && e.button === 2)
+					o.fireEvent(wrapEvent('rightClick', mPos));
+				else
+					o.fireEvent(wrapEvent('click', mPos));
 				break;
 			}
 		}
+		return false;
 	}
-	
+		
 	return {
 		init: function(canvasEle){
 			canvas = canvasEle;
 		},
 		
 		bindEvents: function(){			
-			canvas.addEventListener('click', mouseClick, false);
+			canvas.addEventListener('mousedown', mouseClick, false);
+			canvas.addEventListener('contextmenu', function(e){
+				if(e && e.preventDefault) e.preventDefault();
+				return false;}, false);
 		},
 		
 		unbindEvents: function(){
-			canvas.removeEventListener('click', mouseClick, false);
+			canvas.removeEventListener('mousedown', mouseClick, false);
 		},
 		
 		attach: function(obj){

@@ -20,7 +20,6 @@ Pac.Path = function(area, entity){
 	};
 	
 	var createNodeNetwork = function(fromPoint, toPoint){
-		if(!getPolygonIndex(fromPoint)) console.log('outside polygon');
 		var nodes = [],
 			fromIdx = getPolygonIndex(fromPoint) || getPolygonsFromLink(Pac.math.getNearestPoint(fromPoint, getPlainListOfLinks()))[0],
 			toIdx = getPolygonIndex(toPoint),

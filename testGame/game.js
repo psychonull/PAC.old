@@ -76,8 +76,10 @@
 	screwdriver.onAction('lookAt', { removeOnRun: false })
 		.run('showInfo', { resourceName: 'screwdriver' });
 	
-	
-	
+	screwdriver.onAction('SingleAction', { removeOnRun: false })
+		.run('showInfo', { resourceName: 'screwdriver' })
+		.then('showText', { text: 'que destornillador de mierda!!' });
+		
 	laptop.onAction('open', { isLocked: true, lockedMsg: 'It is Locked!', removeOnRun: false })
 		.run('showText', { text: 'Hacked! .. found passcode: 12345' });
 	
@@ -260,8 +262,12 @@
 								.addObj(screwdriver)
 								.addObj(kingkong)
 								.addPath(walkableArea);
+	
+	Pac.config({
+		commandBarEnabled: true
+	});
 			
-	Pac.init('canvas').createCharacter(charac).addScene(scOffice);
+	Pac.init('canvas', {font: 'normal 20px sans-serif' }).createCharacter(charac).addScene(scOffice);
 		
 	Pac.repository.on('complete', function(){
 		Pac.start();

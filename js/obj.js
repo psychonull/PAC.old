@@ -14,7 +14,7 @@ Pac.Obj = function(nameObj, resNameObj, options){
 		},
 	
 		resName = resNameObj || '',
-	
+		zIndex = (options && options.zIndex) || 1,
 		polygon = (options && options.polygon) || undefined,
 		circle = (options && options.circle) || undefined,
 	
@@ -118,6 +118,10 @@ Pac.Obj = function(nameObj, resNameObj, options){
 	
 	this.getAttrs = function(){
 		return attrs;//TODO: remove this method
+	};
+	
+	this.getZIndex = function(){
+		return zIndex;
 	};
 	
 	//Set Default Actions

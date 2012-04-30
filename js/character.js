@@ -12,7 +12,7 @@ Pac.Character = function(nameChar, resNameChar, options){
 			width: (options && options.width) || 50,
 			height: (options && options.height) || 50
 		},
-	
+		zIndex = (options && options.zIndex) || 2,
 		handItem = {},
 		inventory = new Pac.Inventory(),
 		walkPath,
@@ -100,6 +100,10 @@ Pac.Character = function(nameChar, resNameChar, options){
 			y: attrs.y + attrs.height
 		};
 	}
+	
+	this.getZIndex = function(){
+		return zIndex;
+	};
 	
 	this.addAnimation = function(name, opts) {
 		if (!opts.resName) opts.resName = resName;

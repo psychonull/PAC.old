@@ -8,6 +8,7 @@ Pac.CommandAction = function(nameCmd, actionCmd, options){
 	var name = nameCmd,
 		action = actionCmd,
 		color = 'blue',
+		font = options.font,
 		
 		attrs = {
 			x: (options && options.x) || 0,
@@ -31,7 +32,7 @@ Pac.CommandAction = function(nameCmd, actionCmd, options){
 		ctx.save();
 		ctx.textBaseline = 'top';
 		ctx.fillStyle = color;
-		ctx.font  = 'normal 20px sans-serif';
+		ctx.font  = font;
 		ctx.fillText(name, attrs.x, attrs.y);
 		ctx.restore();
 	};

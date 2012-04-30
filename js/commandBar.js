@@ -9,8 +9,10 @@ Pac.commandBar = (function(){
 
 	var attrs = {};
 	
+	var font = 'normal 20px sans-serif';
+	
 	return {
-		init: function(){
+		init: function(options){
 			//maybe should recieve the actions that will be in the game
 			var sizeBar = Pac.getCommandBarSize();
 			var cbH = sizeBar.height;
@@ -24,13 +26,15 @@ Pac.commandBar = (function(){
 			};
 			
 			var allActions = Pac.coreActions;
+			font = options.font;
 			for(var i=0; i < allActions.length; i++){
 				
 				var cAct = new Pac.CommandAction(allActions[i], allActions[i],{
 					x: (i*80) + 20,
 					y: cbY + 30,
 					width: 80,
-					height: 30
+					height: 30,
+					font: font
 				});
 				
 				commandActions.push(cAct);
@@ -55,7 +59,7 @@ Pac.commandBar = (function(){
 			ctx.save();
 			ctx.fillStyle = 'black';
 			ctx.textBaseline = 'top';
-			ctx.font  = 'normal 20px sans-serif';
+			ctx.font  = font;
 			ctx.fillText(currentLog, attrs.x + 20, attrs.y + 5);
 			ctx.restore();
 		},
