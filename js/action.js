@@ -88,6 +88,13 @@ Pac.Action = function(owner, nameAct, options){
 					case 'conversation':
 						var conv = c.conversation;
 						break;
+					case 'moveCharacter':
+						var pTo = {
+							x: obj.getAttrs().x,
+							y: obj.getAttrs().y
+						};
+						Pac.getCharacter().moveTo(pTo);
+						break;
 				}
 			}
 			

@@ -8,6 +8,7 @@ Pac.Path = function(area, entity){
 		nextNodePoint = null;
 
 	Pac.events.attach(this);
+	entity.setPath(this);
 	
 	var getPolygonIndex = function(point){
 		for (var i = 0; i < polygons.length; i++){
@@ -164,19 +165,28 @@ Pac.Path = function(area, entity){
 	};
 	
 	this.fireEvent = function(e) {
-		if (e.type === 'click')
-			toPoint = e.point;
-			var fromPoint = entity.getPosition();
-			
-			if (getPolygonIndex(fromPoint) === getPolygonIndex(toPoint)){
-				nodeNetwork = [];
-				setNextNodePoint();
-			}
-			else {
-				createNodeNetwork(fromPoint, toPoint);
-				setNextNodePoint();
-			}
-			entity.moveTo(this);
+		if (e.type === 'click'){
+			entity.moveTo(e.point);
+		}
+	};
+	
+	this.moveTo = function(point){
+		var toIdx = getPolygonIndex(point);
+		if(toIdx === null){ //when the click is outside the polygons
+			toPoint = Pac.math.getNearestPointToPolygons(point, polygons);
+			console.log(toPoint);
+		}
+		else toPoint = point;
+		
+		var fromPoint = entity.getPosition();
+		if (getPolygonIndex(fromPoint) === getPolygonIndex(toPoint)){
+			nodeNetwork = [];
+			setNextNodePoint();
+		}
+		else {
+			createNodeNetwork(fromPoint, toPoint);
+			setNextNodePoint();
+		}
 	};
 	
 	this.nextPoint = function(from, vel){

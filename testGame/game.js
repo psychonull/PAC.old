@@ -33,7 +33,7 @@
 	});
 	
 	var kingkong = new Pac.Obj('a toy of kingkong', 'kingkong', {
-			x: 270,
+			x: 280,
 			y: 260,
 			width: 40,
 			height: 40
@@ -60,7 +60,7 @@
 	});
 	
 	kingkong.onAction('push', {removeOnRun: false}).run('animation', {animationName: 'moveToy'});
-	
+	kingkong.onAction('close', {removeOnRun: false}).run('moveCharacter');
 	
 	screwdriver.onAction('pickUp')
 		.run('addToInventory')
@@ -218,15 +218,7 @@
       ]
       
       ];
-
-	/*,
-	    [
-	    	{x: 590, y: 300},
-        {x: 730, y: 330},
-        {x: 725, y: 365},
-        {x: 585, y: 330}
-      ]
-    */      
+      
 	area.links = [];
 	
 	area.links[0] = [];

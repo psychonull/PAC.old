@@ -18,7 +18,8 @@ Pac.Character = function(nameChar, resNameChar, options){
 		walkPath,
 		animations = {},
 		currentAnimation = 'idle',
-		lastDirection = 'idle';
+		lastDirection = 'idle',
+		isWalking = false;
 		
 	this.update = function() {
 		inventory.update();
@@ -29,7 +30,7 @@ Pac.Character = function(nameChar, resNameChar, options){
 			else cAn.update();
 		}	
 		
-		if (walkPath){
+		if (isWalking){
 			
 			var p = {
 				x: attrs.x + attrs.width/2,
@@ -42,7 +43,7 @@ Pac.Character = function(nameChar, resNameChar, options){
 			attrs.y = p2.y - attrs.height;
 			
 			if (walkPath.isOnTarget(p2)){
-				walkPath = null;
+				isWalking = false;
 				
 				var cAn = animations[currentAnimation];
 				if (cAn){
@@ -83,14 +84,14 @@ Pac.Character = function(nameChar, resNameChar, options){
 		return inventory.getItems(); //TODO: maybe should return a clone for security
 	};
 
-	this.moveTo = function(path){
+	this.setPath = function(path){
 		walkPath = path;
+	};
+	
+	this.moveTo = function(point){
+		isWalking = true;
 		currentAnimation = lastDirection;
-		
-		var cAn = animations[currentAnimation];
-		if (cAn){
-			if (cAn.isRunning()) cAn.stop();
-		}	
+		walkPath.moveTo(point);
 	}
 	
 	this.getPosition = function(){
