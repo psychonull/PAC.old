@@ -48,19 +48,27 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 	this.update = function() {
 		//TODO: if the resource was not loaded, load it now with all belong objects
 		
-	  for(var i = 0, len = objects.length; i < len; ++i){
-	  	objects[i].update();
-	  }
-	   
+		if(Pac.getCharacter()) {
+			Pac.getCharacter().update();
+		}
+			
+		for(var i = 0, len = objects.length; i < len; ++i){
+	  		objects[i].update();
+	  	}
 	};
 	
 	this.draw = function() {
-	  var ctx = Pac.getContext();
-	  if (!Pac.repository[resName]) throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
-	  ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width(), attrs.height());
-	   
-		for(var i = 0, len = objects.length; i < len; i++){
-		 	objects[i].draw();       
+	  	var ctx = Pac.getContext(),
+	  		thingsToBeDrawn = [];
+	  	if (!Pac.repository[resName]) throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
+	  		ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width(), attrs.height());
+		
+		if(Pac.getCharacter()) {
+			thingsToBeDrawn.push(Pac.getCharacter());
+		}
+		thingsToBeDrawn = thingsToBeDrawn.concat(objects).sort(function(a,b){ return a.getZIndex() > b.getZIndex();});
+		for(var i = 0, len = thingsToBeDrawn.length; i < len; i++){
+		 	thingsToBeDrawn[i].draw();       
 		}
 
 		paths.length && paths[0]._draw(); //TODO: DELETE
