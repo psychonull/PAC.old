@@ -1,14 +1,14 @@
 
-Pac.Path = function(area, entity){
+Pac.Path = function(area, scene){
 	var polygons = area.polygons || [],
 		links = area.links, 
 		toPoint = {x:0, y:0},
-		entity = entity,
+		scene = scene,
 		nodeNetwork = [],
-		nextNodePoint = null;
+		nextNodePoint = null,
+		entity;
 
-	Pac.events.attach(this);
-	entity.setPath(this);
+	scene.setPath(this);
 	
 	var getPolygonIndex = function(point){
 		for (var i = 0; i < polygons.length; i++){
@@ -220,6 +220,10 @@ Pac.Path = function(area, entity){
 	
 	this.isOnTarget = function(from){
 		return (from.x === toPoint.x && from.y === toPoint.y);
+	};
+	
+	this.setEntity = function(ent){
+		entity = ent;	
 	};
 	
 	this._draw = function(){

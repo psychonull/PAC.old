@@ -21,8 +21,6 @@ Pac.Obj = function(nameObj, resNameObj, options){
 		actions = {},
 		animations = {},
 		currentAnimation = 'iddle';
-
-	Pac.events.attach(this, 'click');
 	
 	this.onAction = function(name, opts) {
 		actions[name] = new Pac.Action(this, name, opts);
@@ -52,7 +50,8 @@ Pac.Obj = function(nameObj, resNameObj, options){
 	  
 	  if (animations[currentAnimation])
 	  	animations[currentAnimation].draw(attrs.x, attrs.y, attrs.width, attrs.height);
-	  else ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width, attrs.height);	
+	  else if(resName)
+	  	ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width, attrs.height);	
 	  
 	  if (polygon){
 	  	ctx.save();

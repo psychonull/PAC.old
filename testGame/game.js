@@ -41,6 +41,20 @@
 		zIndex: 3
 	});
 	
+	var doorOutside = new Pac.Obj('door to the office', '', {
+		x: 345,
+		y: 130,
+		width: 90,
+		height: 190,
+		polygon: [
+			{x: 195, y: 326},
+			{x: 255, y: 326},
+			{x: 249, y: 416},
+			{x: 193, y: 420}
+		],
+		zIndex: 3
+	});
+	
 	var screwdriver = new Pac.Obj('some screwdriver', 'screwdriver', {
 			x: 250,
 			y: 100,
@@ -85,7 +99,9 @@
 	
 	door.onAction('open')
 		.run('moveToScene', {code: 'outside'});
-		
+	
+	doorOutside.onAction('open')
+		.run('moveToScene', {code: 'office'});
 		
 	screwdriver.onAction('use', { isLocked: true, lockedMsg: 'I cannot use it without having it' })
 		.run('putOnHand')
@@ -276,30 +292,30 @@
 	*/		
 	var walkableArea = new Pac.Path(area, charac);
 	
-	var scOffice = new Pac.Scene('office', 'One day at work', 'scOffice')
+	var scOffice = new Pac.Scene('office', 'One day at work', 'scOffice', {startingPosition: {x:120, y:425}})
 								.addObj(laptop)
 								.addObj(screwdriver)
 								.addObj(kingkong)
 								.addObj(door)
-								.addPath(walkableArea);
+								.setPath(walkableArea);
 	
 	var scOutsideArea = {};
 	scOutsideArea.polygons = [[{x:5, y:427}, {x:797, y:433}, {x:797, y:474}, {x:5, y:474}]];
 	scOutsideArea.links = [];
 	
 	var walkableOutside = new Pac.Path(scOutsideArea, charac);
-	var scOutside = new Pac.Scene('outside', 'the creepy entrance', 'scOutside', {startingPosition: {x:223, y:435}}).addPath(walkableOutside);
+	var scOutside = new Pac.Scene('outside', 'the creepy entrance', 'scOutside', {startingPosition: {x:223, y:435}})
+								.addObj(doorOutside)
+								.setPath(walkableOutside);
 								
-	var mainTextManager = new Pac.TextManager({font: '50px KulminoituvaRegular', x: 20});
-	
 	Pac.config({
-		commandBarEnabled: true
+		commandBarEnabled: true,
+		text: {font: '50px KulminoituvaRegular', x: 20},
+		textCmd: {font: '20px saint'}
 	});
-	
-	Pac.setMainTextManager(mainTextManager);
 			
-	Pac.init('canvas', {font: 'normal 20px sans-serif' }).createCharacter(charac).addScene(scOffice).addScene(scOutside);
-		
+	Pac.init('canvas').createCharacter(charac).addScene(scOffice).addScene(scOutside);
+	Pac.changeToScene('office');
 	Pac.repository.on('complete', function(){
 		Pac.start();
 		

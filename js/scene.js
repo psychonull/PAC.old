@@ -9,7 +9,7 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 		title = titleSc || 'Untitled Scene',
 		resName = resNameSc,
 		objects = [],
-		paths = [],
+		path,
 		startingPosition = options && options.startingPosition || {x:100, y:100},
 					
 		attrs = {
@@ -25,7 +25,7 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 	
 	this.addObj = function(obj){
 		if (obj.constructor != Pac.Obj) throw "type of parameter obj MUST be typeof Pac.Obj";
-		
+			
 		objects.push(obj);
 		return this;
 	};
@@ -39,12 +39,16 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 		return this;
 	};
 	
-	this.addPath = function(path){
-		if (path.constructor != Pac.Path) throw "type of parameter obj MUST be typeof Pac.Path";
+	this.setPath = function(aPath){
+		if (aPath.constructor != Pac.Path) throw "type of parameter obj MUST be typeof Pac.Path";
 		
-		paths.push(path);
+		path = aPath;
 		return this;
 	};
+	
+	this.getPath = function(){
+		return path;
+	}
 	
 	this.update = function() {
 		//TODO: if the resource was not loaded, load it now with all belong objects
@@ -72,7 +76,7 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 		 	thingsToBeDrawn[i].draw();       
 		}
 
-		paths.length && paths[0]._draw(); //TODO: DELETE
+		path && path._draw(); //TODO: DELETE
 	};
 	
 	this.getObjects = function() {
@@ -89,6 +93,24 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 	
 	this.setStartingPosition = function(point){
 		startingPosition = point;
+	};
+	
+	this.init = function(){
+		for(var i = 0; i < objects.length; i++){
+			Pac.events.attach(objects[i], 'click');	
+		}
+		if(path){
+			Pac.events.attach(path);
+		}
+	}
+	
+	this.exit = function(){
+		for(var i = 0; i < objects.length; i++){
+			Pac.events.detach(objects[i], 'click');	
+		}	
+		if(path){
+			Pac.events.detach(path);
+		}
 	}
 	
 };
