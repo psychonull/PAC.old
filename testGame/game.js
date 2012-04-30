@@ -215,14 +215,18 @@
         {x: 340, y: 330},
         {x: 130, y: 330},
         {x: 10, y: 280}
-      ],
+      ]
+      
+      ];
+
+	/*,
 	    [
 	    	{x: 590, y: 300},
         {x: 730, y: 330},
         {x: 725, y: 365},
         {x: 585, y: 330}
-      ]]
-	    
+      ]
+    */      
 	area.links = [];
 	
 	area.links[0] = [];
@@ -251,12 +255,12 @@
 				y:310
 			};
 			
-	area.links[3] = [];
+/*	area.links[3] = [];
   area.links[3][4] = {
 				x:55,
 				y:370
 			};
-			
+	*/		
 	var walkableArea = new Pac.Path(area, charac);
 	
 	var scOffice = new Pac.Scene('One day at work', 'scOffice')
@@ -287,8 +291,8 @@
 			  y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
 			} 
 			
-			x -= canvas.offsetLeft;
-			y -= canvas.offsetTop;
+			x -= $('#canvas')[0].offsetLeft;
+			y -= $('#canvas')[0].offsetTop;
 			
 			return {
 				x: x,

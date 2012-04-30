@@ -34,6 +34,22 @@ Pac.math = (function(){
 			}
 			
 			return this.pointInPolygon(poly, p);
+		},
+		getDistance: function(pointA, pointB) {
+			return Math.sqrt(Math.pow(pointA.x - pointB.x,2) + Math.pow(pointA.y - pointB.y,2));
+		},
+		getNearestPoint: function(point, pointList) {
+			var nearestPointIndex = null,
+				minDistance = Number.POSITIVE_INFINITY,
+				tempDistance = 0;
+			for (var i = 0; i < pointList.length; i++){
+				tempDistance = this.getDistance(point, pointList[i]);
+				if (tempDistance < minDistance){
+					minDistance = tempDistance;
+					nearestPointIndex = i;
+				}
+			}
+			return pointList[nearestPointIndex];
 		}
 	};
 })();

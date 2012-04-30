@@ -19,8 +19,9 @@ Pac.Path = function(area, entity){
 	};
 	
 	var createNodeNetwork = function(fromPoint, toPoint){
+		if(!getPolygonIndex(fromPoint)) console.log('outside polygon');
 		var nodes = [],
-			fromIdx = getPolygonIndex(fromPoint),
+			fromIdx = getPolygonIndex(fromPoint) || getPolygonsFromLink(Pac.math.getNearestPoint(fromPoint, getPlainListOfLinks()))[0],
 			toIdx = getPolygonIndex(toPoint),
 			m = 1;
 		
@@ -95,19 +96,49 @@ Pac.Path = function(area, entity){
 		
 		function getNodes(from, to){
 			var q = getQueue(from, to);
+			if (!q) debugger;
 			for(var i = 0; i < q.length -1; i++){
 				nodes.push(getLink(q[i], q[i+1]));
 			}
 		}
 		
+		/*if (!fromIdx) { // if starting from outside any walkable area (link area maybe)
+			fromIdx = 		getPolygonsFromLink(Pac.math.getNearestPoint(getPlainListOfLinks()))[0];
+		}*/
 		getNodes(fromIdx, toIdx);
 		nodeNetwork = nodes;
 	}
 	
 	var setNextNodePoint = function(){
-		nextNodePoint = (nodeNetwork[0] || toPoint); 
+		nextNodePoint = ( nodeNetwork[0] || toPoint ); 
 	};
 	
+	var getPlainListOfLinks = function(){
+		var list = [];
+		for(var j = 0; j < links.length; j++){
+			if(links[j] !== undefined){
+				for (var i = 0; i < links[j].length; i ++){
+					if (links[j][i] !== undefined){
+						list.push(links[j][i]);
+					}
+				}	
+			}
+		}
+		return list;
+	}
+	
+	var getPolygonsFromLink = function(pointLink){
+		for(var j = 0; j < links.length; j++){
+			if(links[j] !== undefined){
+				for (var i = 0; i < links[j].length; i ++){
+					if (links[j][i] !== undefined && links[j][i].x === pointLink.x && links[j][i].y === pointLink.y){
+						return [j, i];
+					}
+				}	
+			}
+		}
+		return null;
+	}
 	//TODO: handle list of handlers - similar fashion to events.js?
 	var setDirection = function(delta){
 		var direction = Pac.direction.DOWN;
@@ -138,11 +169,11 @@ Pac.Path = function(area, entity){
 			var fromPoint = entity.getPosition();
 			
 			if (getPolygonIndex(fromPoint) === getPolygonIndex(toPoint)){
+				nodeNetwork = [];
 				setNextNodePoint();
 			}
 			else {
 				createNodeNetwork(fromPoint, toPoint);
-			
 				setNextNodePoint();
 			}
 			entity.moveTo(this);
@@ -160,8 +191,7 @@ Pac.Path = function(area, entity){
 				x: nextNodePoint.x - from.x,
 				y: nextNodePoint.y - from.y
 			},
-			
-			dist = Math.sqrt(Math.pow(delta.x,2) + Math.pow(delta.y,2)),
+			dist = Pac.math.getDistance(nextNodePoint, from),
 			ratio = 1;
 
 		setDirection(delta);
