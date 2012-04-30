@@ -41,7 +41,7 @@ describe('Pac', function(){
 			expect(Pac.addScene).to.be.a('function');
 			expect(Pac.getScenes()).to.be.empty();
 			
-			var scene = new Pac.Scene();
+			var scene = new Pac.Scene('sceneA');
 			Pac.addScene(scene);
 			
 			expect(Pac.getScenes()).not.to.be.empty();

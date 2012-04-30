@@ -259,7 +259,7 @@
 			
 	var walkableArea = new Pac.Path(area, charac);
 	
-	var scOffice = new Pac.Scene('One day at work', 'scOffice')
+	var scOffice = new Pac.Scene('office', 'One day at work', 'scOffice')
 								.addObj(laptop)
 								.addObj(screwdriver)
 								.addObj(kingkong)

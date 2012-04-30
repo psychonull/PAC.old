@@ -54,7 +54,7 @@ Pac.Action = function(owner, nameAct, options){
 						Pac.commandBar.log(c.text || obj.name());
 						break;
 					case 'moveToScene':
-						//Pac.changeToScene(c.sceneName || c.sceneIndex);
+						Pac.changeToScene(c.code);
 						break;
 					case 'showInfo':
 						Pac.modal.show(obj.name(), c.resourceName);

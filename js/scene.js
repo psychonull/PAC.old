@@ -4,12 +4,13 @@
  */
 
 
-Pac.Scene = function(titleSc, resNameSc, options){
-	var title = titleSc || 'Untitled Scene',
+Pac.Scene = function(codScene, titleSc, resNameSc, options){
+	var code = codScene,
+		title = titleSc || 'Untitled Scene',
 		resName = resNameSc,
 		objects = [],
 		paths = [],
-		
+					
 		attrs = {
 			x: 0,
 			y: 0,
@@ -17,6 +18,8 @@ Pac.Scene = function(titleSc, resNameSc, options){
 			height: function(){ return Pac.getSceneSize().height; }
 		};
 	
+	if (!code) throw "Scene MUST have a code";
+
 	//TODO: initial position of character.
 	
 	this.addObj = function(obj){
@@ -65,7 +68,11 @@ Pac.Scene = function(titleSc, resNameSc, options){
 	
 	this.getObjects = function() {
 		return objects; //TODO: return a clone for security
-	}
+	};
+	
+	this.getCode = function(){
+		return code;
+	};
 	
 };
 

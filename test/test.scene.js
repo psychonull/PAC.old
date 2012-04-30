@@ -5,13 +5,13 @@
 describe('Pac.Scene', function(){
 	it('should create a Scene', function(){
 		var title = 'Scene Title';
-		var scene = new Pac.Scene(title);
+		var scene = new Pac.Scene('sceneCode', title);
 		expect(scene).to.be.a('object');
 	});
     
   describe('#addObj()', function(){
   	it('should add a Obj object to object collection', function(){
-			var scene = new Pac.Scene('Scene Title');
+			var scene = new Pac.Scene('sceneCode','Scene Title');
 			
 			expect(scene.getObjects()).to.be.empty();
 			
@@ -21,8 +21,8 @@ describe('Pac.Scene', function(){
 			expect(scene.getObjects()).not.to.be.empty();
 		});
 		it('should throw exception when parameter type mismatch', function(){
-			var scene = new Pac.Scene('Scene Title');
-			var falseObj = new Pac.Scene('another scene');
+			var scene = new Pac.Scene('sceneCode', 'Scene Title');
+			var falseObj = new Pac.Scene('sceneCode', 'another scene');
 			
 			var fn = function(){
 				scene.addObj(falseObj);
@@ -33,7 +33,7 @@ describe('Pac.Scene', function(){
   
   describe('#removeObj()', function(){
   		it('should remove a Obj object from the object collection', function(){
-			var scene = new Pac.Scene('Scene Title');
+			var scene = new Pac.Scene('sceneCode', 'Scene Title');
 			
 			var obj = new Pac.Obj();
 			scene.addObj(obj);
@@ -42,7 +42,7 @@ describe('Pac.Scene', function(){
 			expect(scene.getObjects()).to.be.empty();
 		});
 		it('should remove ONLY the Obj passed as parameter - comparing by reference', function(){
-			var scene = new Pac.Scene('Scene Title');
+			var scene = new Pac.Scene('sceneCode', 'Scene Title');
 			
 			var obj = new Pac.Obj();
 			var obj2 = new Pac.Obj();
@@ -54,7 +54,7 @@ describe('Pac.Scene', function(){
 			expect(scene.getObjects()).to.contain(obj2);
 		});
 		it('should not remove any other obj', function(){
-			var scene = new Pac.Scene('Scene Title');
+			var scene = new Pac.Scene('sceneCode', 'Scene Title');
 			
 			var obj = new Pac.Obj();
 			var obj2 = new Pac.Obj();
@@ -68,7 +68,7 @@ describe('Pac.Scene', function(){
 			expect(scene.getObjects()).to.contain(obj2);
 		});
 		it('should throw exception when parameter type mismatch', function(){
-			var scene = new Pac.Scene('Scene Title');
+			var scene = new Pac.Scene('sceneCode', 'Scene Title');
 			
 			var fn = function(){
 				scene.removeObj('invalid parameter!!!!!!!!! xD');
