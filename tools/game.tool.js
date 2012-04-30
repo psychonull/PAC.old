@@ -18,7 +18,7 @@
 	var tachoDeBasura = new Pac.Obj ('tacho de basura', '' , {"x":346,"y":285,"width":29,"height":35});
 	var nota = new Pac.Obj ('nota', '' , {"x":793,"y":426,"width":-17,"height":-28});
 
-	var scOffice = new Pac.Scene('One day at work', 'scOffice')
+	var scOffice = new Pac.Scene('work', 'One day at work', 'scOffice')
 								.addObj(myLaptop)
 								.addObj(prohibidoFumar)
 								.addObj(reloj)

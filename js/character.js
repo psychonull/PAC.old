@@ -17,7 +17,8 @@ Pac.Character = function(nameChar, resNameChar, options){
 		inventory = new Pac.Inventory(),
 		walkPath,
 		animations = {},
-		currentAnimation = 'idle';
+		currentAnimation = 'idle',
+		lastDirection = 'idle';
 		
 	this.update = function() {
 		inventory.update();
@@ -45,7 +46,7 @@ Pac.Character = function(nameChar, resNameChar, options){
 				
 				var cAn = animations[currentAnimation];
 				if (cAn){
-					if (!cAn.isRunning()) cAn.stop();
+					if (cAn.isRunning()) cAn.stop();
 				}	
 				currentAnimation = 'idle';
 			}
@@ -84,11 +85,11 @@ Pac.Character = function(nameChar, resNameChar, options){
 
 	this.moveTo = function(path){
 		walkPath = path;
-		isWalking = true;
+		currentAnimation = lastDirection;
 		
 		var cAn = animations[currentAnimation];
 		if (cAn){
-			if (!cAn.isRunning()) cAn.stop();
+			if (cAn.isRunning()) cAn.stop();
 		}	
 	}
 	
@@ -109,7 +110,7 @@ Pac.Character = function(nameChar, resNameChar, options){
 	this.onDirectionChange = function(dir){
 		var cAn = animations[currentAnimation];
 		if (cAn){
-			if (!cAn.isRunning()) cAn.stop();
+			if (cAn.isRunning()) cAn.stop();
 		}	
 		
 		switch (dir){
@@ -126,6 +127,8 @@ Pac.Character = function(nameChar, resNameChar, options){
 				currentAnimation = 'left';
 				break;
 		}
+		
+		lastDirection = currentAnimation;
 	}
 
 };

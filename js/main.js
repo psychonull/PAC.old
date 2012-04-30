@@ -32,6 +32,15 @@ Pac = (function(){
 		ctx.drawImage(canvasBuffer, 0, 0);
 	};
 	
+	var indexOfScene = function(code){
+		for(var i=0; i< scenes.length; i++){
+			if (scenes[i].getCode() === code){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	return {
 		getContext: function(){
 			return bufferCtx;
@@ -81,6 +90,10 @@ Pac = (function(){
 		
 		addScene: function(scene){
 			if (scene.constructor != Pac.Scene) throw "type of parameter scene MUST be typeof Pac.Scene";
+		
+			if (indexOfScene(scene.getCode()) >= 0)
+				throw "Scene with code " + code + " already exists";
+			
 			scenes.push(scene);
 			return this;
 		},
@@ -103,7 +116,19 @@ Pac = (function(){
 			return scenes;
 		},
 		
+		changeToScene: function (code){
+			if(typeof code !== 'string')
+				throw "Scene Code MUST be type of String";
+			
+			var idx = indexOfScene(code);
+			if (idx === -1)
+				throw "Scene with code " + code + " wasn't found";
+			
+			currScene = scenes[idx];
+		},
+		
 		start: function(){
+			this.stop(); // fix for F5, cancelAnim if there is one running
 			Pac.events.bindEvents();
 			
 			var loop = function(){
