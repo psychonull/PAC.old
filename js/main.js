@@ -15,18 +15,12 @@ Pac = (function(){
 	var update = function(){
 		scenes[currScene].update();
 		Pac.commandBar.update();
-		if(character) {
-			character.update();
-		}
 		Pac.modal.update();
 	};
 	
 	var draw = function(){
 		scenes[currScene].draw();
 		Pac.commandBar.draw();
-		if(character) {
-			character.draw();
-		}
 		Pac.modal.draw();
 		
 		ctx.drawImage(canvasBuffer, 0, 0);
