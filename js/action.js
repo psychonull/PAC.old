@@ -11,7 +11,8 @@ Pac.Action = function(owner, nameAct, options){
 		removeOnRun = (options && options.removeOnRun !== undefined) ? options.removeOnRun : true,
 	
 		neededObj = (options && options.withObj),
-		consequences = [];
+		consequences = [],
+		internalDeferred = new Deferred();
 	
 	//Set default consequences for this action
 	switch (name){

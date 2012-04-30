@@ -275,7 +275,11 @@
 		
 	Pac.repository.on('complete', function(){
 		Pac.start();
-		Pac.getMainTextManager().write('Me aburro de estar en la ofi...', 300)
+		
+		Pac.getMainTextManager().write('1 ...', 300)
+		.then('...2!', 300)
+		.then('...3!', 300);
+	
 	}).on('report', function(a,b){
 		
 	}).on('error', function(a){

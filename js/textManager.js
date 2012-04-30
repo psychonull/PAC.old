@@ -7,7 +7,10 @@ Pac.TextManager = function(options){
 	var currentText = '',
 		elapsed = 0,
 		currentDuration = 0,
-		globalDuration = 0;
+		globalDuration = 0,
+		writes = [],
+		currDef = null,
+		currentWrite = 0;
 
 	var attrs = {
 		x: (options && options.x) || 130,
@@ -16,19 +19,31 @@ Pac.TextManager = function(options){
 	
 	var font = options.font || 'normal 20px sans-serif';
 	
+	var newDeferred = function(){
+		currDef = new Deferred();
+		currDef.then(function(){
+			currentWrite++;
+		});
+	};
+	
 	this.update = function(){
-		if(currentDuration){
-			elapsed++;
-			if (elapsed >= currentDuration){
-				this.clear();			
+		if (writes[currentWrite]){
+			currentText = writes[currentWrite].message;
+			currentDuration = writes[currentWrite].duration;
+		
+			if(currentDuration){
+				elapsed++;
+				if (elapsed >= currentDuration){
+					this.clear();
+				}
 			}
+			else if(globalDuration){
+				elapsed++;
+				if (elapsed >= currentDuration){
+					this.clear();
+				}
+			}	
 		}
-		else if(globalDuration){
-			elapsed++;
-			if (elapsed >= currentDuration){
-				this.clear();			
-			}
-		}	
 	};
 	this.draw = function(){
 		var ctx = Pac.getContext();
@@ -40,12 +55,26 @@ Pac.TextManager = function(options){
 		ctx.restore();
 	};
 	this.write = function(message, duration, options){
-		currentText = message;
-		currentDuration = duration;
+		writes = [];
+		currentWrite = 0;
+		
+		newDeferred();
+		return this.then(message, duration);
+	};
+	this.then = function(message, duration, options){
+		writes.push({message: message, duration: duration});
+		return this;
 	};
 	this.clear = function(){
 		currentText = '';
 		currentDuration = 0;
 		elapsed = 0;
+
+		if (currDef)
+			currDef.resolve();
+		
+		if (currentWrite < writes.length) {
+			newDeferred();
+		}
 	}
 };
