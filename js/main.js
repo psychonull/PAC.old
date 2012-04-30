@@ -104,6 +104,7 @@ Pac = (function(){
 		},
 		
 		start: function(){
+			this.stop(); // fix for F5, cancelAnim if there is one running
 			Pac.events.bindEvents();
 			
 			var loop = function(){
