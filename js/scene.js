@@ -10,6 +10,7 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 		resName = resNameSc,
 		objects = [],
 		paths = [],
+		startingPosition = options && options.startingPosition || {x:100, y:100},
 					
 		attrs = {
 			x: 0,
@@ -81,6 +82,14 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 	this.getCode = function(){
 		return code;
 	};
+	
+	this.getStartingPosition = function(){
+		return startingPosition;
+	};
+	
+	this.setStartingPosition = function(point){
+		startingPosition = point;
+	}
 	
 };
 

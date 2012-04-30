@@ -134,7 +134,10 @@ Pac = (function(){
 			if (idx === -1)
 				throw "Scene with code " + code + " wasn't found";
 			
-			currScene = scenes[idx];
+			currScene = idx;
+			if(this.getCharacter() && scenes[currScene].getStartingPosition()){
+				this.getCharacter().setPosition(scenes[currScene].getStartingPosition())
+			}
 		},
 		
 		start: function(){

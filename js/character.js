@@ -92,14 +92,19 @@ Pac.Character = function(nameChar, resNameChar, options){
 		isWalking = true;
 		currentAnimation = lastDirection;
 		walkPath.moveTo(point);
-	}
+	};
 	
 	this.getPosition = function(){
 		return {
 			x: attrs.x + attrs.width/2,
 			y: attrs.y + attrs.height
 		};
-	}
+	};
+	
+	this.setPosition = function(point){
+			attrs.x = point.x - (attrs.width/2);
+			attrs.y = point.y - attrs.height;
+	};
 	
 	this.getZIndex = function(){
 		return zIndex;

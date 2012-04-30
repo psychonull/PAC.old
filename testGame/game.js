@@ -7,7 +7,9 @@
 			'laptop':'laptop.png',
 			'screwdriver': 'screwdriver.jpg',
 			'dude': 'butthead.png',
-			'kingkong': 'kingkong.png'
+			'kingkong': 'kingkong.png',
+			'door' : 'door.png',
+			'scOutside' : 'outside.jpg'
 		});
 	
 	var laptop = new Pac.Obj('my laptop', 'laptop', {
@@ -23,6 +25,20 @@
 				{x: 130, y: 150},
 				{x: 105, y: 135}
 			]
+	});
+	
+	var door = new Pac.Obj('unknown door', 'door', {
+		x: 345,
+		y: 130,
+		width: 90,
+		height: 190,
+		polygon: [
+			{x: 345, y: 130},
+			{x: 345, y: 130 + 190},
+			{x: 345+90, y: 130 + 190},
+			{x: 345+90, y: 130}
+		],
+		zIndex: 3
 	});
 	
 	var screwdriver = new Pac.Obj('some screwdriver', 'screwdriver', {
@@ -67,7 +83,10 @@
 		.then('removeFromScene')
 		.then('unlockAction', { action: 'use' });
 	
-	
+	door.onAction('open')
+		.run('moveToScene', {code: 'outside'});
+		
+		
 	screwdriver.onAction('use', { isLocked: true, lockedMsg: 'I cannot use it without having it' })
 		.run('putOnHand')
 		.then('showText', {text: 'use screwdriver with ...'});
@@ -261,7 +280,15 @@
 								.addObj(laptop)
 								.addObj(screwdriver)
 								.addObj(kingkong)
+								.addObj(door)
 								.addPath(walkableArea);
+	
+	var scOutsideArea = {};
+	scOutsideArea.polygons = [[{x:5, y:427}, {x:797, y:433}, {x:797, y:474}, {x:5, y:474}]];
+	scOutsideArea.links = [];
+	
+	var walkableOutside = new Pac.Path(scOutsideArea, charac);
+	var scOutside = new Pac.Scene('outside', 'the creepy entrance', 'scOutside', {startingPosition: {x:223, y:435}}).addPath(walkableOutside);
 								
 	var mainTextManager = new Pac.TextManager({font: '50px KulminoituvaRegular', x: 20});
 	
@@ -271,7 +298,7 @@
 	
 	Pac.setMainTextManager(mainTextManager);
 			
-	Pac.init('canvas', {font: 'normal 20px sans-serif' }).createCharacter(charac).addScene(scOffice);
+	Pac.init('canvas', {font: 'normal 20px sans-serif' }).createCharacter(charac).addScene(scOffice).addScene(scOutside);
 		
 	Pac.repository.on('complete', function(){
 		Pac.start();
