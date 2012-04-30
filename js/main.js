@@ -65,7 +65,7 @@ Pac = (function(){
 			};
 		},
 		
-		init: function(canvasId){
+		init: function(canvasId, options){
 			canvas = document.getElementById(canvasId);
 			if(!canvas) throw "There is no canvas with id " + canvasId;
 			
@@ -82,7 +82,7 @@ Pac = (function(){
 			
 			Pac.events.init(canvas);
 			if(commandBarEnabled){
-				Pac.commandBar.init();	
+				Pac.commandBar.init({font: options.font});	
 			}
 			else {
 				Pac.currentAction = 'SingleAction';

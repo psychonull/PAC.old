@@ -275,7 +275,7 @@
 		commandBarEnabled: true
 	});
 			
-	Pac.init('canvas').createCharacter(charac).addScene(scOffice);
+	Pac.init('canvas', {font: 'normal 20px sans-serif' }).createCharacter(charac).addScene(scOffice);
 		
 	Pac.repository.on('complete', function(){
 		Pac.start();
