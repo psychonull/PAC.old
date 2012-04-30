@@ -10,17 +10,22 @@ Pac = (function(){
 		scenes = [],
 		currScene = 0,
 		requestAnimId = 0,
-		character;
+		character,
+		commandBarEnabled = true;
 	
 	var update = function(){
 		scenes[currScene].update();
-		Pac.commandBar.update();
+		if(commandBarEnabled){
+			Pac.commandBar.update();
+		}
 		Pac.modal.update();
 	};
 	
 	var draw = function(){
 		scenes[currScene].draw();
-		Pac.commandBar.draw();
+		if(commandBarEnabled){
+			Pac.commandBar.draw();
+		}
 		Pac.modal.draw();
 		
 		ctx.drawImage(canvasBuffer, 0, 0);
@@ -49,7 +54,7 @@ Pac = (function(){
 		getSceneSize: function(){
 			return {
 				width: canvas.width,
-				height: canvas.height * 0.8
+				height: commandBarEnabled ? canvas.height * 0.8 : canvas.height 
 			};
 		},
 		
@@ -76,7 +81,12 @@ Pac = (function(){
 			}
 			
 			Pac.events.init(canvas);
-			Pac.commandBar.init();
+			if(commandBarEnabled){
+				Pac.commandBar.init();	
+			}
+			else {
+				Pac.currentAction = 'SingleAction';
+			}
 			Pac.modal.init();
 			
 			return this;
@@ -143,6 +153,20 @@ Pac = (function(){
 		  requestAnimId = 0;
 		  
 		  return this;
+		},
+		
+		config: function(json){
+			if (json.commandBarEnabled !== undefined){
+				commandBarEnabled = json.commandBarEnabled;	
+			}	
+		},
+		
+		toggleCommandBar: function(){
+			commandBarEnabled = !commandBarEnabled;
+			if (commandBarEnabled === true){
+				Pac.commandBar.init();	
+			}
+			return commandBarEnabled;
 		}
 	};
 	
