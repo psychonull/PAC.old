@@ -51,7 +51,9 @@ Pac.Character = function(nameChar, resNameChar, options){
 					if (cAn.isRunning()) cAn.stop();
 				}	
 				currentAnimation = 'idle';
-				onStopWalking();
+				
+				if (onStopWalking)
+					onStopWalking();
 			}
 		}
 	};
@@ -95,8 +97,7 @@ Pac.Character = function(nameChar, resNameChar, options){
 		currentAnimation = lastDirection;
 		walkPath.moveTo(point);
 		
-		if(onFinish)
-			onStopWalking = onFinish;
+		onStopWalking = onFinish;
 	}
 	
 	this.getPosition = function(){

@@ -78,8 +78,10 @@ Pac.Obj = function(nameObj, resNameObj, options){
 	};
 	
 	this.fireEvent = function(e) {
-		if (e.type === 'click')
+		if (e.type === 'click') {
 			this.doAction();
+			
+		}
 	}
 	
 	this.addAnimation = function(name, opts) {

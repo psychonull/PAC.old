@@ -61,7 +61,8 @@
 	
 	kingkong.onAction('push', {removeOnRun: false})
 		.run('animation', {animationName: 'moveToy'})
-		.then('moveCharacter', {to: {x:575, y: 310}});
+		.and('moveCharacter', {to: {x:575, y: 310}})
+		.then('moveCharacter');
 	
 	screwdriver.onAction('pickUp')
 		.run('addToInventory')

@@ -28,9 +28,13 @@ Pac.Action = function(owner, nameAct, options){
 			else {
 				if (removeOnRun){
 					obj.removeAction(that);
+					currDef = null;
 					//TODO: this.destroy();
 				}
-				currDef = null;
+				else {
+					currentConsequence = 0
+					newDeferred();
+				}
 			}
 		});
 	};
@@ -60,9 +64,23 @@ Pac.Action = function(owner, nameAct, options){
 	};
 	
 	this.then = function(cName, opts){
-		//append consequences
+		//append Syncronous consequences
 		if (!opts) opts = {};
 		opts.name = cName; 
+		consequences.push(opts);
+		
+		return obj.getActions()[name];
+	};
+	
+	this.and = function(cName, opts){
+		//append Asyncronous consequences 
+		if (!opts) opts = {};
+		opts.name = cName;
+		
+		var cBefore = consequences.length - 1;
+		if (cBefore >= 0)
+			consequences[cBefore].async = true;
+			
 		consequences.push(opts);
 		
 		return obj.getActions()[name];
@@ -106,9 +124,15 @@ Pac.Action = function(owner, nameAct, options){
 					this.setNext();
 					break;
 				case 'animation':
-					obj.runAnimation(c.animationName, function(){
-						that.setNext();
-					});
+					if (c.async){
+						obj.runAnimation(c.animationName);
+						this.setNext();
+					}
+					else {
+						obj.runAnimation(c.animationName, function(){
+							that.setNext();
+						});
+					}
 					break;
 				case 'removeFromScene':
 					Pac.getCurrentScene().removeObj(obj);
@@ -136,9 +160,15 @@ Pac.Action = function(owner, nameAct, options){
 					if (c.to) 
 						pTo = c.to;
 					
-					Pac.getCharacter().moveTo(pTo, function(){
-						that.setNext();
-					});
+					if (c.async){
+						Pac.getCharacter().moveTo(pTo);
+						this.setNext();
+					}
+					else {
+						Pac.getCharacter().moveTo(pTo, function(){
+							that.setNext();
+						});
+					}
 					break;
 			}
 		
