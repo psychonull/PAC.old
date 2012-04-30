@@ -16,7 +16,9 @@ Pac.Animation = function(options){
 		updTimes = 0,
 		movingRound = false,
 		
-		endCallback = (options.endCallback || function(){});
+		endCallbacks = [];
+		if (options.endCallback)
+			endCallbacks.push(options.endCallback);
 
 	this.update = function() {
 		updTimes++;
@@ -59,11 +61,16 @@ Pac.Animation = function(options){
 	
 	this.stop = function() {
 		running = false;
-		endCallback();
+		for(var i=0; i< endCallbacks.length; i++)
+			endCallbacks[i]();
 	};
 
 	this.isRunning = function() {
 		return running;
+	};
+	
+	this.addEndCallback = function(callback) {
+		endCallbacks.push(callback);
 	};
 };
 

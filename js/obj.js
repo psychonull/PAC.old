@@ -93,9 +93,13 @@ Pac.Obj = function(nameObj, resNameObj, options){
 		return this;
 	};
 	
-	this.setAnimation = function(animation) {//TODO: change this method name
+	this.runAnimation = function(animation, onFinish) {
 		animations[currentAnimation].stop();
 		currentAnimation = animation;
+		
+		if(onFinish){
+			animations[currentAnimation].addEndCallback(onFinish);
+		}
 	};
 
 	this.name = function(){

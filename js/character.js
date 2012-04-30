@@ -19,7 +19,8 @@ Pac.Character = function(nameChar, resNameChar, options){
 		animations = {},
 		currentAnimation = 'idle',
 		lastDirection = 'idle',
-		isWalking = false;
+		isWalking = false,
+		onStopWalking = function(){};
 		
 	this.update = function() {
 		inventory.update();
@@ -44,12 +45,13 @@ Pac.Character = function(nameChar, resNameChar, options){
 			
 			if (walkPath.isOnTarget(p2)){
 				isWalking = false;
-				
+
 				var cAn = animations[currentAnimation];
 				if (cAn){
 					if (cAn.isRunning()) cAn.stop();
 				}	
 				currentAnimation = 'idle';
+				onStopWalking();
 			}
 		}
 	};
@@ -88,10 +90,13 @@ Pac.Character = function(nameChar, resNameChar, options){
 		walkPath = path;
 	};
 	
-	this.moveTo = function(point){
+	this.moveTo = function(point, onFinish){
 		isWalking = true;
 		currentAnimation = lastDirection;
 		walkPath.moveTo(point);
+		
+		if(onFinish)
+			onStopWalking = onFinish;
 	}
 	
 	this.getPosition = function(){

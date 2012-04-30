@@ -173,7 +173,6 @@ Pac.Path = function(area, entity){
 		var toIdx = getPolygonIndex(point);
 		if(toIdx === null){ //when the click is outside the polygons
 			toPoint = Pac.math.getNearestPointToPolygons(point, polygons);
-			console.log(toPoint);
 		}
 		else toPoint = point;
 		

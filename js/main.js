@@ -47,7 +47,7 @@ Pac = (function(){
 	
 	return {
 		getContext: function(){
-			return bufferCtx;
+			return ctx; //bufferCtx;
 		}, 
 		getWidth: function(){
 			return canvas.width;
