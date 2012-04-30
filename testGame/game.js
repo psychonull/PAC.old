@@ -14,16 +14,16 @@
 	
 	var laptop = new Pac.Obj('my laptop', 'laptop', {
 			x: 100,
-			y: 100,
+			y: 200,
 			width: 50,
 			height: 50,
 			polygon: [
-				{x: 103, y: 108},
-				{x: 132, y: 100},
-				{x: 132, y: 120},
-				{x: 152, y: 127},
-				{x: 130, y: 150},
-				{x: 105, y: 135}
+				{x: 103, y: 208},
+				{x: 132, y: 200},
+				{x: 132, y: 220},
+				{x: 152, y: 227},
+				{x: 130, y: 250},
+				{x: 105, y: 235}
 			]
 	});
 	
@@ -89,24 +89,25 @@
 		framesPerStep: 5
 	});
 	
-	kingkong.onAction('push', {removeOnRun: false}).run('animation', {animationName: 'moveToy'});
-	kingkong.onAction('close', {removeOnRun: false}).run('moveCharacter');
+	kingkong.onAction('push', {removeOnRun: false})
+		.run('animation', {animationName: 'moveToy'})
+		.and('moveCharacter', {to: {x:575, y: 310}})
+		.then('moveCharacter');
 	
 	screwdriver.onAction('pickUp')
 		.run('addToInventory')
 		.then('removeFromScene')
 		.then('unlockAction', { action: 'use' });
 	
-	door.onAction('open')
+	door.onAction('open', {removeOnRun: false})
 		.run('moveToScene', {code: 'outside'});
 	
-	doorOutside.onAction('open')
+	doorOutside.onAction('open', {removeOnRun: false})
 		.run('moveToScene', {code: 'office'});
 		
 	screwdriver.onAction('use', { isLocked: true, lockedMsg: 'I cannot use it without having it' })
 		.run('putOnHand')
 		.then('showText', {text: 'use screwdriver with ...'});
-	
 	
 	screwdriver.onAction('lookAt', { removeOnRun: false })
 		.run('showInfo', { resourceName: 'screwdriver' });
