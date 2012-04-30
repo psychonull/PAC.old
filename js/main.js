@@ -11,7 +11,8 @@ Pac = (function(){
 		currScene = 0,
 		requestAnimId = 0,
 		character,
-		commandBarEnabled = true;
+		commandBarEnabled = true,
+		mainTextManager;
 	
 	var update = function(){
 		scenes[currScene].update();
@@ -19,6 +20,9 @@ Pac = (function(){
 			Pac.commandBar.update();
 		}
 		Pac.modal.update();
+		if(mainTextManager){
+			mainTextManager.update();
+		}
 	};
 	
 	var draw = function(){
@@ -27,7 +31,9 @@ Pac = (function(){
 			Pac.commandBar.draw();
 		}
 		Pac.modal.draw();
-		
+		if(mainTextManager){
+			mainTextManager.draw();
+		}
 		ctx.drawImage(canvasBuffer, 0, 0);
 	};
 	
@@ -167,7 +173,16 @@ Pac = (function(){
 				Pac.commandBar.init();	
 			}
 			return commandBarEnabled;
+		},
+		
+		setMainTextManager: function(txtMgr){
+			mainTextManager = txtMgr;
+		},
+		
+		getMainTextManager: function(){
+			return mainTextManager;
 		}
+		
 	};
 	
 })();

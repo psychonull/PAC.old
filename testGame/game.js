@@ -262,15 +262,20 @@
 								.addObj(screwdriver)
 								.addObj(kingkong)
 								.addPath(walkableArea);
+								
+	var mainTextManager = new Pac.TextManager({font: '50px KulminoituvaRegular', x: 20});
 	
 	Pac.config({
 		commandBarEnabled: true
 	});
+	
+	Pac.setMainTextManager(mainTextManager);
 			
 	Pac.init('canvas', {font: 'normal 20px sans-serif' }).createCharacter(charac).addScene(scOffice);
 		
 	Pac.repository.on('complete', function(){
 		Pac.start();
+		Pac.getMainTextManager().write('Me aburro de estar en la ofi...', 300)
 	}).on('report', function(a,b){
 		
 	}).on('error', function(a){
