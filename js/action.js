@@ -151,6 +151,9 @@ Pac.Action = function(owner, nameAct, options){
 					var conv = c.conversation;
 					this.setNext();
 					break;
+				case 'custom':
+					var func = c.callback(c.params, this.setNext);
+					break;	
 				case 'moveCharacter':
 					var pTo = {
 						x: obj.getAttrs().x,

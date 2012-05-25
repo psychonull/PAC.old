@@ -100,7 +100,16 @@
 		.then('unlockAction', { action: 'use' });
 	
 	door.onAction('open', {removeOnRun: false})
-		.run('moveToScene', {code: 'outside'});
+		.run('custom', {
+			callback: function(p, c){
+				alert(p.text);
+				setTimeout(function(){
+					alert('ok. gonna enter.'); c();
+				}, 3000); 
+			}, 
+			params:{ text: 'trolololol' } 
+			})
+		.then('moveToScene', {code: 'outside'});
 	
 	doorOutside.onAction('open', {removeOnRun: false})
 		.run('moveToScene', {code: 'office'});
