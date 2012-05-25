@@ -7,7 +7,12 @@ $(document).ready(function(){
       tabSize: 2,
       onChange: function(edt, opts){
       	var js = edt.getValue(); 
-      	eval(js);
+      	try {
+      		eval(js);	
+      	}
+      	catch(e){
+      		throw e;      		
+      	}
       }
    });
    
