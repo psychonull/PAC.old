@@ -18,6 +18,7 @@ Pac.Character = function(nameChar, resNameChar, options){
 		walkPath,
 		animations = {},
 		currentAnimation = 'idle',
+		hasDiagonals = (options !== undefined && options.hasDiagonals !== undefined) ? options.hasDiagonals : false,
 		lastDirection = 'idle',
 		isWalking = false,
 		onStopWalking = function(){};
@@ -123,24 +124,36 @@ Pac.Character = function(nameChar, resNameChar, options){
 		return this;
 	};
 	
-	this.onDirectionChange = function(dir){
+	this.onDirectionChange = function(dir, dir2){
 		var cAn = animations[currentAnimation];
 		if (cAn){
 			if (cAn.isRunning()) cAn.stop();
-		}	
+		}
 		
 		switch (dir){
 			case Pac.direction.UP:
 				currentAnimation = 'up';
+				if (hasDiagonals){
+					currentAnimation += (dir2 === Pac.direction.RIGHT) ? '-right' : '-left';
+				}
 				break;
 			case Pac.direction.DOWN:
 				currentAnimation = 'down';
+				if (hasDiagonals){
+					currentAnimation += (dir2 === Pac.direction.RIGHT) ? '-right' : '-left';
+				}
 				break;
 			case Pac.direction.RIGHT:
 				currentAnimation = 'right';
+				if (hasDiagonals){
+					currentAnimation = (dir2 === Pac.direction.UP) ? 'up-' + currentAnimation : 'down-' + currentAnimation;
+				}
 				break;
 			case Pac.direction.LEFT:
 				currentAnimation = 'left';
+				if (hasDiagonals){
+					currentAnimation = (dir2 === Pac.direction.UP) ? 'up-' + currentAnimation : 'down-' + currentAnimation;
+				}
 				break;
 		}
 		

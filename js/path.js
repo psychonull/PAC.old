@@ -139,23 +139,32 @@ Pac.Path = function(area, scene){
 		}
 		return null;
 	}
+	
 	//TODO: handle list of handlers - similar fashion to events.js?
 	var setDirection = function(delta){
 		var direction = Pac.direction.DOWN;
+		var direction2 = Pac.direction.RIGHT;
+		
 		if (setDirection['current'] === undefined){
 			setDirection['current'] = direction;
 		}
-		if(Math.abs(delta.x) > Math.abs(delta.y)){
-			direction = delta.x > 0 ? Pac.direction.RIGHT : Pac.direction.LEFT;
+		if (setDirection['current2'] === undefined){
+			setDirection['current2'] = direction2;
 		}
-		else 
-		{
-			direction = delta.y < 0 ? Pac.direction.UP : Pac.direction.DOWN;
+		
+		if(Math.abs(delta.x) > Math.abs(delta.y)) {
+			direction = delta.x > 0 ? Pac.direction.RIGHT : Pac.direction.LEFT;
+			direction2 = delta.y < 0 ? Pac.direction.UP : Pac.direction.DOWN;
+		}
+		else {
+			direction = delta.y <= 0 ? Pac.direction.UP : Pac.direction.DOWN;
+			direction2 = delta.x >= 0 ? Pac.direction.RIGHT : Pac.direction.LEFT;
 		}
 							
-		if(setDirection['current'] !== direction){
+		if(setDirection['current'] !== direction || setDirection['current2'] !== direction2){
 			setDirection['current'] = direction;
-			entity.onDirectionChange(setDirection['current']);
+			setDirection['current2'] = direction2;
+			entity.onDirectionChange(setDirection['current'], setDirection['current2']);
 		}			
 	}
 		

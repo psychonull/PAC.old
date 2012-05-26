@@ -192,3 +192,7 @@ Pac.direction = {
 	DOWN: 3,
 	LEFT: 4
 };
+
+
+
+
