@@ -41,6 +41,16 @@
 		zIndex: 3
 	});
 	
+	var invisibleFolk = new Pac.Obj('InvisibleFolk', null, {
+		polygon: [
+			{x: 556, y: 313},
+			{x: 662, y: 300},
+			{x: 661, y: 424},
+			{x: 555, y: 414}
+		],
+		zIndex: 3
+	});
+	
 	var doorOutside = new Pac.Obj('door to the office', '', {
 		x: 345,
 		y: 130,
@@ -69,6 +79,13 @@
 			height: 40
 	});
 	
+	var cloneNPC = new Pac.NPC('a clone of myself', 'dude', {
+			x: 379,
+			y: 279,
+			width: 70,
+			height: 200
+	});
+	
 	kkframes = [];
 	for(var i=0; i<1000; i+=50){
 		kkframes.push({
@@ -94,6 +111,9 @@
 		.and('moveCharacter', {to: {x:575, y: 310}})
 		.then('moveCharacter');
 	
+	cloneNPC.onAction('talkTo')
+		.run('showText', {text: "I'm your clone, and I'm high"});
+		
 	screwdriver.onAction('pickUp')
 		.run('addToInventory')
 		.then('removeFromScene')
@@ -110,6 +130,9 @@
 			params:{ text: 'trolololol' } 
 			})
 		.then('moveToScene', {code: 'outside'});
+	
+	invisibleFolk.onAction('push')
+		.run('showText', {text: "I'm invisible sir. Welcome to my kingdom."});
 	
 	doorOutside.onAction('open', {removeOnRun: false})
 		.run('moveToScene', {code: 'office'});
@@ -226,6 +249,12 @@
 		framesPerRound: 0
 	});
 	
+	cloneNPC.addAnimation('iddle', {
+		frames: idleFrames,
+		framesPerStep: 5,
+		framesPerRound: 5000
+	});
+	
 	var area = {};
 	area.polygons = [[
 				{x: 113, y: 480},
@@ -316,6 +345,8 @@
 	var walkableOutside = new Pac.Path(scOutsideArea, charac);
 	var scOutside = new Pac.Scene('outside', 'the creepy entrance', 'scOutside', {startingPosition: {x:223, y:435}})
 								.addObj(doorOutside)
+								.addObj(invisibleFolk)
+								.addObj(cloneNPC)
 								.setPath(walkableOutside);
 								
 	Pac.config({
