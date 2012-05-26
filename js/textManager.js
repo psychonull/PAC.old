@@ -17,8 +17,9 @@ Pac.TextManager = function(options){
 		y: (options && options.y) || 380,
 	};
 	
-	var font = options.font || 'normal 20px sans-serif';
-	
+	var font = (options && options.font) || 'normal 20px sans-serif',
+	    fontColor = (options && options.fontColor) || 'black';
+	    
 	var newDeferred = function(){
 		currDef = new Deferred();
 		currDef.then(function(){
@@ -48,7 +49,7 @@ Pac.TextManager = function(options){
 	this.draw = function(){
 		var ctx = Pac.getContext();
 		ctx.save();
-		ctx.fillStyle = 'black';
+		ctx.fillStyle = fontColor;
 		ctx.textBaseline = 'top';
 		ctx.font  = font;
 		ctx.fillText(currentText, attrs.x + 20, attrs.y + 5);
@@ -59,9 +60,21 @@ Pac.TextManager = function(options){
 		currentWrite = 0;
 		
 		newDeferred();
-		return this.then(message, duration);
+		return this.thenWrite(message, duration);
 	};
-	this.then = function(message, duration, options){
+	this.writeMany = function(messages, duration){
+		var isArrayOfStrings = messages && messages[0] && typeof messages[0] === 'string';
+		for (var i = 0; i < messages.length; i++){
+			if (isArrayOfStrings){
+				writes.push({message: messages[i], duration:duration});
+			}
+			else {
+				writes.push({message: messages[i].message, duration:messages[i].duration});	
+			}
+		}
+		return this;
+	}
+	this.thenWrite = function(message, duration, options){
 		writes.push({message: message, duration: duration});
 		return this;
 	};
@@ -75,6 +88,10 @@ Pac.TextManager = function(options){
 		
 		if (currentWrite < writes.length) {
 			newDeferred();
+		}
+		else
+		{
+			console.log('todo legal');
 		}
 	}
 };

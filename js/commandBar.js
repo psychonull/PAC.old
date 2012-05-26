@@ -26,7 +26,7 @@ Pac.commandBar = (function(){
 			};
 			
 			var allActions = Pac.coreActions;
-			font = options.font;
+			font = (options && options.font) || font;
 			for(var i=0; i < allActions.length; i++){
 				
 				var cAct = new Pac.CommandAction(allActions[i], allActions[i],{

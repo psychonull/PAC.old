@@ -216,14 +216,15 @@ Pac = (function(){
 				textCommand.color = json.textCmd.color;
 				textCommand.colorSelect = json.textCmd.colorSelect;	
 			}
+			
 		},
 		
 		toggleCommandBar: function(){
-			commandBarEnabled = !commandBarEnabled;
-			if (commandBarEnabled === true){
+			commandBarAttrs.enabled = !commandBarAttrs.enabled;
+			if (commandBarAttrs.enabled === true){
 				Pac.commandBar.init();	
 			}
-			return commandBarEnabled;
+			return commandBarAttrs.enabled;
 		},
 		
 		getMainTextManager: function(){
