@@ -96,7 +96,7 @@
 		});	
 	}
 	
-	kingkong.addAnimation('iddle', {
+	kingkong.addAnimation('idle', {
 		frames: [ kkframes[0], kkframes[1] ],
 		framesPerStep: 10,
 		framesPerRound: 10
@@ -249,7 +249,7 @@
 		framesPerRound: 0
 	});
 	
-	cloneNPC.addAnimation('iddle', {
+	cloneNPC.addAnimation('idle', {
 		frames: idleFrames,
 		framesPerStep: 5,
 		framesPerRound: 5000

@@ -86,8 +86,8 @@ Pac.Obj = function(nameObj, resNameObj, options){
 	this.addAnimation = function(name, opts) {
 		if (!opts.resName) opts.resName = resName;
 		opts.endCallback = function(){
-			if (currentAnimation != 'iddle')
-				currentAnimation = 'iddle';
+			if (currentAnimation != 'idle')
+				currentAnimation = 'idle';
 		};
 		
 		animations[name] = new Pac.Animation(opts);
