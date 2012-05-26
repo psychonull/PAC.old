@@ -20,7 +20,7 @@ Pac.Obj = function(nameObj, resNameObj, options){
 	
 		actions = {},
 		animations = {},
-		currentAnimation = 'iddle';
+		currentAnimation = 'idle';
 	
 	this.onAction = function(name, opts) {
 		actions[name] = new Pac.Action(this, name, opts);
