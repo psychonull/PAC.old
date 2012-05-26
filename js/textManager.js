@@ -18,7 +18,8 @@ Pac.TextManager = function(options){
 	};
 	
 	var font = (options && options.font) || 'normal 20px sans-serif',
-	    fontColor = (options && options.fontColor) || 'black';
+	    fontColor = (options && options.fontColor) || 'black',
+	    onClear = (options && options.onClear);
 	    
 	var newDeferred = function(){
 		currDef = new Deferred();
@@ -78,6 +79,9 @@ Pac.TextManager = function(options){
 		writes.push({message: message, duration: duration});
 		return this;
 	};
+	this.setOnClear = function(fn){
+		onClear = fn;
+	};
 	this.clear = function(){
 		currentText = '';
 		currentDuration = 0;
@@ -91,7 +95,10 @@ Pac.TextManager = function(options){
 		}
 		else
 		{
-			console.log('todo legal');
+			if(onClear){
+				onClear();
+				onclear = null;
+			}
 		}
 	}
 };
