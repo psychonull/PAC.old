@@ -152,6 +152,13 @@ Pac = (function(){
 			return scenes;
 		},
 		
+		getResizeRate: function(){
+			return {
+				x: canvas.width / canvas.clientWidth,
+				y: canvas.height / canvas.clientHeight
+			};
+		},
+		
 		changeToScene: function (code){
 			if(typeof code !== 'string')
 				throw "Scene Code MUST be type of String";

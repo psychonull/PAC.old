@@ -27,8 +27,8 @@ Pac.events = (function(){
 		y -= canvas.offsetTop;
 		
 		return {
-			x: x,
-			y: y
+			x: x * Pac.getResizeRate().x,
+			y: y * Pac.getResizeRate().y
 		}
 	}
 	
