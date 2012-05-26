@@ -76,7 +76,8 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 		 	thingsToBeDrawn[i].draw();       
 		}
 
-		path && path._draw(); //TODO: DELETE
+		if (Pac.__DEBUG() && path) 
+			path._draw();
 	};
 	
 	this.getObjects = function() {

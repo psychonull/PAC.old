@@ -201,18 +201,21 @@ Pac = (function(){
 		},
 		
 		config: function(json){
-			if (json.commandBar.enabled !== undefined){
-				commandBarAttrs.enabled = json.commandBar.enabled;	
+			if (json.commandBar){
+				if (json.commandBar.enabled !== undefined){
+					commandBarAttrs.enabled = json.commandBar.enabled;	
+				}
+				if (json.commandBar.color !== undefined){
+					commandBarAttrs.color = json.commandBar.color;	
+				}	
+				commandBarAttrs.height = json.commandBar.height;
 			}
-			if (json.commandBar.color !== undefined){
-				commandBarAttrs.color = json.commandBar.color;	
-			}
-
-			commandBarAttrs.height = json.commandBar.height;
 			textConfig = json.text;
-			textCommand.font = json.textCmd.font;
-			textCommand.color = json.textCmd.color;
-			textCommand.colorSelect = json.textCmd.colorSelect;
+			if (json.textCmd){
+				textCommand.font = json.textCmd.font;
+				textCommand.color = json.textCmd.color;
+				textCommand.colorSelect = json.textCmd.colorSelect;	
+			}
 		},
 		
 		toggleCommandBar: function(){
@@ -225,6 +228,10 @@ Pac = (function(){
 		
 		getMainTextManager: function(){
 			return mainTextManager;
+		},
+		
+		__DEBUG: function(){
+			return window.location.hash === '#DEBUG';
 		}
 		
 	};

@@ -63,7 +63,7 @@ Pac.Character = function(nameChar, resNameChar, options){
 		var ctx = Pac.getContext();
 	  if (animations[currentAnimation])
 	  	animations[currentAnimation].draw(attrs.x, attrs.y, attrs.width, attrs.height);
-	  else ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width, attrs.height);	
+	  else ctx.drawImage(Pac.repository[resName], 0, 0, attrs.width, attrs.height, attrs.x, attrs.y, attrs.width, attrs.height);	
 		
 		inventory.draw();
 	};

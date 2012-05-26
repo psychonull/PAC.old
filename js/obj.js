@@ -53,7 +53,7 @@ Pac.Obj = function(nameObj, resNameObj, options){
 	  else if(resName)
 	  	ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width, attrs.height);	
 	  
-	  if (polygon){
+	  if (Pac.__DEBUG() && polygon){
 	  	ctx.save();
 	  	ctx.fillStyle = 'rgba(250,0,0,0.5)';
 			ctx.beginPath();
