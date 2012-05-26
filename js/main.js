@@ -12,6 +12,8 @@ Pac = (function(){
 		requestAnimId = 0,
 		character,
 		commandBarEnabled = true,
+		commandBarColor = 'orange',
+		commandBarHeight,
 		mainTextManager,
 		textConfig,
 		textCommand;
@@ -57,9 +59,12 @@ Pac = (function(){
 		},
 		
 		getSceneSize: function(){
+			if (commandBarHeight == undefined){
+				commandBarHeight = canvas.height * 0.2;
+			}			
 			return {
 				width: canvas.width,
-				height: commandBarEnabled ? canvas.height * 0.8 : canvas.height 
+				height: commandBarEnabled ? canvas.height - commandBarHeight : canvas.height 
 			};
 		},
 		
@@ -68,6 +73,17 @@ Pac = (function(){
 				width: canvas.width,
 				height: canvas.height * 0.2
 			};
+		},
+
+		getCommandBarConfig: function(){
+			if (commandBarHeight == undefined){
+				commandBarHeight = canvas.height * 0.2;
+			}
+			return {
+				width: canvas.width,
+				height: commandBarHeight,
+				color: commandBarColor}
+			;
 		},
 		
 		init: function(canvasId){
@@ -179,6 +195,11 @@ Pac = (function(){
 			if (json.commandBarEnabled !== undefined){
 				commandBarEnabled = json.commandBarEnabled;	
 			}
+			if (json.commandBarColor !== undefined){
+				commandBarColor = json.commandBarColor;	
+			}
+
+			commandBarHeight = json.commandBarHeight;
 			textConfig = json.text;
 			textCommand = json.textCmd;
 			
@@ -199,6 +220,3 @@ Pac = (function(){
 	};
 	
 })();
-
-
-

@@ -14,15 +14,15 @@ Pac.commandBar = (function(){
 	return {
 		init: function(options){
 			//maybe should recieve the actions that will be in the game
-			var sizeBar = Pac.getCommandBarSize();
-			var cbH = sizeBar.height;
-			var cbY = Pac.getHeight() - cbH; 
+			var configBar = Pac.getCommandBarConfig();
+			var cbH = configBar.height;
+			var cbY = Pac.getHeight() - cbH;
 			attrs = {
 				x: 0,
 				y: cbY,
-				width: sizeBar.width,
+				width: configBar.width,
 				height: cbH,
-				color: 'orange'
+				color: configBar.color
 			};
 			
 			var allActions = Pac.coreActions;
@@ -66,7 +66,5 @@ Pac.commandBar = (function(){
 		log: function(message){
 			currentLog = message;
 		}
-		
 	};
-	
 })();
