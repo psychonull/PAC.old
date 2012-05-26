@@ -7,8 +7,10 @@
 Pac.CommandAction = function(nameCmd, actionCmd, options){
 	var name = nameCmd,
 		action = actionCmd,
-		color = 'blue',
-		font = options.font,
+		color = (options && options.color) || 'blue',
+		colorSelected = (options && options.colorSelected) || 'red',
+		currentColor = color,
+		font = (options && options.font) || 'arial',
 		
 		attrs = {
 			x: (options && options.x) || 0,
@@ -20,10 +22,9 @@ Pac.CommandAction = function(nameCmd, actionCmd, options){
 	Pac.events.attach(this, 'click');
 	
 	this.update = function(){
-		//maybe a hover for drawing
-		color = 'blue';
+		currentColor = color;
 		if (action === Pac.currentAction)
-			color = 'red';
+			currentColor = colorSelected;
 	};
 	
 	this.draw = function(){
@@ -31,7 +32,7 @@ Pac.CommandAction = function(nameCmd, actionCmd, options){
 		
 		ctx.save();
 		ctx.textBaseline = 'top';
-		ctx.fillStyle = color;
+		ctx.fillStyle = currentColor;
 		ctx.font  = font;
 		ctx.fillText(name, attrs.x, attrs.y);
 		ctx.restore();

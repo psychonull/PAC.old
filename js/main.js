@@ -11,14 +11,21 @@ Pac = (function(){
 		currScene,
 		requestAnimId = 0,
 		character,
-		commandBarEnabled = true,
+		commandBarAttrs = {
+			enabled: true,
+			color: 'orange'
+		},
+		textCommand = {
+			font : 'arial',
+			color: 'blue',
+			colorSelect: 'red'
+		},
 		mainTextManager,
-		textConfig,
-		textCommand;
-	
+		textConfig;
+			
 	var update = function(){
 		scenes[currScene].update();
-		if(commandBarEnabled){
+		if(commandBarAttrs.enabled){
 			Pac.commandBar.update();
 		}
 		Pac.modal.update();
@@ -26,8 +33,10 @@ Pac = (function(){
 	};
 	
 	var draw = function(){
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		
 		scenes[currScene].draw();
-		if(commandBarEnabled){
+		if(commandBarAttrs.enabled){
 			Pac.commandBar.draw();
 		}
 		Pac.modal.draw();
@@ -57,9 +66,12 @@ Pac = (function(){
 		},
 		
 		getSceneSize: function(){
+			if (commandBarAttrs.height == undefined){
+				commandBarAttrs.height = canvas.height * 0.2;
+			}			
 			return {
 				width: canvas.width,
-				height: commandBarEnabled ? canvas.height * 0.8 : canvas.height 
+				height: commandBarAttrs.enabled ? canvas.height - commandBarAttrs.height : canvas.height 
 			};
 		},
 		
@@ -67,6 +79,19 @@ Pac = (function(){
 			return {
 				width: canvas.width,
 				height: canvas.height * 0.2
+			};
+		},
+
+		getCommandBarConfig: function(){
+			if (commandBarAttrs.height == undefined){
+				commandBarAttrs.height = canvas.height * 0.2;
+			}
+			return {
+				width: canvas.width,
+				height: commandBarAttrs.height,
+				color: commandBarAttrs.color,
+				actionColor: textCommand.color,
+				actionColorSelect: textCommand.colorSelect
 			};
 		},
 		
@@ -86,7 +111,7 @@ Pac = (function(){
 			}
 			
 			Pac.events.init(canvas);
-			if(commandBarEnabled){
+			if(commandBarAttrs.enabled){
 				Pac.commandBar.init(textCommand);	
 			}
 			else {
@@ -176,12 +201,18 @@ Pac = (function(){
 		},
 		
 		config: function(json){
-			if (json.commandBarEnabled !== undefined){
-				commandBarEnabled = json.commandBarEnabled;	
+			if (json.commandBar.enabled !== undefined){
+				commandBarAttrs.enabled = json.commandBar.enabled;	
 			}
+			if (json.commandBar.color !== undefined){
+				commandBarAttrs.color = json.commandBar.color;	
+			}
+
+			commandBarAttrs.height = json.commandBar.height;
 			textConfig = json.text;
-			textCommand = json.textCmd;
-			
+			textCommand.font = json.textCmd.font;
+			textCommand.color = json.textCmd.color;
+			textCommand.colorSelect = json.textCmd.colorSelect;
 		},
 		
 		toggleCommandBar: function(){
@@ -199,6 +230,3 @@ Pac = (function(){
 	};
 	
 })();
-
-
-
