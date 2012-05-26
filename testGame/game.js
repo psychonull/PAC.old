@@ -41,6 +41,16 @@
 		zIndex: 3
 	});
 	
+	var invisibleFolk = new Pac.Obj('InvisibleFolk', null, {
+		polygon: [
+			{x: 556, y: 313},
+			{x: 662, y: 300},
+			{x: 661, y: 424},
+			{x: 555, y: 414}
+		],
+		zIndex: 3
+	});
+	
 	var doorOutside = new Pac.Obj('door to the office', '', {
 		x: 345,
 		y: 130,
@@ -110,6 +120,9 @@
 			params:{ text: 'trolololol' } 
 			})
 		.then('moveToScene', {code: 'outside'});
+	
+	invisibleFolk.onAction('push')
+		.run('showText', {text: "I'm invisible sir. Welcome to my kingdom."});
 	
 	doorOutside.onAction('open', {removeOnRun: false})
 		.run('moveToScene', {code: 'office'});
@@ -316,6 +329,7 @@
 	var walkableOutside = new Pac.Path(scOutsideArea, charac);
 	var scOutside = new Pac.Scene('outside', 'the creepy entrance', 'scOutside', {startingPosition: {x:223, y:435}})
 								.addObj(doorOutside)
+								.addObj(invisibleFolk)
 								.setPath(walkableOutside);
 								
 	Pac.config({

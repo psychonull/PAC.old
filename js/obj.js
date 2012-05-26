@@ -7,10 +7,10 @@ Pac.Obj = function(nameObj, resNameObj, options){
 	var name = nameObj || 'Unknown Object',
 	
 		attrs = {
-			x: (options && options.x) || (Math.floor(Math.random() * Pac.getWidth()) - 50),
-			y: (options && options.y) || (Math.floor(Math.random() * Pac.getHeight()) - 50),
-			width: (options && options.width) || 50,
-			height: (options && options.height) || 50
+			x: (options && options.x) || null,
+			y: (options && options.y) || null,
+			width: (options && options.width) || null,
+			height: (options && options.height) || null
 		},
 	
 		resName = resNameObj || '',
