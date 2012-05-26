@@ -350,9 +350,17 @@
 								.setPath(walkableOutside);
 								
 	Pac.config({
-		commandBarEnabled: true,
-		text: {font: '50px KulminoituvaRegular', x: 20},
-		textCmd: {font: '20px saint'}
+		commandBar: {
+			enabled: true,
+			color: 'orange'
+		},
+		text: {
+			font: '50px KulminoituvaRegular', 
+			x: 20
+		},
+		textCmd: {
+			font: '20px saint'
+		}
 	});
 			
 	Pac.init('canvas').createCharacter(charac).addScene(scOffice).addScene(scOutside);

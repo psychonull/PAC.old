@@ -31,9 +31,11 @@ Pac.commandBar = (function(){
 				
 				var cAct = new Pac.CommandAction(allActions[i], allActions[i],{
 					x: (i*80) + 20,
-					y: cbY + 30,
+					y: cbY + 3,
 					width: 80,
 					height: 30,
+					color: configBar.actionColor,
+					colorSelected: configBar.actionColorSelect,
 					font: font
 				});
 				
