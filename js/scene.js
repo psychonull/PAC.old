@@ -11,6 +11,7 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 		objects = [],
 		path,
 		startingPosition = options && options.startingPosition || {x:100, y:100},
+		drawHook = options && options.drawHook;
 					
 		attrs = {
 			x: 0,
@@ -65,8 +66,15 @@ Pac.Scene = function(codScene, titleSc, resNameSc, options){
 	this.draw = function() {
 	  	var ctx = Pac.getContext(),
 	  		thingsToBeDrawn = [];
-	  	if (!Pac.repository[resName]) throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
+	  	if (Pac.repository[resName]){
 	  		ctx.drawImage(Pac.repository[resName], attrs.x, attrs.y, attrs.width(), attrs.height());
+	  	} 
+	  	else if (drawHook){
+	  		drawHook.call(this);
+	  	}	
+	  	else {
+	  		throw 'Error - no image loaded for this Scene.'; //TODO: ask call loadOne?
+	  	}
 		
 		if(Pac.getCharacter()) {
 			thingsToBeDrawn.push(Pac.getCharacter());
