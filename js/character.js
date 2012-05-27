@@ -50,8 +50,14 @@ Pac.Character = function(nameChar, resNameChar, options){
 				var cAn = animations[currentAnimation];
 				if (cAn){
 					if (cAn.isRunning()) cAn.stop();
-				}	
-				currentAnimation = 'idle';
+				}
+				
+				if (hasDiagonals) {
+					currentAnimation = 'idle-' + currentAnimation;
+				}
+				else {
+					currentAnimation = 'idle';
+				}
 				
 				if (onStopWalking)
 					onStopWalking();
